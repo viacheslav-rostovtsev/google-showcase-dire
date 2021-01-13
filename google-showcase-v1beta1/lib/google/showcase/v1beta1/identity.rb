@@ -33,6 +33,7 @@ require "google/showcase/v1beta1/version"
 require "google/showcase/v1beta1/identity/credentials"
 require "google/showcase/v1beta1/identity/paths"
 require "google/showcase/v1beta1/identity/client"
+require "google/showcase/v1beta1/identity/client_rest"
 
 module Google
   module Showcase

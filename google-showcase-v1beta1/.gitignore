@@ -17,3 +17,4 @@ pkg/*
 .DS_STORE
 .idea
 *.iml
+.tool-versions
