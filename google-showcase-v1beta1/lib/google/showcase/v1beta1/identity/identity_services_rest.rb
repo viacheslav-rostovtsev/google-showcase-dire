@@ -27,18 +27,76 @@
 # protobuf messages
 require "schema/google/showcase/v1beta1/identity_pb"
 
+# service stub -- Contract wrapper from Gapic::Common
+require "gapic/rest/rest_call_maker"
+
+
 module Google
   module Showcase
     module V1beta1
       module Identity
-        module RestServiceContract
-          Calls = {
-            create_user: {
+        class RestServiceStub
+          def initialize endpoint:, credentials:
+            @service_stub = ::Gapic::Rest::RestCallMaker.new nil, endpoint: endpoint, credentials: credentials
+          end
+
+          # @param request_pb [::Google::Showcase::V1beta1::CreateUserRequest]
+          # @param options [::Gapic::CallOptions]
+          # @return [::Google::Showcase::V1beta1::User]
+          def create_user request_pb:, options:, &block
+            request_json = ::Google::Showcase::V1beta1::CreateUserRequest.encode_json request_pb
+            result_json = @service_stub.make_post_request(
               endpoint: "v1beta1/users",
-              request: Google::Showcase::V1beta1::CreateUserRequest,
-              result: Google::Showcase::V1beta1::User
-            }
-          }.freeze
+              request: request_json,
+              options: options,
+              &block
+            )
+
+            ::Google::Showcase::V1beta1::User.decode_json result_json
+          end
+
+          # @param request_pb [::Google::Showcase::V1beta1::GetUserRequest]
+          # @param options [::Gapic::CallOptions]
+          # @return [::Google::Showcase::V1beta1::User]
+          def get_user request_pb:, options:, &block
+            request_json = ::Google::Showcase::V1beta1::GetUserRequest.encode_json request_pb
+            result_json = @service_stub.make_get_request(
+              endpoint: "/v1beta1/{name=users/*}",
+              request: request_json,
+              options: options,
+              &block
+            )
+
+            ::Google::Showcase::V1beta1::User.decode_json result_json
+          end
+
+          # @param request_pb [::Google::Showcase::V1beta1::DeleteUserRequest]
+          # @param options [::Gapic::CallOptions]
+          # @return [::Google::Showcase::V1beta1::User]
+          def update_user request_pb:, options:, &block
+            request_json = ::Google::Showcase::V1beta1::DeleteUserRequest.encode_json request_pb
+            result_json = @service_stub.make_patch_request(
+              endpoint: "/v1beta1/{name=users/*}",
+              request: request_json,
+              options: options,
+              &block
+            )
+            ::Google::Protobuf::Empty.decode_json result_json
+          end
+
+          # @param request_pb [::Google::Showcase::V1beta1::DeleteUserRequest]
+          # @param options [::Gapic::CallOptions]
+          # @return [::Google::Showcase::V1beta1::User]
+          def delete_user request_pb:, options:, &block
+            request_json = ::Google::Showcase::V1beta1::DeleteUserRequest.encode_json request_pb
+            result_json = @service_stub.make_delete_request(
+              endpoint: "/v1beta1/{name=users/*}",
+              request: request_json,
+              options: options,
+              &block
+            )
+            ::Google::Protobuf::Empty.decode_json result_json
+          end
         end
       end
     end

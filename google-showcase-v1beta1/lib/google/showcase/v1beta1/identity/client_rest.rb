@@ -32,9 +32,6 @@ require "schema/google/showcase/v1beta1/identity_pb"
 # Service Contract
 require "google/showcase/v1beta1/identity/identity_services_rest"
 
-# service stub -- Contract wrapper from Gapic::Common
-require "gapic/rest/service_stub_rest"
-
 module Google
   module Showcase
     module V1beta1
@@ -50,31 +47,27 @@ module Google
           def initialize
             credentials = ""
             @config = {
-              endpoint: "http://localhost:7469",
+              endpoint: "http://localhost:7469"
             }
 
-            @identity_stub = ::Gapic::Rest::ServiceStubRest.new(
-              Google::Showcase::V1beta1::Identity::RestServiceContract::Calls,
+            @identity_stub = Google::Showcase::V1beta1::Identity::RestServiceStub.new(
               credentials:  credentials,
               endpoint:     @config[:endpoint]
             )
           end
 
           # @param request [::Google::Showcase::V1Beta1::CreateUserRequest, ::Hash]
-          # @param options [Hash, ::Google::Showcase::V1beta1::User]
-          # @return [Hash { Symbol => String }]
+          # @param options [::Gapic::CallOptions, ::Hash]
+          # @return [::Google::Showcase::V1beta1::User]
           def create_user request, options = nil
             raise ::ArgumentError, "request must be provided" if request.nil?
             request_pb = ::Gapic::Protobuf.coerce request, to: ::Google::Showcase::V1beta1::CreateUserRequest
-            request_json = ::Google::Showcase::V1beta1::CreateUserRequest.encode_json request_pb
             options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
 
-            @identity_stub.call_rest method_name: :create_user, request: request_json, options: options do |result, response|
-              yield result, response if block_given?
+            @identity_stub.create_user request_pb: request_pb, options: options do |result, env|
+              yield result, env if block_given?
               return result
             end
-
-            # make_post_request endpoint: "/v1beta1/users", request: request_json, options: options
           end
         end
       end

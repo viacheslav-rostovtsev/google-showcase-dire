@@ -30,28 +30,110 @@ require 'faraday'
 require 'json'
 
 class ::Google::Showcase::V1beta1::Identity::ClientRestTest < Minitest::Test
-  class ClientRestStub
-    attr_accessor :call_rest_count, :requests
+  class CountingCallMakerMock
+    attr_accessor :call_count, :requests
 
-    def initialize(response, operation, &block)
-      @response = response
-      @operation = operation
+    def initialize result, env, &block
+      @result = result
+      @env = env
       @block = block
 
-      @call_rpc_count = 0
+      @call_count = 0
       @requests = []
     end
 
-    def call_rpc(*args, **kwargs)
-      @call_rest_count += 1
+    def make_post_request *args, **kwargs
+      @call_count += 1
 
       @requests << @block&.call(*args, **kwargs)
 
-      yield @response, @operation if block_given?
+      yield @result, @env if block_given?
 
-      @response
+      @result
     end
   end
+
+  def test_create_user
+    # Create request parameters for a unary method.
+    user = {}
+    rest_options = {}
+
+    call_result = {
+      status: 200,
+      body: "{}",
+    }
+    call_env = Struct.new(:request_body).new("{\"user\":{}}")
+
+    create_user_call_maker_mock = CountingCallMakerMock.new call_result, call_env do |endpoint:, request:, options:|
+      assert_equal "v1beta1/users", endpoint
+      assert_equal({}, JSON.parse(request)['user'])
+      refute_nil options
+    end
+
+    Gapic::Rest::RestCallMaker.stub :new, create_user_call_maker_mock do
+      # Create client
+      client = ::Google::Showcase::V1beta1::Identity::ClientRest.new
+
+      # Use hash object
+      client.create_user({ user: user }) do |result, env|
+        assert_equal 200, result[:status]
+
+        result_user = JSON.parse(result[:body])
+        assert_equal user, result_user
+
+        request_user = JSON.parse(env.request_body)['user']
+        assert_equal user, request_user
+      end
+
+      # Use named arguments
+      client.create_user user: user do |result, env|
+        assert_equal 200, result[:status]
+
+        result_user = JSON.parse(result[:body])
+        assert_equal user, result_user
+
+        request_user = JSON.parse(env.request_body)['user']
+        assert_equal user, request_user
+      end
+
+      # Use protobuf object
+      client.create_user ::Google::Showcase::V1beta1::CreateUserRequest.new(user: user) do |result, env|
+        assert_equal 200, result[:status]
+
+        result_user = JSON.parse(result[:body])
+        assert_equal user, result_user
+
+        request_user = JSON.parse(env.request_body)['user']
+        assert_equal user, request_user
+      end
+
+      # Use hash object with options
+      client.create_user({ user: user }, rest_options) do |result, env|
+        assert_equal 200, result[:status]
+
+        result_user = JSON.parse(result[:body])
+        assert_equal user, result_user
+
+        request_user = JSON.parse(env.request_body)['user']
+        assert_equal user, request_user
+      end
+
+      # Use protobuf object with options
+      client.create_user ::Google::Showcase::V1beta1::CreateUserRequest.new(user: user), rest_options do |result, env|
+        assert_equal 200, result[:status]
+
+        result_user = JSON.parse(result[:body])
+        assert_equal user, result_user
+
+        request_user = JSON.parse(env.request_body)['user']
+        assert_equal user, request_user
+      end
+
+      # Verify method calls
+      assert_equal 5, create_user_call_maker_mock.call_count
+    end
+  end
+
 
   # @param id [Int, String]
   # @return [Hash {String => String}]
@@ -62,83 +144,68 @@ class ::Google::Showcase::V1beta1::Identity::ClientRestTest < Minitest::Test
     }
   end
 
-  def test_create_user_simple
-    rest_options = {}
-    client = ::Google::Showcase::V1beta1::Identity::ClientRest.new
-    user = create_user_hash 100
-
-    client.create_user({ user: user }) do |result, response|
-      assert_equal 200, result[:status]
-
-      result_user = JSON.parse(result[:body])
-      assert_equal user['display_name'], result_user['displayName']
-
-      request_user = JSON.parse(response.env.request_body)['user']
-      assert_equal user['display_name'], request_user['displayName']
-    end
-  end
-
-  def test_create_user
+  def test_create_user_real
     rest_options = {}
     client = ::Google::Showcase::V1beta1::Identity::ClientRest.new
 
     user = create_user_hash 0
     # Use hash object
-    client.create_user({ user: user }) do |result, response|
+    client.create_user({ user: user }) do |result, env|
       assert_equal 200, result[:status]
 
       result_user = JSON.parse(result[:body])
       assert_equal user['display_name'], result_user['displayName']
 
-      request_user = JSON.parse(response.env.request_body)['user']
+      request_user = JSON.parse(env.request_body)['user']
       assert_equal user['display_name'], request_user['displayName']
    end
 
     user = create_user_hash 1
     # Use named arguments
-    client.create_user user: user do |result, response|
+    client.create_user user: user do |result, env|
       assert_equal 200, result[:status]
 
       result_user = JSON.parse(result[:body])
       assert_equal user['display_name'], result_user['displayName']
 
-      request_user = JSON.parse(response.env.request_body)['user']
+      request_user = JSON.parse(env.request_body)['user']
       assert_equal user['display_name'], request_user['displayName']
     end
 
     user = create_user_hash 2
     # Use protobuf object
-    client.create_user ::Google::Showcase::V1beta1::CreateUserRequest.new(user: user) do |result, response|
+    client.create_user ::Google::Showcase::V1beta1::CreateUserRequest.new(user: user) do |result, env|
       assert_equal 200, result[:status]
 
       result_user = JSON.parse(result[:body])
       assert_equal user['display_name'], result_user['displayName']
 
-      request_user = JSON.parse(response.env.request_body)['user']
+      request_user = JSON.parse(env.request_body)['user']
       assert_equal user['display_name'], request_user['displayName']
     end
 
     user = create_user_hash 3
     # Use hash object with options
-    client.create_user({ user: user }, rest_options) do |result, response|
+    client.create_user({ user: user }, rest_options) do |result, env|
       assert_equal 200, result[:status]
 
       result_user = JSON.parse(result[:body])
       assert_equal user['display_name'], result_user['displayName']
 
-      request_user = JSON.parse(response.env.request_body)['user']
+      request_user = JSON.parse(env.request_body)['user']
       assert_equal user['display_name'], request_user['displayName']
     end
 
     user = create_user_hash 4
     # Use protobuf object with options
-    client.create_user ::Google::Showcase::V1beta1::CreateUserRequest.new(user: user), rest_options do |result, response|
+    #noinspection RubyYardParamTypeMatch
+    client.create_user ::Google::Showcase::V1beta1::CreateUserRequest.new(user: user), rest_options do |result, env|
       assert_equal 200, result[:status]
 
       result_user = JSON.parse(result[:body])
       assert_equal user['display_name'], result_user['displayName']
 
-      request_user = JSON.parse(response.env.request_body)['user']
+      request_user = JSON.parse(env.request_body)['user']
       assert_equal user['display_name'], request_user['displayName']
     end
   end

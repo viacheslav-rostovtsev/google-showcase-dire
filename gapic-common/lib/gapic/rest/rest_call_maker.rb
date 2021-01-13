@@ -16,7 +16,7 @@ require "googleauth"
 
 module Gapic
   module Rest
-    class ServiceStubRest
+    class RestCallMaker
       def initialize service_contract, endpoint:, credentials:
         @service_contract = service_contract
         @endpoint = endpoint
@@ -33,12 +33,8 @@ module Gapic
           request,
           "Content-Type" => "application/json"
         )
-        result = {
-          status: response.status,
-          headers: response.headers,
-          body: response.body
-        }
-        yield result, response if block_given?
+        result = response.to_hash
+        yield result, response.env if block_given?
         result
       end
 
