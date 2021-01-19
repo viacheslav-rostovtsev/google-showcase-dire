@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/gapic-common/gapic-common.iml" filepath="$PROJECT_DIR$/gapic-common/gapic-common.iml" />
       <module fileurl="file://$PROJECT_DIR$/google-showcase-v1beta1/google-showcase-v1beta1.iml" filepath="$PROJECT_DIR$/google-showcase-v1beta1/google-showcase-v1beta1.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ruby-style/ruby-style.iml" filepath="$PROJECT_DIR$/ruby-style/ruby-style.iml" />
     </modules>
   </component>
 </project>

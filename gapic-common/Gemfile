@@ -1,4 +1,5 @@
 source "https://rubygems.org"
 
 # Specify your gem's dependencies in gapic-common.gemspec
+gem "google-style", path: "../../ruby-style"
 gemspec

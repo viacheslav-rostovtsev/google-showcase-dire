@@ -20,7 +20,7 @@ require "gapic/common/version"
 
 Gem::Specification.new do |spec|
   spec.name =          "gapic-common"
-  spec.version =       Gapic::Common::VERSION
+  spec.version =       "99.0.0"
   spec.authors =       ["Google API Authors"]
   spec.email =         ["googleapis-packages@google.com"]
   spec.licenses =      ["Apache-2.0"]
@@ -40,9 +40,9 @@ Gem::Specification.new do |spec|
   spec.add_dependency "googleapis-common-protos-types", ">= 1.0.4", "< 2.0"
   spec.add_dependency "googleauth", "~> 0.9"
   spec.add_dependency "grpc", "~> 1.25"
+  spec.add_dependency "faraday", "~> 1.3.0"
 
   spec.add_development_dependency "google-cloud-core", "~> 1.5"
-  spec.add_development_dependency "google-style", "~> 1.24.0"
   spec.add_development_dependency "minitest", "~> 5.10"
   spec.add_development_dependency "minitest-autotest", "~> 1.0"
   spec.add_development_dependency "minitest-focus", "~> 1.1"

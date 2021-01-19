@@ -69,6 +69,40 @@ module Google
               return result
             end
           end
+
+          def get_user request, options = nil
+            raise ::ArgumentError, "request must be provided" if request.nil?
+            request_pb = ::Gapic::Protobuf.coerce request, to: ::Google::Showcase::V1beta1::GetUserRequest
+            options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
+
+            @identity_stub.get_user request_pb: request_pb, options: options do |result, env|
+              yield result, env if block_given?
+              return result
+            end
+          end
+
+          def update_user request, options = nil
+            raise ::ArgumentError, "request must be provided" if request.nil?
+            request_pb = ::Gapic::Protobuf.coerce request, to: ::Google::Showcase::V1beta1::UpdateUserRequest
+            options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
+
+            @identity_stub.update_user request_pb: request_pb, options: options do |result, env|
+              yield result, env if block_given?
+              return result
+            end
+          end
+
+          def delete_user request, options = nil
+            raise ::ArgumentError, "request must be provided" if request.nil?
+            request_pb = ::Gapic::Protobuf.coerce request, to: ::Google::Showcase::V1beta1::DeleteUserRequest
+            options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
+
+            @identity_stub.delete_user request_pb: request_pb, options: options do |result, env|
+              yield result, env if block_given?
+              return result
+            end
+          end
+
         end
       end
     end

@@ -30,7 +30,7 @@ require 'faraday'
 require 'json'
 
 class ::Google::Showcase::V1beta1::Identity::ClientRestTest < Minitest::Test
-  class CountingCallMakerMock
+  class CountingClientStubMock
     attr_accessor :call_count, :requests
 
     def initialize result, env, &block
@@ -64,13 +64,13 @@ class ::Google::Showcase::V1beta1::Identity::ClientRestTest < Minitest::Test
     }
     call_env = Struct.new(:request_body).new("{\"user\":{}}")
 
-    create_user_call_maker_mock = CountingCallMakerMock.new call_result, call_env do |endpoint:, request:, options:|
+    create_client_stub_mock = CountingClientStubMock.new call_result, call_env do |endpoint:, request:, options:|
       assert_equal "v1beta1/users", endpoint
       assert_equal({}, JSON.parse(request)['user'])
       refute_nil options
     end
 
-    Gapic::Rest::RestCallMaker.stub :new, create_user_call_maker_mock do
+    Gapic::Rest::ClientStub.stub :new, create_client_stub_mock do
       # Create client
       client = ::Google::Showcase::V1beta1::Identity::ClientRest.new
 
@@ -133,7 +133,6 @@ class ::Google::Showcase::V1beta1::Identity::ClientRestTest < Minitest::Test
       assert_equal 5, create_user_call_maker_mock.call_count
     end
   end
-
 
   # @param id [Int, String]
   # @return [Hash {String => String}]
@@ -207,6 +206,225 @@ class ::Google::Showcase::V1beta1::Identity::ClientRestTest < Minitest::Test
 
       request_user = JSON.parse(env.request_body)['user']
       assert_equal user['display_name'], request_user['displayName']
+    end
+  end
+
+  # @param id [Int, String]
+  # @return [String]
+  def create_username id
+    "users/#{id}"
+  end
+
+  def test_get_user_real
+    rest_options = {}
+    client = ::Google::Showcase::V1beta1::Identity::ClientRest.new
+
+    name = create_username 0
+    user = create_user_hash 0
+    # Use hash object
+    client.get_user({ name: name }) do |result, env|
+      assert_equal 200, result[:status]
+
+      result_user = JSON.parse(result[:body])
+      assert_equal user['display_name'], result_user['displayName']
+
+      # request_user = JSON.parse(env.request_body)['user']
+      # assert_equal user['display_name'], request_user['displayName']
+    end
+
+    name = create_username 1
+    user = create_user_hash 1
+    # Use named arguments
+    client.get_user name: name do |result, env|
+      assert_equal 200, result[:status]
+
+      result_user = JSON.parse(result[:body])
+      assert_equal user['display_name'], result_user['displayName']
+
+      # request_user = JSON.parse(env.request_body)['user']
+      # assert_equal user['display_name'], request_user['displayName']
+    end
+
+    name = create_username 2
+    user = create_user_hash 2
+    # Use protobuf object
+    client.get_user ::Google::Showcase::V1beta1::GetUserRequest.new(name: name) do |result, env|
+      assert_equal 200, result[:status]
+
+      result_user = JSON.parse(result[:body])
+      assert_equal user['display_name'], result_user['displayName']
+
+      # request_user = JSON.parse(env.request_body)['user']
+      # assert_equal user['display_name'], request_user['displayName']
+    end
+
+    name = create_username 3
+    user = create_user_hash 3
+    # Use hash object with options
+    client.get_user({ name: name }, rest_options) do |result, env|
+      assert_equal 200, result[:status]
+
+      result_user = JSON.parse(result[:body])
+      assert_equal user['display_name'], result_user['displayName']
+
+      # request_user = JSON.parse(env.request_body)['user']
+      # assert_equal user['display_name'], request_user['displayName']
+    end
+
+    name = create_username 4
+    user = create_user_hash 4
+    # Use protobuf object with options
+    client.get_user ::Google::Showcase::V1beta1::GetUserRequest.new(name: name), rest_options do |result, env|
+      assert_equal 200, result[:status]
+
+      result_user = JSON.parse(result[:body])
+      assert_equal user['display_name'], result_user['displayName']
+
+      # request_user = JSON.parse(env.request_body)['user']
+      # assert_equal user['display_name'], request_user['displayName']
+    end
+  end
+
+  # @param id [Int, String]
+  # @return [Hash {String => String}]
+  def create_update_user_hash id
+    user = create_user_hash "1"+id.to_s
+    user['name'] = create_username id
+    user
+  end
+
+  def test_update_user_real
+    rest_options = {}
+    client = ::Google::Showcase::V1beta1::Identity::ClientRest.new
+
+    update_mask = {
+      paths: ["display_name"]
+    }
+
+    user = create_update_user_hash 0
+    # Use hash object
+    client.update_user({ user: user, update_mask: update_mask }) do |result, env|
+      assert_equal 200, result[:status]
+
+      result_user = JSON.parse(result[:body])
+      assert_equal user['display_name'], result_user['displayName']
+
+      request_user = JSON.parse(env.request_body)['user']
+      assert_equal user['display_name'], request_user['displayName']
+    end
+
+    user = create_update_user_hash 1
+    # Use named arguments
+    client.update_user user: user, update_mask: update_mask do |result, env|
+      assert_equal 200, result[:status]
+
+      result_user = JSON.parse(result[:body])
+      assert_equal user['display_name'], result_user['displayName']
+
+      request_user = JSON.parse(env.request_body)['user']
+      assert_equal user['display_name'], request_user['displayName']
+    end
+
+    user = create_update_user_hash 2
+    # Use protobuf object
+    client.update_user ::Google::Showcase::V1beta1::UpdateUserRequest.new(user: user, update_mask: update_mask) do |result, env|
+      assert_equal 200, result[:status]
+
+      result_user = JSON.parse(result[:body])
+      assert_equal user['display_name'], result_user['displayName']
+
+      request_user = JSON.parse(env.request_body)['user']
+      assert_equal user['display_name'], request_user['displayName']
+    end
+
+    user = create_update_user_hash 3
+    # Use hash object with options
+    client.update_user({ user: user, update_mask: update_mask }, rest_options) do |result, env|
+      assert_equal 200, result[:status]
+
+      result_user = JSON.parse(result[:body])
+      assert_equal user['display_name'], result_user['displayName']
+
+      request_user = JSON.parse(env.request_body)['user']
+      assert_equal user['display_name'], request_user['displayName']
+    end
+
+    user = create_update_user_hash 4
+    # Use protobuf object with options
+    #noinspection RubyYardParamTypeMatch
+    client.update_user ::Google::Showcase::V1beta1::UpdateUserRequest.new(user: user, update_mask: update_mask), rest_options do |result, env|
+      assert_equal 200, result[:status]
+
+      result_user = JSON.parse(result[:body])
+      assert_equal user['display_name'], result_user['displayName']
+
+      request_user = JSON.parse(env.request_body)['user']
+      assert_equal user['display_name'], request_user['displayName']
+    end
+  end
+
+  def test_delete_user_real
+    rest_options = {}
+    client = ::Google::Showcase::V1beta1::Identity::ClientRest.new
+
+    name = create_username 0
+    # Use hash object
+    client.delete_user({ name: name }) do |result, env|
+      assert_equal 200, result[:status]
+
+      # result_user = JSON.parse(result[:body])
+      # assert_equal user['display_name'], result_user['displayName']
+
+      # request_user = JSON.parse(env.request_body)['user']
+      # assert_equal user['display_name'], request_user['displayName']
+    end
+
+    name = create_username 1
+    # Use named arguments
+    client.delete_user name: name do |result, env|
+      assert_equal 200, result[:status]
+
+      # result_user = JSON.parse(result[:body])
+      # assert_equal user['display_name'], result_user['displayName']
+
+      # request_user = JSON.parse(env.request_body)['user']
+      # assert_equal user['display_name'], request_user['displayName']
+    end
+
+    name = create_username 2
+    # Use protobuf object
+    client.delete_user ::Google::Showcase::V1beta1::DeleteUserRequest.new(name: name) do |result, env|
+      assert_equal 200, result[:status]
+
+      # result_user = JSON.parse(result[:body])
+      # assert_equal user['display_name'], result_user['displayName']
+
+      # request_user = JSON.parse(env.request_body)['user']
+      # assert_equal user['display_name'], request_user['displayName']
+    end
+
+    name = create_username 3
+    # Use hash object with options
+    client.delete_user({ name: name }, rest_options) do |result, env|
+      assert_equal 200, result[:status]
+
+      # result_user = JSON.parse(result[:body])
+      # assert_equal user['display_name'], result_user['displayName']
+
+      # request_user = JSON.parse(env.request_body)['user']
+      # assert_equal user['display_name'], request_user['displayName']
+    end
+
+    name = create_username 4
+    # Use protobuf object with options
+    client.delete_user ::Google::Showcase::V1beta1::DeleteUserRequest.new(name: name), rest_options do |result, env|
+      assert_equal 200, result[:status]
+
+      # result_user = JSON.parse(result[:body])
+      # assert_equal user['display_name'], result_user['displayName']
+
+      # request_user = JSON.parse(env.request_body)['user']
+      # assert_equal user['display_name'], request_user['displayName']
     end
   end
 end

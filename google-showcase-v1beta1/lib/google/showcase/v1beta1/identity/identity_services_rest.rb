@@ -27,9 +27,11 @@
 # protobuf messages
 require "schema/google/showcase/v1beta1/identity_pb"
 
-# service stub -- Contract wrapper from Gapic::Common
-require "gapic/rest/rest_call_maker"
+# gapic-common REST code
+require "gapic/rest"
 
+# json to manipulate fields during transcoding
+require "json"
 
 module Google
   module Showcase
@@ -37,17 +39,21 @@ module Google
       module Identity
         class RestServiceStub
           def initialize endpoint:, credentials:
-            @service_stub = ::Gapic::Rest::RestCallMaker.new nil, endpoint: endpoint, credentials: credentials
+            @client_stub = ::Gapic::Rest::ClientStub.new nil, endpoint: endpoint, credentials: credentials
           end
 
           # @param request_pb [::Google::Showcase::V1beta1::CreateUserRequest]
           # @param options [::Gapic::CallOptions]
           # @return [::Google::Showcase::V1beta1::User]
           def create_user request_pb:, options:, &block
-            request_json = ::Google::Showcase::V1beta1::CreateUserRequest.encode_json request_pb
-            result_json = @service_stub.make_post_request(
-              endpoint: "v1beta1/users",
-              request: request_json,
+            request_json = JSON.parse ::Google::Showcase::V1beta1::CreateUserRequest.encode_json(request_pb)
+
+            uri = "v1beta1/users"
+            body = request_json.to_json
+
+            result_json = @client_stub.make_post_request(
+              uri:     uri,
+              body:    body,
               options: options,
               &block
             )
@@ -59,10 +65,35 @@ module Google
           # @param options [::Gapic::CallOptions]
           # @return [::Google::Showcase::V1beta1::User]
           def get_user request_pb:, options:, &block
-            request_json = ::Google::Showcase::V1beta1::GetUserRequest.encode_json request_pb
-            result_json = @service_stub.make_get_request(
-              endpoint: "/v1beta1/{name=users/*}",
-              request: request_json,
+            request_json = JSON.parse ::Google::Showcase::V1beta1::GetUserRequest.encode_json(request_pb)
+
+            # pretending here that the pattern is simpler because that's what DIREGAPIC supports
+            # get:"/v1beta1/{name}"
+            uri = "v1beta1/#{request_json['name']}"
+
+            result_json = @client_stub.make_get_request(
+              uri:     uri,
+              options: options,
+              &block
+            )
+
+            ::Google::Showcase::V1beta1::User.decode_json result_json
+          end
+
+          # @param request_pb [::Google::Showcase::V1beta1::UpdateUserRequest]
+          # @param options [::Gapic::CallOptions]
+          # @return [::Google::Showcase::V1beta1::User]
+          def update_user request_pb:, options:, &block
+            request_json = JSON.parse ::Google::Showcase::V1beta1::UpdateUserRequest.encode_json(request_pb)
+
+            # pretending here that the pattern is simpler because that's what DIREGAPIC supports
+            # patch:"/v1beta1/{user.name}"
+            uri = "v1beta1/#{request_json['user']['name']}"
+            body = request_json.to_json
+
+            result_json = @client_stub.make_patch_request(
+              uri:     uri,
+              body:    body,
               options: options,
               &block
             )
@@ -72,29 +103,20 @@ module Google
 
           # @param request_pb [::Google::Showcase::V1beta1::DeleteUserRequest]
           # @param options [::Gapic::CallOptions]
-          # @return [::Google::Showcase::V1beta1::User]
-          def update_user request_pb:, options:, &block
-            request_json = ::Google::Showcase::V1beta1::DeleteUserRequest.encode_json request_pb
-            result_json = @service_stub.make_patch_request(
-              endpoint: "/v1beta1/{name=users/*}",
-              request: request_json,
-              options: options,
-              &block
-            )
-            ::Google::Protobuf::Empty.decode_json result_json
-          end
-
-          # @param request_pb [::Google::Showcase::V1beta1::DeleteUserRequest]
-          # @param options [::Gapic::CallOptions]
-          # @return [::Google::Showcase::V1beta1::User]
+          # @return [::Google::Protobuf::Empty]
           def delete_user request_pb:, options:, &block
-            request_json = ::Google::Showcase::V1beta1::DeleteUserRequest.encode_json request_pb
-            result_json = @service_stub.make_delete_request(
-              endpoint: "/v1beta1/{name=users/*}",
-              request: request_json,
+            request_json = JSON.parse ::Google::Showcase::V1beta1::DeleteUserRequest.encode_json(request_pb)
+
+            # pretending here that the pattern is simpler because that's what DIREGAPIC supports
+            # delete:"/v1beta1/{name}"
+            uri = "v1beta1/#{request_json['name']}"
+
+            result_json = @client_stub.make_delete_request(
+              uri:     uri,
               options: options,
               &block
             )
+
             ::Google::Protobuf::Empty.decode_json result_json
           end
         end
