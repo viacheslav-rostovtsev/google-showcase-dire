@@ -17,9 +17,11 @@ require "googleauth"
 module Gapic
   module Rest
     class ClientStub
-      def initialize service_contract, endpoint:, credentials:
-        @service_contract = service_contract
+      def initialize endpoint:, credentials:
         @endpoint = endpoint
+        @endpoint = "http://#{endpoint}" unless /https?:/.match? endpoint
+        @endpoint = @endpoint.chop if @endpoint.to_s.chars.last == "/"
+
         @credentials = credentials
       end
 

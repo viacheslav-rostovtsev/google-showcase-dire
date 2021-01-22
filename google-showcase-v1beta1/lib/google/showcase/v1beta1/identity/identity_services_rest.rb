@@ -39,7 +39,7 @@ module Google
       module Identity
         class RestServiceStub
           def initialize endpoint:, credentials:
-            @client_stub = ::Gapic::Rest::ClientStub.new nil, endpoint: endpoint, credentials: credentials
+            @client_stub = ::Gapic::Rest::ClientStub.new endpoint: endpoint, credentials: credentials
           end
 
           # @param request_pb [::Google::Showcase::V1beta1::CreateUserRequest]

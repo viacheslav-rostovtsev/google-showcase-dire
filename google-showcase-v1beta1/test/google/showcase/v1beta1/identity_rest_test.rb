@@ -289,9 +289,14 @@ class ::Google::Showcase::V1beta1::Identity::ClientRestTest < Minitest::Test
   # @return [Hash {String => String}]
   def create_update_user_hash id
     user = create_user_hash "1"+id.to_s
-    user['name'] = create_username id
+    #user['name'] = create_username id
     user
   end
+
+  # curl -X PATCH http://localhost:7469/v1beta1/users/0 \
+  #    -H "Content-Type: application/json" \
+  #    -H "Accept: application/json" \
+  #    -d "{\"user\":{\"name\":\"users/0\",\"displayName\":\"ExampleName10\",\"email\":\"ExampleName10@example.com\"},\"updateMask\":\"displayName\"}"
 
   def test_update_user_real
     rest_options = {}
@@ -301,7 +306,7 @@ class ::Google::Showcase::V1beta1::Identity::ClientRestTest < Minitest::Test
       paths: ["display_name"]
     }
 
-    user = create_update_user_hash 0
+    user = create_update_user_hash 1
     # Use hash object
     client.update_user({ user: user, update_mask: update_mask }) do |result, env|
       assert_equal 200, result[:status]
