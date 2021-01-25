@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/../google-showcase-dire/gapic-common/gapic-common.iml" filepath="$PROJECT_DIR$/../google-showcase-dire/gapic-common/gapic-common.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../../gapic-generator-ruby/shared/output/gapic/templates/showcase/showcase.iml" filepath="$PROJECT_DIR$/../../gapic-generator-ruby/shared/output/gapic/templates/showcase/showcase.iml" />
+      <module fileurl="file://$PROJECT_DIR$/test_use_showcase_lib.iml" filepath="$PROJECT_DIR$/test_use_showcase_lib.iml" />
+    </modules>
+  </component>
+</project>
