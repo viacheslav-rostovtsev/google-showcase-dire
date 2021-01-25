@@ -1,0 +1,10 @@
+source "https://rubygems.org"
+
+gem "faraday"
+gem 'google-showcase', path: "/home/virost/src/gapic-generator-ruby/shared/output/gapic/templates/showcase/"
+
+# Specify your gem's dependencies in test_use_showcase_lib.gemspec
+gemspec
+
+gem "rake", "~> 12.0"
+gem "minitest", "~> 5.0"
