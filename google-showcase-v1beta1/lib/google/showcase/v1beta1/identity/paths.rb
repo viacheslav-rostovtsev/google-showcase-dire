@@ -36,13 +36,13 @@ module Google
           #
           # The resource will be in the following format:
           #
-          # `users/{user}`
+          # `users/{user_id}`
           #
-          # @param user [String]
+          # @param user_id [String]
           #
           # @return [::String]
-          def user_path user:
-            "users/#{user}"
+          def user_path user_id:
+            "users/#{user_id}"
           end
 
           extend self

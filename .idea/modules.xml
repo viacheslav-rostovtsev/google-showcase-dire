@@ -3,7 +3,9 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/gapic-common/gapic-common.iml" filepath="$PROJECT_DIR$/gapic-common/gapic-common.iml" />
+      <module fileurl="file://$PROJECT_DIR$/google-cloud-compute-v1/google-cloud-compute-v1.iml" filepath="$PROJECT_DIR$/google-cloud-compute-v1/google-cloud-compute-v1.iml" />
       <module fileurl="file://$PROJECT_DIR$/google-showcase-v1beta1/google-showcase-v1beta1.iml" filepath="$PROJECT_DIR$/google-showcase-v1beta1/google-showcase-v1beta1.iml" />
+      <module fileurl="file://$PROJECT_DIR$/test_use_showcase_lib/test_use_showcase_lib.iml" filepath="$PROJECT_DIR$/test_use_showcase_lib/test_use_showcase_lib.iml" />
     </modules>
   </component>
 </project>

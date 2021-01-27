@@ -1,7 +1,9 @@
 source "https://rubygems.org"
 
 gem "faraday"
-gem 'google-showcase', path: "/home/virost/src/gapic-generator-ruby/shared/output/gapic/templates/showcase/"
+gem "gapic-common", path: "../gapic-common"
+gem "google-cloud-compute-v1", path: "../google-cloud-compute-v1"
+gem "google-showcase", path: "../google-showcase-v1beta1"
 
 # Specify your gem's dependencies in test_use_showcase_lib.gemspec
 gemspec

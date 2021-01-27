@@ -1,5 +1,5 @@
 --no-private
---title=Google Showcase V1beta1
+--title=Google Showcase
 --exclude _pb\.rb$
 --markup markdown
 --markup-provider redcarpet

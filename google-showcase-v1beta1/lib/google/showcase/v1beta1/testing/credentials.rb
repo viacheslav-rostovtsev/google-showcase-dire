@@ -33,10 +33,10 @@ module Google
         # Credentials for the Testing API.
         class Credentials < ::Google::Auth::Credentials
           self.env_vars = [
-            "V1BETA1_CREDENTIALS",
-            "V1BETA1_KEYFILE",
-            "V1BETA1_CREDENTIALS_JSON",
-            "V1BETA1_KEYFILE_JSON"
+            "SHOWCASE_CREDENTIALS",
+            "SHOWCASE_KEYFILE",
+            "SHOWCASE_CREDENTIALS_JSON",
+            "SHOWCASE_KEYFILE_JSON"
           ]
         end
       end

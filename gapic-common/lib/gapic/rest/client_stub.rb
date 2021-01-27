@@ -19,7 +19,7 @@ module Gapic
     class ClientStub
       def initialize endpoint:, credentials:
         @endpoint = endpoint
-        @endpoint = "http://#{endpoint}" unless /https?:/.match? endpoint
+        @endpoint = "https://#{endpoint}" unless /https?:/.match? endpoint
         @endpoint = @endpoint.chop if @endpoint.to_s.chars.last == "/"
 
         @credentials = credentials
@@ -28,24 +28,48 @@ module Gapic
       # @param uri [String]
       # @return [Hash { Symbol => String }]
       def make_get_request uri:, options:
-        request_url = "#{@endpoint}/#{uri}"
-        response = Faraday.get(
-          request_url
-        )
+        request_url = make_request_url uri
+        puts "Bearer #{@credentials.client.access_token}"
+
+        headers = {
+          "Authorization" => "Bearer #{@credentials.client.access_token}"
+        }
+
+        response = Faraday.get request_url do |req|
+          req.headers = headers
+        end
+
         result = response.to_hash
         yield result, response.env if block_given?
+
+        if result[:status] != 200
+          raise ::Gapic::Rest::Error.new "An error has occurred when making a REST request", result: result
+        end
+
         result
       end
 
       # @param uri [String]
       # @return [Hash { Symbol => String }]
       def make_delete_request uri:, options:
-        request_url = "#{@endpoint}/#{uri}"
-        response = Faraday.delete(
-          request_url
-        )
+        request_url = make_request_url uri
+
+        puts "Bearer #{@credentials.client.access_token}"
+        headers = {
+          "Authorization" => "Bearer #{@credentials.client.access_token}"
+        }
+
+        response = Faraday.delete request_url do |req|
+          req.headers = headers
+        end
+
         result = response.to_hash
         yield result, response.env if block_given?
+
+        if result[:status] != 200
+          raise ::Gapic::Rest::Error.new "An error has occurred when making a REST request", result: result
+        end
+
         result
       end
 
@@ -53,14 +77,26 @@ module Gapic
       # @param body [String]
       # @return [Hash { Symbol => String }]
       def make_post_request uri:, body:, options:
-        request_url = "#{@endpoint}/#{uri}"
+        request_url = make_request_url uri
+
+        puts "Bearer #{@credentials.client.access_token}"
+        headers = {
+          "Content-Type" => "application/json",
+          "Authorization" => "Bearer #{@credentials.client.access_token}"
+        }
+
         response = Faraday.post(
           request_url,
           body,
-          "Content-Type" => "application/json"
+          headers
         )
         result = response.to_hash
         yield result, response.env if block_given?
+
+        if result[:status] != 200
+          raise ::Gapic::Rest::Error.new "An error has occurred when making a REST request", result: result
+        end
+
         result
       end
 
@@ -68,15 +104,39 @@ module Gapic
       # @param body [String]
       # @return [Hash { Symbol => String }]
       def make_patch_request uri:, body:, options:
-        request_url = "#{@endpoint}/#{uri}"
+        request_url = make_request_url uri
+
+        puts "Bearer #{@credentials.client.access_token}"
+        headers = {
+          "Content-Type" => "application/json",
+          "Authorization" => "Bearer #{@credentials.client.access_token}"
+        }
+
         response = Faraday.put(
           request_url,
           body,
-          "Content-Type" => "application/json"
+          headers
         )
         result = response.to_hash
         yield result, response.env if block_given?
+
+        if result[:status] != 200
+          raise ::Gapic::Rest::Error.new "An error has occurred when making a REST request", result: result
+        end
+
         result
+      end
+
+      private
+
+      ##
+      # Combines endpoint and uri to make request url
+      #
+      # @param [String] uri
+      # @return [String]
+      def make_request_url uri
+        uri_noslash = uri.gsub %r{^/}, ""
+        "#{@endpoint}/#{uri_noslash}"
       end
     end
   end

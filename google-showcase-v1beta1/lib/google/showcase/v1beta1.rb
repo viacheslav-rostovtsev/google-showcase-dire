@@ -27,9 +27,8 @@
 require "google/showcase/v1beta1/echo"
 require "google/showcase/v1beta1/identity"
 require "google/showcase/v1beta1/messaging"
-require "google/showcase/v1beta1/sequence_service"
 require "google/showcase/v1beta1/testing"
-require "google/showcase/v1beta1/version"
+require "google/showcase/version"
 
 module Google
   module Showcase
