@@ -1,15 +1,15 @@
-# Ruby Client for the Google Showcase V1beta1 API
+# Ruby Client for the Google Showcase API
 
-API Client library for the Google Showcase V1beta1 API
+API Client library for the Google Showcase API
 
-google-showcase-v1beta1 is the official client library for the Google Showcase V1beta1 API.
+google-showcase is the official client library for the Google Showcase API.
 
 https://github.com/googleapis/googleapis
 
 ## Installation
 
 ```
-$ gem install google-showcase-v1beta1
+$ gem install google-showcase
 ```
 
 ## Quick Start

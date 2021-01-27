@@ -13,5 +13,8 @@
 # limitations under the License.
 
 require "faraday"
-require "json"
+require "gapic/common/version"
+require "gapic/protobuf"
 require "gapic/rest/client_stub"
+require "gapic/rest/error"
+require "json"

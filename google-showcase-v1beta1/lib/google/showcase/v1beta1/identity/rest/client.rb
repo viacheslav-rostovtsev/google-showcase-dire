@@ -295,19 +295,68 @@ module Google
             ##
             # Lists all users.
             #
-            # no pagination support just yet
-            # def list_users request, options = nil
-            # end
+            # @overload list_users(request, options = nil)
+            #   Pass arguments to `list_users` via a request object, either of type
+            #   {::Google::Showcase::V1beta1::ListUsersRequest} or an equivalent Hash.
+            #
+            #   @param request [::Google::Showcase::V1beta1::ListUsersRequest, ::Hash]
+            #     A request object representing the call parameters. Required. To specify no
+            #     parameters, or to keep all the default parameter values, pass an empty Hash.
+            #   @param options [::Gapic::CallOptions, ::Hash]
+            #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
+            #
+            # @overload list_users(page_size: nil, page_token: nil)
+            #   Pass arguments to `list_users` via keyword arguments. Note that at
+            #   least one keyword argument is required. To specify no parameters, or to keep all
+            #   the default parameter values, pass an empty Hash as a request object (see above).
+            #
+            #   @param page_size [::Integer]
+            #     The maximum number of users to return. Server may return fewer users
+            #     than requested. If unspecified, server will pick an appropriate default.
+            #   @param page_token [::String]
+            #     The value of google.showcase.v1beta1.ListUsersResponse.next_page_token
+            #     returned from the previous call to
+            #     `google.showcase.v1beta1.Identity\ListUsers` method.
+            #
+            # @yield [result, env] Access the result along with the Faraday environment object
+            # @yieldparam result [::Gapic::PagedEnumerable<::Google::Showcase::V1beta1::User>]
+            # @yieldparam env [::Faraday::Env]
+            #
+            # @return [::Gapic::PagedEnumerable<::Google::Showcase::V1beta1::User>]
+            #
+            # @raise [::Faraday::Error] if the REST call is aborted.
+            def list_users request, options = nil
+              raise ::ArgumentError, "request must be provided" if request.nil?
+
+              request = ::Gapic::Protobuf.coerce request, to: ::Google::Showcase::V1beta1::ListUsersRequest
+
+              @identity_stub.list_users request, options: options do |response, env|
+                yield response, env if block_given?
+              end
+            end
 
             ##
-            # Configuration class for the Identity API.
+            # Configuration class for the Identity REST API.
             #
-            # This class represents the configuration for Identity,
-            # providing control over timeouts, retry behavior, logging, transport
-            # parameters, and other low-level controls. 
+            # This class represents the configuration for Identity REST,
+            # providing control over credentials, timeouts, retry behavior, logging.
             #
             # Configuration can be applied globally to all clients, or to a single client
             # on construction.
+            #
+            # # Examples
+            #
+            # To modify the global config, setting the timeout for all calls to 10 seconds:
+            #
+            #     ::Google::Showcase::V1beta1::Identity::Client.configure do |config|
+            #       config.timeout = 10.0
+            #     end
+            #
+            # To apply the above configuration only to a new client:
+            #
+            #     client = ::Google::Showcase::V1beta1::Identity::Client.new do |config|
+            #       config.timeout = 10.0
+            #     end
             #
             # @!attribute [rw] endpoint
             #   The hostname or hostname:port of the service endpoint.
@@ -322,6 +371,27 @@ module Google
             #    *  (`Signet::OAuth2::Client`) A signet oauth2 client object
             #       (see the [signet docs](https://googleapis.dev/ruby/signet/latest/Signet/OAuth2/Client.html))
             #    *  (`nil`) indicating no credentials
+            #   @return [::Object]
+            # @!attribute [rw] scope
+            #   The OAuth scopes
+            #   @return [::Array<::String>]
+            # @!attribute [rw] lib_name
+            #   The library name as recorded in instrumentation and logging
+            #   @return [::String]
+            # @!attribute [rw] lib_version
+            #   The library version as recorded in instrumentation and logging
+            #   @return [::String]
+            # @!attribute [rw] timeout
+            #   The call timeout in seconds.
+            #   @return [::Numeric]
+            # @!attribute [rw] retry_policy
+            #   The retry policy. The value is a hash with the following keys:
+            #    *  `:initial_delay` (*type:* `Numeric`) - The initial delay in seconds.
+            #    *  `:max_delay` (*type:* `Numeric`) - The max delay in seconds.
+            #    *  `:multiplier` (*type:* `Numeric`) - The incremental backoff multiplier.
+            #    *  `:retry_codes` (*type:* `Array<String>`) - The error codes that should
+            #       trigger a retry.
+            #   @return [::Hash]
             #
             class Configuration
               extend ::Gapic::Config
@@ -331,12 +401,90 @@ module Google
                 allowed = [::String, ::Hash, ::Proc, ::Symbol, ::Google::Auth::Credentials, ::Signet::OAuth2::Client, nil]
                 allowed.any? { |klass| klass === value }
               end
+              config_attr :scope,         nil, ::String, ::Array, nil
+              config_attr :lib_name,      nil, ::String, nil
+              config_attr :lib_version,   nil, ::String, nil
+              config_attr :timeout,       nil, ::Numeric, nil
+              config_attr :retry_policy,  nil, ::Hash, ::Proc, nil
 
               # @private
               def initialize parent_config = nil
                 @parent_config = parent_config unless parent_config.nil?
 
                 yield self if block_given?
+              end
+
+              ##
+              # Configurations for individual RPCs
+              # @return [Rpcs]
+              #
+              def rpcs
+                @rpcs ||= begin
+                  parent_rpcs = nil
+                  parent_rpcs = @parent_config.rpcs if defined?(@parent_config) && @parent_config&.respond_to?(:rpcs)
+                  Rpcs.new parent_rpcs
+                end
+              end
+
+              ##
+              # Configuration RPC class for the Identity API.
+              #
+              # Includes fields providing the configuration for each RPC in this service.
+              # Each configuration object is of type `Gapic::Config::Method` and includes
+              # the following configuration fields:
+              #
+              #  *  `timeout` (*type:* `Numeric`) - The call timeout in seconds
+              #  *  `metadata` (*type:* `Hash{Symbol=>String}`) - Additional gRPC headers
+              #  *  `retry_policy (*type:* `Hash`) - The retry policy. The policy fields
+              #     include the following keys:
+              #      *  `:initial_delay` (*type:* `Numeric`) - The initial delay in seconds.
+              #      *  `:max_delay` (*type:* `Numeric`) - The max delay in seconds.
+              #      *  `:multiplier` (*type:* `Numeric`) - The incremental backoff multiplier.
+              #      *  `:retry_codes` (*type:* `Array<String>`) - The error codes that should
+              #         trigger a retry.
+              #
+              class Rpcs
+                ##
+                # RPC-specific configuration for `create_user`
+                # @return [::Gapic::Config::Method]
+                #
+                attr_reader :create_user
+                ##
+                # RPC-specific configuration for `get_user`
+                # @return [::Gapic::Config::Method]
+                #
+                attr_reader :get_user
+                ##
+                # RPC-specific configuration for `update_user`
+                # @return [::Gapic::Config::Method]
+                #
+                attr_reader :update_user
+                ##
+                # RPC-specific configuration for `delete_user`
+                # @return [::Gapic::Config::Method]
+                #
+                attr_reader :delete_user
+                ##
+                # RPC-specific configuration for `list_users`
+                # @return [::Gapic::Config::Method]
+                #
+                attr_reader :list_users
+
+                # @private
+                def initialize parent_rpcs = nil
+                  create_user_config = parent_rpcs&.create_user if parent_rpcs&.respond_to? :create_user
+                  @create_user = ::Gapic::Config::Method.new create_user_config
+                  get_user_config = parent_rpcs&.get_user if parent_rpcs&.respond_to? :get_user
+                  @get_user = ::Gapic::Config::Method.new get_user_config
+                  update_user_config = parent_rpcs&.update_user if parent_rpcs&.respond_to? :update_user
+                  @update_user = ::Gapic::Config::Method.new update_user_config
+                  delete_user_config = parent_rpcs&.delete_user if parent_rpcs&.respond_to? :delete_user
+                  @delete_user = ::Gapic::Config::Method.new delete_user_config
+                  list_users_config = parent_rpcs&.list_users if parent_rpcs&.respond_to? :list_users
+                  @list_users = ::Gapic::Config::Method.new list_users_config
+
+                  yield self if block_given?
+                end
               end
             end
           end

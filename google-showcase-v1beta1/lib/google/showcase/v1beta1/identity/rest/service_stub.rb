@@ -43,12 +43,9 @@ module Google
             #   The hostname or hostname:port of the service endpoint.
             #   Defaults to `"localhost:7469"`.
             #
-            # @param credentials [String, Hash, Google::Auth::Credentials]
-            #   Credentials to send with calls. You may provide any of the following types:
-            #    *  (`String`) The path to a service account key file in JSON format
-            #    *  (`Hash`) A service account key as a Hash
-            #    *  (`Google::Auth::Credentials`) A googleauth credentials object
-            #       (see the [googleauth docs](https://googleapis.dev/ruby/googleauth/latest/index.html))
+            # @param credentials [Google::Auth::Credentials]
+            #   Credentials to send with calls in form of a googleauth credentials object.
+            #   (see the [googleauth docs](https://googleapis.dev/ruby/googleauth/latest/index.html))
             #
             def initialize endpoint:, credentials:
               @client_stub = ::Gapic::Rest::ClientStub.new endpoint: endpoint, credentials: credentials
@@ -67,8 +64,8 @@ module Google
             def create_user request_pb, options:, &block
               request_json = JSON.parse ::Google::Showcase::V1beta1::CreateUserRequest.encode_json(request_pb)
 
-              uri = "v1beta1/users"
-              body = request_json.to_json
+              uri = "/v1beta1/users"
+              body = request_pb.to_json
 
               result_json = @client_stub.make_post_request(
                 uri:     uri,
@@ -91,7 +88,7 @@ module Google
             def get_user request_pb, options:, &block
               request_json = JSON.parse ::Google::Showcase::V1beta1::GetUserRequest.encode_json(request_pb)
 
-              uri = "v1beta1/#{request_json["name"]}"
+              uri = "/v1beta1/#{request_pb.name}"
 
               result_json = @client_stub.make_get_request(
                 uri:     uri,
@@ -113,8 +110,8 @@ module Google
             def update_user request_pb, options:, &block
               request_json = JSON.parse ::Google::Showcase::V1beta1::UpdateUserRequest.encode_json(request_pb)
 
-              uri = "v1beta1/#{request_json["user.name"]}"
-              body = request_json.to_json
+              uri = "/v1beta1/#{request_pb.user.name}"
+              body = request_pb.to_json
 
               result_json = @client_stub.make_patch_request(
                 uri:     uri,
@@ -137,7 +134,7 @@ module Google
             def delete_user request_pb, options:, &block
               request_json = JSON.parse ::Google::Showcase::V1beta1::DeleteUserRequest.encode_json(request_pb)
 
-              uri = "v1beta1/#{request_json["name"]}"
+              uri = "/v1beta1/#{request_pb.name}"
 
               result_json = @client_stub.make_delete_request(
                 uri:     uri,
@@ -159,7 +156,7 @@ module Google
             def list_users request_pb, options:, &block
               request_json = JSON.parse ::Google::Showcase::V1beta1::ListUsersRequest.encode_json(request_pb)
 
-              uri = "v1beta1/users"
+              uri = "/v1beta1/users"
 
               result_json = @client_stub.make_get_request(
                 uri:     uri,
@@ -169,7 +166,7 @@ module Google
 
               ::Google::Showcase::V1beta1::ListUsersResponse.decode_json result_json[:body]
             end
-            end
+          end
         end
       end
     end

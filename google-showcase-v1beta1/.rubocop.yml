@@ -23,7 +23,7 @@ Metrics/PerceivedComplexity:
   Enabled: false
 Naming/FileName:
   Exclude:
-    - "lib/google-showcase-v1beta1.rb"
+    - "lib/google-showcase.rb"
 Naming/PredicateName:
   Enabled: false
 Style/AsciiComments:
