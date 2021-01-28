@@ -16,6 +16,14 @@ require "googleauth"
 
 module Gapic
   module Rest
+    ##
+    # A class for making REST calls through Faraday
+    # ClientStub's responsibilities:
+    #   - wrap Faraday methods with a bounded explicit interface
+    #   - store service endpoint and create full url for the request
+    #   - store credentials and add auth information to the request
+    #   - convert errors from HTTP responses into ::Gapic::Rest::Error
+    #
     class ClientStub
       def initialize endpoint:, credentials:
         @endpoint = endpoint
@@ -28,9 +36,7 @@ module Gapic
       # @param uri [String]
       # @return [Hash { Symbol => String }]
       def make_get_request uri:, options:
-        request_url = make_request_url uri
-        puts "Bearer #{@credentials.client.access_token}"
-
+        request_url = create_request_url uri
         headers = {
           "Authorization" => "Bearer #{@credentials.client.access_token}"
         }
@@ -52,9 +58,7 @@ module Gapic
       # @param uri [String]
       # @return [Hash { Symbol => String }]
       def make_delete_request uri:, options:
-        request_url = make_request_url uri
-
-        puts "Bearer #{@credentials.client.access_token}"
+        request_url = create_request_url uri
         headers = {
           "Authorization" => "Bearer #{@credentials.client.access_token}"
         }
@@ -77,9 +81,7 @@ module Gapic
       # @param body [String]
       # @return [Hash { Symbol => String }]
       def make_post_request uri:, body:, options:
-        request_url = make_request_url uri
-
-        puts "Bearer #{@credentials.client.access_token}"
+        request_url = create_request_url uri
         headers = {
           "Content-Type" => "application/json",
           "Authorization" => "Bearer #{@credentials.client.access_token}"
@@ -104,9 +106,7 @@ module Gapic
       # @param body [String]
       # @return [Hash { Symbol => String }]
       def make_patch_request uri:, body:, options:
-        request_url = make_request_url uri
-
-        puts "Bearer #{@credentials.client.access_token}"
+        request_url = create_request_url uri
         headers = {
           "Content-Type" => "application/json",
           "Authorization" => "Bearer #{@credentials.client.access_token}"
@@ -130,11 +130,11 @@ module Gapic
       private
 
       ##
-      # Combines endpoint and uri to make request url
+      # Combines endpoint and uri to make full request url
       #
-      # @param [String] uri
+      # @param uri [String]
       # @return [String]
-      def make_request_url uri
+      def create_request_url uri
         uri_noslash = uri.gsub %r{^/}, ""
         "#{@endpoint}/#{uri_noslash}"
       end

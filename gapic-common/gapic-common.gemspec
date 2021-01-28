@@ -43,6 +43,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency "faraday", "~> 1.3.0"
 
   spec.add_development_dependency "google-cloud-core", "~> 1.5"
+  spec.add_development_dependency "google-style", "~> 1.25.0"
   spec.add_development_dependency "minitest", "~> 5.10"
   spec.add_development_dependency "minitest-autotest", "~> 1.0"
   spec.add_development_dependency "minitest-focus", "~> 1.1"

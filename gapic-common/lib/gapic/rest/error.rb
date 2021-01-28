@@ -1,7 +1,25 @@
+# Copyright 2021 Google LLC
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     https://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 require "json"
 
 module Gapic
   module Rest
+    ##
+    # Encapsulates HTTP error information from the
+    # response to the failed REST request
+    #
     class Error < StandardError
       attr_accessor :result, :status_code
 
@@ -17,7 +35,10 @@ module Gapic
 
         if result.key? :body
           message, code = try_parse_from_body result[:body]
-          super_msg = "#{msg}: #{message}" if message
+
+          pre_msg = msg.nil? ? "" : "#{msg}: "
+          super_msg = "#{pre_msg}: #{message}" if message
+
           status_code ||= code
         end
 
@@ -26,6 +47,9 @@ module Gapic
         @result = result
       end
 
+      ##
+      # Tries to get the error information from the JSON bodies
+      #
       # @param [String] body_str
       # @return [Array<String>]
       def try_parse_from_body body_str
