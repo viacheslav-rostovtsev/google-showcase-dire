@@ -21,7 +21,7 @@ module Gapic
     # response to the failed REST request
     #
     class Error < StandardError
-      attr_accessor :result, :status_code
+      attr_accessor :status_code, :result
 
       # @param [String] msg
       # @param [Hash] result

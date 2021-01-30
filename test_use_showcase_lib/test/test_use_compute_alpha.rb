@@ -16,7 +16,6 @@ class TestUseComputeAlpha < Minitest::Test
   def test_create_delete_ip_real
     rest_options = {}
     client = ::Google::Cloud::Compute::V1::Addresses::Rest::Client.new
-    client_ops = ::Google::Cloud::Compute::V1::RegionOperations::Rest::Client.new
 
     project = "client-debugging"
     region = "us-central1"
@@ -44,7 +43,7 @@ class TestUseComputeAlpha < Minitest::Test
     # "https://www.googleapis.com/auth/cloud-platform";
 
     if result.status != :DONE
-      client_ops = ::Google::Cloud::Compute::V1::RegionOperations::Rest::Client.new
+      client_ops ||= ::Google::Cloud::Compute::V1::RegionOperations::Rest::Client.new
       while result.status != :DONE
         puts "Checking for create operation status ... "
         result = client_ops.get operation: result.name, project: project, region: region
@@ -59,9 +58,9 @@ class TestUseComputeAlpha < Minitest::Test
     puts "Operation to delete: #{result.name} status #{result.status}"
 
     if result.status != :DONE
-      client_ops = ::Google::Cloud::Compute::V1::RegionOperations::Rest::Client.new
+      client_ops ||= ::Google::Cloud::Compute::V1::RegionOperations::Rest::Client.new
       while result.status != :DONE
-        puts "Checking for create operation status ... "
+        puts "Checking for delete operation status ... "
         result = client_ops.get operation: result.name, project: project, region: region
         assert_kind_of ::Google::Cloud::Compute::V1::Operation, result
         puts "Status:  #{result.status}"

@@ -67,7 +67,7 @@ module Google
                   &block
                 )
 
-                ::Google::Cloud::Compute::V1::Operation.decode_json result_json[:body]
+                ::Google::Cloud::Compute::V1::Operation.decode_json result_json[:body], { ignore_unknown_fields: true }
               end
 
               ##
@@ -89,7 +89,7 @@ module Google
                   &block
                 )
 
-                ::Google::Cloud::Compute::V1::Operation.decode_json result_json[:body]
+                ::Google::Cloud::Compute::V1::Operation.decode_json result_json[:body], { ignore_unknown_fields: true }
               end
 
               ##
@@ -111,7 +111,7 @@ module Google
                   &block
                 )
 
-                ::Google::Cloud::Compute::V1::Network.decode_json result_json[:body]
+                ::Google::Cloud::Compute::V1::Network.decode_json result_json[:body], { ignore_unknown_fields: true }
               end
 
               ##
@@ -135,7 +135,7 @@ module Google
                   &block
                 )
 
-                ::Google::Cloud::Compute::V1::Operation.decode_json result_json[:body]
+                ::Google::Cloud::Compute::V1::Operation.decode_json result_json[:body], { ignore_unknown_fields: true }
               end
 
               ##
@@ -157,7 +157,7 @@ module Google
                   &block
                 )
 
-                ::Google::Cloud::Compute::V1::NetworkList.decode_json result_json[:body]
+                ::Google::Cloud::Compute::V1::NetworkList.decode_json result_json[:body], { ignore_unknown_fields: true }
               end
 
               ##
@@ -179,7 +179,7 @@ module Google
                   &block
                 )
 
-                ::Google::Cloud::Compute::V1::ExchangedPeeringRoutesList.decode_json result_json[:body]
+                ::Google::Cloud::Compute::V1::ExchangedPeeringRoutesList.decode_json result_json[:body], { ignore_unknown_fields: true }
               end
 
               ##
@@ -203,7 +203,7 @@ module Google
                   &block
                 )
 
-                ::Google::Cloud::Compute::V1::Operation.decode_json result_json[:body]
+                ::Google::Cloud::Compute::V1::Operation.decode_json result_json[:body], { ignore_unknown_fields: true }
               end
 
               ##
@@ -227,7 +227,7 @@ module Google
                   &block
                 )
 
-                ::Google::Cloud::Compute::V1::Operation.decode_json result_json[:body]
+                ::Google::Cloud::Compute::V1::Operation.decode_json result_json[:body], { ignore_unknown_fields: true }
               end
 
               ##
@@ -249,7 +249,7 @@ module Google
                   &block
                 )
 
-                ::Google::Cloud::Compute::V1::Operation.decode_json result_json[:body]
+                ::Google::Cloud::Compute::V1::Operation.decode_json result_json[:body], { ignore_unknown_fields: true }
               end
 
               ##
@@ -273,7 +273,7 @@ module Google
                   &block
                 )
 
-                ::Google::Cloud::Compute::V1::Operation.decode_json result_json[:body]
+                ::Google::Cloud::Compute::V1::Operation.decode_json result_json[:body], { ignore_unknown_fields: true }
               end
             end
           end
