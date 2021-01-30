@@ -65,7 +65,7 @@ module Google
                   &block
                 )
 
-                ::Google::Cloud::Compute::V1::DiskType.decode_json result_json[:body]
+                ::Google::Cloud::Compute::V1::DiskType.decode_json result_json[:body], { ignore_unknown_fields: true }
               end
 
               ##
@@ -87,7 +87,7 @@ module Google
                   &block
                 )
 
-                ::Google::Cloud::Compute::V1::RegionDiskTypeList.decode_json result_json[:body]
+                ::Google::Cloud::Compute::V1::RegionDiskTypeList.decode_json result_json[:body], { ignore_unknown_fields: true }
               end
             end
           end

@@ -1,4 +1,4 @@
-The GRPC and REST structure a different because GRPC library has client and service stubs and generates some intermediate service code that ::Gapic wraps.
+The GRPC and REST are currently structured a different because GRPC library has client and service stubs and generates some intermediate service code that ::Gapic wraps.
 
 here how it goes for GRPC:
 
@@ -11,4 +11,4 @@ for REST we don't have a GRPC-generated layer to wrap, so the structure is sligh
 Entrypoint is a client at `ServiceName::Rest::Client`.
 client has-a `ServiceName::Rest::ServiceStub` that wraps the calls in a `::Gapic::Rest::Call` and calls to `::Gapic::Rest::ClientStub` to make actual calls.
 
-For this specific part, it made sense to break the symmetry because generating an additional abstraction 
+I am currently making a `::Gapic::ServiceStub`-like wrapper for REST as well, it will wrap the calls into a RpcCall-like structure.

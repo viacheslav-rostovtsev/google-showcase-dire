@@ -65,7 +65,7 @@ module Google
                   &block
                 )
 
-                ::Google::Cloud::Compute::V1::RouterAggregatedList.decode_json result_json[:body]
+                ::Google::Cloud::Compute::V1::RouterAggregatedList.decode_json result_json[:body], { ignore_unknown_fields: true }
               end
 
               ##
@@ -87,7 +87,7 @@ module Google
                   &block
                 )
 
-                ::Google::Cloud::Compute::V1::Operation.decode_json result_json[:body]
+                ::Google::Cloud::Compute::V1::Operation.decode_json result_json[:body], { ignore_unknown_fields: true }
               end
 
               ##
@@ -109,7 +109,7 @@ module Google
                   &block
                 )
 
-                ::Google::Cloud::Compute::V1::Router.decode_json result_json[:body]
+                ::Google::Cloud::Compute::V1::Router.decode_json result_json[:body], { ignore_unknown_fields: true }
               end
 
               ##
@@ -131,7 +131,7 @@ module Google
                   &block
                 )
 
-                ::Google::Cloud::Compute::V1::VmEndpointNatMappingsList.decode_json result_json[:body]
+                ::Google::Cloud::Compute::V1::VmEndpointNatMappingsList.decode_json result_json[:body], { ignore_unknown_fields: true }
               end
 
               ##
@@ -153,7 +153,7 @@ module Google
                   &block
                 )
 
-                ::Google::Cloud::Compute::V1::RouterStatusResponse.decode_json result_json[:body]
+                ::Google::Cloud::Compute::V1::RouterStatusResponse.decode_json result_json[:body], { ignore_unknown_fields: true }
               end
 
               ##
@@ -177,7 +177,7 @@ module Google
                   &block
                 )
 
-                ::Google::Cloud::Compute::V1::Operation.decode_json result_json[:body]
+                ::Google::Cloud::Compute::V1::Operation.decode_json result_json[:body], { ignore_unknown_fields: true }
               end
 
               ##
@@ -199,7 +199,7 @@ module Google
                   &block
                 )
 
-                ::Google::Cloud::Compute::V1::RouterList.decode_json result_json[:body]
+                ::Google::Cloud::Compute::V1::RouterList.decode_json result_json[:body], { ignore_unknown_fields: true }
               end
 
               ##
@@ -223,7 +223,7 @@ module Google
                   &block
                 )
 
-                ::Google::Cloud::Compute::V1::Operation.decode_json result_json[:body]
+                ::Google::Cloud::Compute::V1::Operation.decode_json result_json[:body], { ignore_unknown_fields: true }
               end
 
               ##
@@ -247,7 +247,7 @@ module Google
                   &block
                 )
 
-                ::Google::Cloud::Compute::V1::RoutersPreviewResponse.decode_json result_json[:body]
+                ::Google::Cloud::Compute::V1::RoutersPreviewResponse.decode_json result_json[:body], { ignore_unknown_fields: true }
               end
 
               ##
@@ -271,7 +271,7 @@ module Google
                   &block
                 )
 
-                ::Google::Cloud::Compute::V1::Operation.decode_json result_json[:body]
+                ::Google::Cloud::Compute::V1::Operation.decode_json result_json[:body], { ignore_unknown_fields: true }
               end
             end
           end

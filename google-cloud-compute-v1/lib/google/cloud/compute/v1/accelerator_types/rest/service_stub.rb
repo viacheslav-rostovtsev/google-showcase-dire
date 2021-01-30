@@ -65,7 +65,7 @@ module Google
                   &block
                 )
 
-                ::Google::Cloud::Compute::V1::AcceleratorTypeAggregatedList.decode_json result_json[:body]
+                ::Google::Cloud::Compute::V1::AcceleratorTypeAggregatedList.decode_json result_json[:body], { ignore_unknown_fields: true }
               end
 
               ##
@@ -87,7 +87,7 @@ module Google
                   &block
                 )
 
-                ::Google::Cloud::Compute::V1::AcceleratorType.decode_json result_json[:body]
+                ::Google::Cloud::Compute::V1::AcceleratorType.decode_json result_json[:body], { ignore_unknown_fields: true }
               end
 
               ##
@@ -109,7 +109,7 @@ module Google
                   &block
                 )
 
-                ::Google::Cloud::Compute::V1::AcceleratorTypeList.decode_json result_json[:body]
+                ::Google::Cloud::Compute::V1::AcceleratorTypeList.decode_json result_json[:body], { ignore_unknown_fields: true }
               end
             end
           end

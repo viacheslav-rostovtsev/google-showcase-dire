@@ -65,7 +65,7 @@ module Google
                   &block
                 )
 
-                ::Google::Cloud::Compute::V1::NetworkEndpointGroupAggregatedList.decode_json result_json[:body]
+                ::Google::Cloud::Compute::V1::NetworkEndpointGroupAggregatedList.decode_json result_json[:body], { ignore_unknown_fields: true }
               end
 
               ##
@@ -89,7 +89,7 @@ module Google
                   &block
                 )
 
-                ::Google::Cloud::Compute::V1::Operation.decode_json result_json[:body]
+                ::Google::Cloud::Compute::V1::Operation.decode_json result_json[:body], { ignore_unknown_fields: true }
               end
 
               ##
@@ -111,7 +111,7 @@ module Google
                   &block
                 )
 
-                ::Google::Cloud::Compute::V1::Operation.decode_json result_json[:body]
+                ::Google::Cloud::Compute::V1::Operation.decode_json result_json[:body], { ignore_unknown_fields: true }
               end
 
               ##
@@ -135,7 +135,7 @@ module Google
                   &block
                 )
 
-                ::Google::Cloud::Compute::V1::Operation.decode_json result_json[:body]
+                ::Google::Cloud::Compute::V1::Operation.decode_json result_json[:body], { ignore_unknown_fields: true }
               end
 
               ##
@@ -157,7 +157,7 @@ module Google
                   &block
                 )
 
-                ::Google::Cloud::Compute::V1::NetworkEndpointGroup.decode_json result_json[:body]
+                ::Google::Cloud::Compute::V1::NetworkEndpointGroup.decode_json result_json[:body], { ignore_unknown_fields: true }
               end
 
               ##
@@ -181,7 +181,7 @@ module Google
                   &block
                 )
 
-                ::Google::Cloud::Compute::V1::Operation.decode_json result_json[:body]
+                ::Google::Cloud::Compute::V1::Operation.decode_json result_json[:body], { ignore_unknown_fields: true }
               end
 
               ##
@@ -203,7 +203,7 @@ module Google
                   &block
                 )
 
-                ::Google::Cloud::Compute::V1::NetworkEndpointGroupList.decode_json result_json[:body]
+                ::Google::Cloud::Compute::V1::NetworkEndpointGroupList.decode_json result_json[:body], { ignore_unknown_fields: true }
               end
 
               ##
@@ -227,7 +227,7 @@ module Google
                   &block
                 )
 
-                ::Google::Cloud::Compute::V1::NetworkEndpointGroupsListNetworkEndpoints.decode_json result_json[:body]
+                ::Google::Cloud::Compute::V1::NetworkEndpointGroupsListNetworkEndpoints.decode_json result_json[:body], { ignore_unknown_fields: true }
               end
 
               ##
@@ -251,7 +251,7 @@ module Google
                   &block
                 )
 
-                ::Google::Cloud::Compute::V1::TestPermissionsResponse.decode_json result_json[:body]
+                ::Google::Cloud::Compute::V1::TestPermissionsResponse.decode_json result_json[:body], { ignore_unknown_fields: true }
               end
             end
           end

@@ -71,7 +71,7 @@ module Google
                   &block
                 )
 
-                ::Google::Cloud::Compute::V1::Operation.decode_json result_json[:body]
+                ::Google::Cloud::Compute::V1::Operation.decode_json result_json[:body], { ignore_unknown_fields: true }
               end
 
               ##
@@ -93,7 +93,7 @@ module Google
                   &block
                 )
 
-                ::Google::Cloud::Compute::V1::InstanceGroupManagerAggregatedList.decode_json result_json[:body]
+                ::Google::Cloud::Compute::V1::InstanceGroupManagerAggregatedList.decode_json result_json[:body], { ignore_unknown_fields: true }
               end
 
               ##
@@ -117,7 +117,7 @@ module Google
                   &block
                 )
 
-                ::Google::Cloud::Compute::V1::Operation.decode_json result_json[:body]
+                ::Google::Cloud::Compute::V1::Operation.decode_json result_json[:body], { ignore_unknown_fields: true }
               end
 
               ##
@@ -141,7 +141,7 @@ module Google
                   &block
                 )
 
-                ::Google::Cloud::Compute::V1::Operation.decode_json result_json[:body]
+                ::Google::Cloud::Compute::V1::Operation.decode_json result_json[:body], { ignore_unknown_fields: true }
               end
 
               ##
@@ -163,7 +163,7 @@ module Google
                   &block
                 )
 
-                ::Google::Cloud::Compute::V1::Operation.decode_json result_json[:body]
+                ::Google::Cloud::Compute::V1::Operation.decode_json result_json[:body], { ignore_unknown_fields: true }
               end
 
               ##
@@ -191,7 +191,7 @@ module Google
                   &block
                 )
 
-                ::Google::Cloud::Compute::V1::Operation.decode_json result_json[:body]
+                ::Google::Cloud::Compute::V1::Operation.decode_json result_json[:body], { ignore_unknown_fields: true }
               end
 
               ##
@@ -215,7 +215,7 @@ module Google
                   &block
                 )
 
-                ::Google::Cloud::Compute::V1::Operation.decode_json result_json[:body]
+                ::Google::Cloud::Compute::V1::Operation.decode_json result_json[:body], { ignore_unknown_fields: true }
               end
 
               ##
@@ -237,7 +237,7 @@ module Google
                   &block
                 )
 
-                ::Google::Cloud::Compute::V1::InstanceGroupManager.decode_json result_json[:body]
+                ::Google::Cloud::Compute::V1::InstanceGroupManager.decode_json result_json[:body], { ignore_unknown_fields: true }
               end
 
               ##
@@ -263,7 +263,7 @@ module Google
                   &block
                 )
 
-                ::Google::Cloud::Compute::V1::Operation.decode_json result_json[:body]
+                ::Google::Cloud::Compute::V1::Operation.decode_json result_json[:body], { ignore_unknown_fields: true }
               end
 
               ##
@@ -285,7 +285,7 @@ module Google
                   &block
                 )
 
-                ::Google::Cloud::Compute::V1::InstanceGroupManagerList.decode_json result_json[:body]
+                ::Google::Cloud::Compute::V1::InstanceGroupManagerList.decode_json result_json[:body], { ignore_unknown_fields: true }
               end
 
               ##
@@ -307,7 +307,7 @@ module Google
                   &block
                 )
 
-                ::Google::Cloud::Compute::V1::InstanceGroupManagersListErrorsResponse.decode_json result_json[:body]
+                ::Google::Cloud::Compute::V1::InstanceGroupManagersListErrorsResponse.decode_json result_json[:body], { ignore_unknown_fields: true }
               end
 
               ##
@@ -329,7 +329,7 @@ module Google
                   &block
                 )
 
-                ::Google::Cloud::Compute::V1::InstanceGroupManagersListManagedInstancesResponse.decode_json result_json[:body]
+                ::Google::Cloud::Compute::V1::InstanceGroupManagersListManagedInstancesResponse.decode_json result_json[:body], { ignore_unknown_fields: true }
               end
 
               ##
@@ -351,7 +351,7 @@ module Google
                   &block
                 )
 
-                ::Google::Cloud::Compute::V1::InstanceGroupManagersListPerInstanceConfigsResp.decode_json result_json[:body]
+                ::Google::Cloud::Compute::V1::InstanceGroupManagersListPerInstanceConfigsResp.decode_json result_json[:body], { ignore_unknown_fields: true }
               end
 
               ##
@@ -375,7 +375,7 @@ module Google
                   &block
                 )
 
-                ::Google::Cloud::Compute::V1::Operation.decode_json result_json[:body]
+                ::Google::Cloud::Compute::V1::Operation.decode_json result_json[:body], { ignore_unknown_fields: true }
               end
 
               ##
@@ -399,7 +399,7 @@ module Google
                   &block
                 )
 
-                ::Google::Cloud::Compute::V1::Operation.decode_json result_json[:body]
+                ::Google::Cloud::Compute::V1::Operation.decode_json result_json[:body], { ignore_unknown_fields: true }
               end
 
               ##
@@ -427,7 +427,7 @@ module Google
                   &block
                 )
 
-                ::Google::Cloud::Compute::V1::Operation.decode_json result_json[:body]
+                ::Google::Cloud::Compute::V1::Operation.decode_json result_json[:body], { ignore_unknown_fields: true }
               end
 
               ##
@@ -457,7 +457,7 @@ module Google
                   &block
                 )
 
-                ::Google::Cloud::Compute::V1::Operation.decode_json result_json[:body]
+                ::Google::Cloud::Compute::V1::Operation.decode_json result_json[:body], { ignore_unknown_fields: true }
               end
 
               ##
@@ -481,7 +481,7 @@ module Google
                   &block
                 )
 
-                ::Google::Cloud::Compute::V1::Operation.decode_json result_json[:body]
+                ::Google::Cloud::Compute::V1::Operation.decode_json result_json[:body], { ignore_unknown_fields: true }
               end
 
               ##
@@ -505,7 +505,7 @@ module Google
                   &block
                 )
 
-                ::Google::Cloud::Compute::V1::Operation.decode_json result_json[:body]
+                ::Google::Cloud::Compute::V1::Operation.decode_json result_json[:body], { ignore_unknown_fields: true }
               end
 
               ##
@@ -529,7 +529,7 @@ module Google
                   &block
                 )
 
-                ::Google::Cloud::Compute::V1::Operation.decode_json result_json[:body]
+                ::Google::Cloud::Compute::V1::Operation.decode_json result_json[:body], { ignore_unknown_fields: true }
               end
             end
           end

@@ -16,6 +16,14 @@ require "googleauth"
 
 module Gapic
   module Rest
+    ##
+    # A class for making REST calls through Faraday
+    # ClientStub's responsibilities:
+    #   - wrap Faraday methods with a bounded explicit interface
+    #   - store service endpoint and create full url for the request
+    #   - store credentials and add auth information to the request
+    #   - convert errors from HTTP responses into ::Gapic::Rest::Error
+    #
     class ClientStub
       def initialize endpoint:, credentials:
         @endpoint = endpoint
@@ -23,118 +31,137 @@ module Gapic
         @endpoint = @endpoint.chop if @endpoint.to_s.chars.last == "/"
 
         @credentials = credentials
+
+        @connection = Faraday.new url: @endpoint do |conn|
+          conn.headers = { "Content-Type" => "application/json" }
+          conn.authorization :Bearer, @credentials.client.access_token
+          conn.request :retry
+          conn.response :raise_error
+          conn.adapter :net_http
+        end
+
+        yield @connection if block_given?
+      end
+
+      def make_http_request verb, uri:, body:, query_string_params:, options:
+        response = @connection.send verb, uri do |req|
+          req.params = query_string_params
+          req.body = body unless body.nil?
+        end
+
+        result = response.to_hash
+        yield result, response.env if block_given?
+
+        result
       end
 
       # @param uri [String]
       # @return [Hash { Symbol => String }]
       def make_get_request uri:, options:
-        request_url = make_request_url uri
-        puts "Bearer #{@credentials.client.access_token}"
+        make_http_request :get, uri: uri, body: nil, query_string_params: {}, options: options
 
-        headers = {
-          "Authorization" => "Bearer #{@credentials.client.access_token}"
-        }
-
-        response = Faraday.get request_url do |req|
-          req.headers = headers
-        end
-
-        result = response.to_hash
-        yield result, response.env if block_given?
-
-        if result[:status] != 200
-          raise ::Gapic::Rest::Error.new "An error has occurred when making a REST request", result: result
-        end
-
-        result
+        # request_url = create_request_url uri
+        # headers = {
+        #   "Authorization" => "Bearer #{@credentials.client.access_token}"
+        # }
+        #
+        # response = Faraday.get request_url do |req|
+        #   req.headers = headers
+        # end
+        #
+        # result = response.to_hash
+        # yield result, response.env if block_given?
+        #
+        # if result[:status] != 200
+        #   raise ::Gapic::Rest::Error.new "An error has occurred when making a REST request", result: result
+        # end
+        #
+        # result
       end
 
       # @param uri [String]
       # @return [Hash { Symbol => String }]
       def make_delete_request uri:, options:
-        request_url = make_request_url uri
-
-        puts "Bearer #{@credentials.client.access_token}"
-        headers = {
-          "Authorization" => "Bearer #{@credentials.client.access_token}"
-        }
-
-        response = Faraday.delete request_url do |req|
-          req.headers = headers
-        end
-
-        result = response.to_hash
-        yield result, response.env if block_given?
-
-        if result[:status] != 200
-          raise ::Gapic::Rest::Error.new "An error has occurred when making a REST request", result: result
-        end
-
-        result
+        make_http_request :delete, uri: uri, body: nil, query_string_params: {}, options: options
+        # request_url = create_request_url uri
+        # headers = {
+        #   "Authorization" => "Bearer #{@credentials.client.access_token}"
+        # }
+        #
+        # response = Faraday.delete request_url do |req|
+        #   req.headers = headers
+        # end
+        #
+        # result = response.to_hash
+        # yield result, response.env if block_given?
+        #
+        # if result[:status] != 200
+        #   raise ::Gapic::Rest::Error.new "An error has occurred when making a REST request", result: result
+        # end
+        #
+        # result
       end
 
       # @param uri [String]
       # @param body [String]
       # @return [Hash { Symbol => String }]
       def make_post_request uri:, body:, options:
-        request_url = make_request_url uri
-
-        puts "Bearer #{@credentials.client.access_token}"
-        headers = {
-          "Content-Type" => "application/json",
-          "Authorization" => "Bearer #{@credentials.client.access_token}"
-        }
-
-        response = Faraday.post(
-          request_url,
-          body,
-          headers
-        )
-        result = response.to_hash
-        yield result, response.env if block_given?
-
-        if result[:status] != 200
-          raise ::Gapic::Rest::Error.new "An error has occurred when making a REST request", result: result
-        end
-
-        result
+        make_http_request :post, uri: uri, body: body, query_string_params: {}, options: options
+        # request_url = create_request_url uri
+        # headers = {
+        #   "Content-Type" => "application/json",
+        #   "Authorization" => "Bearer #{@credentials.client.access_token}"
+        # }
+        #
+        # response = Faraday.post(
+        #   request_url,
+        #   body,
+        #   headers
+        # )
+        # result = response.to_hash
+        # yield result, response.env if block_given?
+        #
+        # if result[:status] != 200
+        #   raise ::Gapic::Rest::Error.new "An error has occurred when making a REST request", result: result
+        # end
+        #
+        # result
       end
 
       # @param uri [String]
       # @param body [String]
       # @return [Hash { Symbol => String }]
       def make_patch_request uri:, body:, options:
-        request_url = make_request_url uri
-
-        puts "Bearer #{@credentials.client.access_token}"
-        headers = {
-          "Content-Type" => "application/json",
-          "Authorization" => "Bearer #{@credentials.client.access_token}"
-        }
-
-        response = Faraday.put(
-          request_url,
-          body,
-          headers
-        )
-        result = response.to_hash
-        yield result, response.env if block_given?
-
-        if result[:status] != 200
-          raise ::Gapic::Rest::Error.new "An error has occurred when making a REST request", result: result
-        end
-
-        result
+        make_http_request :patch, uri: uri, body: body, query_string_params: {}, options: options
+        # request_url = create_request_url uri
+        # headers = {
+        #   "Content-Type" => "application/json",
+        #   "Authorization" => "Bearer #{@credentials.client.access_token}"
+        # }
+        #
+        # response = Faraday.put(
+        #   request_url,
+        #   body,
+        #   headers
+        # )
+        # result = response.to_hash
+        # yield result, response.env if block_given?
+        #
+        # if result[:status] != 200
+        #   raise ::Gapic::Rest::Error.new "An error has occurred when making a REST request", result: result
+        # end
+        #
+        # result
       end
 
       private
 
       ##
-      # Combines endpoint and uri to make request url
+      # Combines endpoint and uri to make full request url
       #
-      # @param [String] uri
+      # @param uri [String]
       # @return [String]
-      def make_request_url uri
+      def create_request_url uri
         uri_noslash = uri.gsub %r{^/}, ""
         "#{@endpoint}/#{uri_noslash}"
       end
