@@ -55,8 +55,6 @@ module Google
               #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
               # @return [::Google::Cloud::Compute::V1::Operation]
               def add_rule request_pb, options:, &block
-                request_json = JSON.parse ::Google::Cloud::Compute::V1::AddRuleSecurityPolicyRequest.encode_json(request_pb)
-
                 uri = "/compute/v1/projects/#{request_pb.project}/global/securityPolicies/#{request_pb.security_policy}/addRule"
                 body = request_pb.security_policy_rule_resource.to_json
 
@@ -67,7 +65,7 @@ module Google
                   &block
                 )
 
-                ::Google::Cloud::Compute::V1::Operation.decode_json result_json[:body], { ignore_unknown_fields: true }
+                ::Google::Cloud::Compute::V1::Operation.decode_json result_json[:body], ignore_unknown_fields: true
               end
 
               ##
@@ -79,17 +77,19 @@ module Google
               #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
               # @return [::Google::Cloud::Compute::V1::Operation]
               def delete request_pb, options:, &block
-                request_json = JSON.parse ::Google::Cloud::Compute::V1::DeleteSecurityPolicyRequest.encode_json(request_pb)
-
                 uri = "/compute/v1/projects/#{request_pb.project}/global/securityPolicies/#{request_pb.security_policy}"
+
+                query_string_params = {}
+                query_string_params["requestId"] = request_pb.request_id.to_s if request_pb.request_id && request_pb.request_id != ""
 
                 result_json = @client_stub.make_delete_request(
                   uri:     uri,
+                  params:  query_string_params,
                   options: options,
                   &block
                 )
 
-                ::Google::Cloud::Compute::V1::Operation.decode_json result_json[:body], { ignore_unknown_fields: true }
+                ::Google::Cloud::Compute::V1::Operation.decode_json result_json[:body], ignore_unknown_fields: true
               end
 
               ##
@@ -101,8 +101,6 @@ module Google
               #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
               # @return [::Google::Cloud::Compute::V1::SecurityPolicy]
               def get request_pb, options:, &block
-                request_json = JSON.parse ::Google::Cloud::Compute::V1::GetSecurityPolicyRequest.encode_json(request_pb)
-
                 uri = "/compute/v1/projects/#{request_pb.project}/global/securityPolicies/#{request_pb.security_policy}"
 
                 result_json = @client_stub.make_get_request(
@@ -111,7 +109,7 @@ module Google
                   &block
                 )
 
-                ::Google::Cloud::Compute::V1::SecurityPolicy.decode_json result_json[:body], { ignore_unknown_fields: true }
+                ::Google::Cloud::Compute::V1::SecurityPolicy.decode_json result_json[:body], ignore_unknown_fields: true
               end
 
               ##
@@ -123,17 +121,19 @@ module Google
               #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
               # @return [::Google::Cloud::Compute::V1::SecurityPolicyRule]
               def get_rule request_pb, options:, &block
-                request_json = JSON.parse ::Google::Cloud::Compute::V1::GetRuleSecurityPolicyRequest.encode_json(request_pb)
-
                 uri = "/compute/v1/projects/#{request_pb.project}/global/securityPolicies/#{request_pb.security_policy}/getRule"
+
+                query_string_params = {}
+                query_string_params["priority"] = request_pb.priority.to_s if request_pb.priority && request_pb.priority != 0
 
                 result_json = @client_stub.make_get_request(
                   uri:     uri,
+                  params:  query_string_params,
                   options: options,
                   &block
                 )
 
-                ::Google::Cloud::Compute::V1::SecurityPolicyRule.decode_json result_json[:body], { ignore_unknown_fields: true }
+                ::Google::Cloud::Compute::V1::SecurityPolicyRule.decode_json result_json[:body], ignore_unknown_fields: true
               end
 
               ##
@@ -145,8 +145,6 @@ module Google
               #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
               # @return [::Google::Cloud::Compute::V1::Operation]
               def insert request_pb, options:, &block
-                request_json = JSON.parse ::Google::Cloud::Compute::V1::InsertSecurityPolicyRequest.encode_json(request_pb)
-
                 uri = "/compute/v1/projects/#{request_pb.project}/global/securityPolicies"
                 body = request_pb.security_policy_resource.to_json
 
@@ -157,7 +155,7 @@ module Google
                   &block
                 )
 
-                ::Google::Cloud::Compute::V1::Operation.decode_json result_json[:body], { ignore_unknown_fields: true }
+                ::Google::Cloud::Compute::V1::Operation.decode_json result_json[:body], ignore_unknown_fields: true
               end
 
               ##
@@ -169,17 +167,23 @@ module Google
               #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
               # @return [::Google::Cloud::Compute::V1::SecurityPolicyList]
               def list request_pb, options:, &block
-                request_json = JSON.parse ::Google::Cloud::Compute::V1::ListSecurityPoliciesRequest.encode_json(request_pb)
-
                 uri = "/compute/v1/projects/#{request_pb.project}/global/securityPolicies"
+
+                query_string_params = {}
+                query_string_params["filter"] = request_pb.filter.to_s if request_pb.filter && request_pb.filter != ""
+                query_string_params["maxResults"] = request_pb.max_results.to_s if request_pb.max_results && request_pb.max_results != 0
+                query_string_params["orderBy"] =  request_pb.order_by.to_s if request_pb.order_by && request_pb.order_by != ""
+                query_string_params["pageToken"] = request_pb.page_token.to_s if request_pb.page_token && request_pb.page_token != ""
+                query_string_params["returnPartialSuccess"] = request_pb.return_partial_success.to_s if request_pb.return_partial_success && request_pb.return_partial_success != false
 
                 result_json = @client_stub.make_get_request(
                   uri:     uri,
+                  params:  query_string_params,
                   options: options,
                   &block
                 )
 
-                ::Google::Cloud::Compute::V1::SecurityPolicyList.decode_json result_json[:body], { ignore_unknown_fields: true }
+                ::Google::Cloud::Compute::V1::SecurityPolicyList.decode_json result_json[:body], ignore_unknown_fields: true
               end
 
               ##
@@ -191,17 +195,23 @@ module Google
               #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
               # @return [::Google::Cloud::Compute::V1::SecurityPoliciesListPreconfiguredExpressionSetsResponse]
               def list_preconfigured_expression_sets request_pb, options:, &block
-                request_json = JSON.parse ::Google::Cloud::Compute::V1::ListPreconfiguredExpressionSetsSecurityPoliciesRequest.encode_json(request_pb)
-
                 uri = "/compute/v1/projects/#{request_pb.project}/global/securityPolicies/listPreconfiguredExpressionSets"
+
+                query_string_params = {}
+                query_string_params["filter"] = request_pb.filter.to_s if request_pb.filter && request_pb.filter != ""
+                query_string_params["maxResults"] = request_pb.max_results.to_s if request_pb.max_results && request_pb.max_results != 0
+                query_string_params["orderBy"] =  request_pb.order_by.to_s if request_pb.order_by && request_pb.order_by != ""
+                query_string_params["pageToken"] = request_pb.page_token.to_s if request_pb.page_token && request_pb.page_token != ""
+                query_string_params["returnPartialSuccess"] = request_pb.return_partial_success.to_s if request_pb.return_partial_success && request_pb.return_partial_success != false
 
                 result_json = @client_stub.make_get_request(
                   uri:     uri,
+                  params:  query_string_params,
                   options: options,
                   &block
                 )
 
-                ::Google::Cloud::Compute::V1::SecurityPoliciesListPreconfiguredExpressionSetsResponse.decode_json result_json[:body], { ignore_unknown_fields: true }
+                ::Google::Cloud::Compute::V1::SecurityPoliciesListPreconfiguredExpressionSetsResponse.decode_json result_json[:body], ignore_unknown_fields: true
               end
 
               ##
@@ -213,8 +223,6 @@ module Google
               #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
               # @return [::Google::Cloud::Compute::V1::Operation]
               def patch request_pb, options:, &block
-                request_json = JSON.parse ::Google::Cloud::Compute::V1::PatchSecurityPolicyRequest.encode_json(request_pb)
-
                 uri = "/compute/v1/projects/#{request_pb.project}/global/securityPolicies/#{request_pb.security_policy}"
                 body = request_pb.security_policy_resource.to_json
 
@@ -225,7 +233,7 @@ module Google
                   &block
                 )
 
-                ::Google::Cloud::Compute::V1::Operation.decode_json result_json[:body], { ignore_unknown_fields: true }
+                ::Google::Cloud::Compute::V1::Operation.decode_json result_json[:body], ignore_unknown_fields: true
               end
 
               ##
@@ -237,8 +245,6 @@ module Google
               #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
               # @return [::Google::Cloud::Compute::V1::Operation]
               def patch_rule request_pb, options:, &block
-                request_json = JSON.parse ::Google::Cloud::Compute::V1::PatchRuleSecurityPolicyRequest.encode_json(request_pb)
-
                 uri = "/compute/v1/projects/#{request_pb.project}/global/securityPolicies/#{request_pb.security_policy}/patchRule"
                 body = request_pb.security_policy_rule_resource.to_json
 
@@ -249,7 +255,7 @@ module Google
                   &block
                 )
 
-                ::Google::Cloud::Compute::V1::Operation.decode_json result_json[:body], { ignore_unknown_fields: true }
+                ::Google::Cloud::Compute::V1::Operation.decode_json result_json[:body], ignore_unknown_fields: true
               end
 
               ##
@@ -261,17 +267,19 @@ module Google
               #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
               # @return [::Google::Cloud::Compute::V1::Operation]
               def remove_rule request_pb, options:, &block
-                request_json = JSON.parse ::Google::Cloud::Compute::V1::RemoveRuleSecurityPolicyRequest.encode_json(request_pb)
-
                 uri = "/compute/v1/projects/#{request_pb.project}/global/securityPolicies/#{request_pb.security_policy}/removeRule"
+
+                query_string_params = {}
+                query_string_params["priority"] = request_pb.priority.to_s if request_pb.priority && request_pb.priority != 0
 
                 result_json = @client_stub.make_post_request(
                   uri:     uri,
+                  params:  query_string_params,
                   options: options,
                   &block
                 )
 
-                ::Google::Cloud::Compute::V1::Operation.decode_json result_json[:body], { ignore_unknown_fields: true }
+                ::Google::Cloud::Compute::V1::Operation.decode_json result_json[:body], ignore_unknown_fields: true
               end
             end
           end

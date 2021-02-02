@@ -55,8 +55,6 @@ module Google
               #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
               # @return [::Google::Cloud::Compute::V1::Operation]
               def add_health_check request_pb, options:, &block
-                request_json = JSON.parse ::Google::Cloud::Compute::V1::AddHealthCheckTargetPoolRequest.encode_json(request_pb)
-
                 uri = "/compute/v1/projects/#{request_pb.project}/regions/#{request_pb.region}/targetPools/#{request_pb.target_pool}/addHealthCheck"
                 body = request_pb.target_pools_add_health_check_request_resource.to_json
 
@@ -67,7 +65,7 @@ module Google
                   &block
                 )
 
-                ::Google::Cloud::Compute::V1::Operation.decode_json result_json[:body], { ignore_unknown_fields: true }
+                ::Google::Cloud::Compute::V1::Operation.decode_json result_json[:body], ignore_unknown_fields: true
               end
 
               ##
@@ -79,8 +77,6 @@ module Google
               #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
               # @return [::Google::Cloud::Compute::V1::Operation]
               def add_instance request_pb, options:, &block
-                request_json = JSON.parse ::Google::Cloud::Compute::V1::AddInstanceTargetPoolRequest.encode_json(request_pb)
-
                 uri = "/compute/v1/projects/#{request_pb.project}/regions/#{request_pb.region}/targetPools/#{request_pb.target_pool}/addInstance"
                 body = request_pb.target_pools_add_instance_request_resource.to_json
 
@@ -91,7 +87,7 @@ module Google
                   &block
                 )
 
-                ::Google::Cloud::Compute::V1::Operation.decode_json result_json[:body], { ignore_unknown_fields: true }
+                ::Google::Cloud::Compute::V1::Operation.decode_json result_json[:body], ignore_unknown_fields: true
               end
 
               ##
@@ -103,17 +99,24 @@ module Google
               #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
               # @return [::Google::Cloud::Compute::V1::TargetPoolAggregatedList]
               def aggregated_list request_pb, options:, &block
-                request_json = JSON.parse ::Google::Cloud::Compute::V1::AggregatedListTargetPoolsRequest.encode_json(request_pb)
-
                 uri = "/compute/v1/projects/#{request_pb.project}/aggregated/targetPools"
+
+                query_string_params = {}
+                query_string_params["filter"] = request_pb.filter.to_s if request_pb.filter && request_pb.filter != ""
+                query_string_params["includeAllScopes"] = request_pb.include_all_scopes.to_s if request_pb.include_all_scopes && request_pb.include_all_scopes != false
+                query_string_params["maxResults"] = request_pb.max_results.to_s if request_pb.max_results && request_pb.max_results != 0
+                query_string_params["orderBy"] =  request_pb.order_by.to_s if request_pb.order_by && request_pb.order_by != ""
+                query_string_params["pageToken"] = request_pb.page_token.to_s if request_pb.page_token && request_pb.page_token != ""
+                query_string_params["returnPartialSuccess"] = request_pb.return_partial_success.to_s if request_pb.return_partial_success && request_pb.return_partial_success != false
 
                 result_json = @client_stub.make_get_request(
                   uri:     uri,
+                  params:  query_string_params,
                   options: options,
                   &block
                 )
 
-                ::Google::Cloud::Compute::V1::TargetPoolAggregatedList.decode_json result_json[:body], { ignore_unknown_fields: true }
+                ::Google::Cloud::Compute::V1::TargetPoolAggregatedList.decode_json result_json[:body], ignore_unknown_fields: true
               end
 
               ##
@@ -125,17 +128,19 @@ module Google
               #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
               # @return [::Google::Cloud::Compute::V1::Operation]
               def delete request_pb, options:, &block
-                request_json = JSON.parse ::Google::Cloud::Compute::V1::DeleteTargetPoolRequest.encode_json(request_pb)
-
                 uri = "/compute/v1/projects/#{request_pb.project}/regions/#{request_pb.region}/targetPools/#{request_pb.target_pool}"
+
+                query_string_params = {}
+                query_string_params["requestId"] = request_pb.request_id.to_s if request_pb.request_id && request_pb.request_id != ""
 
                 result_json = @client_stub.make_delete_request(
                   uri:     uri,
+                  params:  query_string_params,
                   options: options,
                   &block
                 )
 
-                ::Google::Cloud::Compute::V1::Operation.decode_json result_json[:body], { ignore_unknown_fields: true }
+                ::Google::Cloud::Compute::V1::Operation.decode_json result_json[:body], ignore_unknown_fields: true
               end
 
               ##
@@ -147,8 +152,6 @@ module Google
               #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
               # @return [::Google::Cloud::Compute::V1::TargetPool]
               def get request_pb, options:, &block
-                request_json = JSON.parse ::Google::Cloud::Compute::V1::GetTargetPoolRequest.encode_json(request_pb)
-
                 uri = "/compute/v1/projects/#{request_pb.project}/regions/#{request_pb.region}/targetPools/#{request_pb.target_pool}"
 
                 result_json = @client_stub.make_get_request(
@@ -157,7 +160,7 @@ module Google
                   &block
                 )
 
-                ::Google::Cloud::Compute::V1::TargetPool.decode_json result_json[:body], { ignore_unknown_fields: true }
+                ::Google::Cloud::Compute::V1::TargetPool.decode_json result_json[:body], ignore_unknown_fields: true
               end
 
               ##
@@ -169,8 +172,6 @@ module Google
               #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
               # @return [::Google::Cloud::Compute::V1::TargetPoolInstanceHealth]
               def get_health request_pb, options:, &block
-                request_json = JSON.parse ::Google::Cloud::Compute::V1::GetHealthTargetPoolRequest.encode_json(request_pb)
-
                 uri = "/compute/v1/projects/#{request_pb.project}/regions/#{request_pb.region}/targetPools/#{request_pb.target_pool}/getHealth"
                 body = request_pb.instance_reference_resource.to_json
 
@@ -181,7 +182,7 @@ module Google
                   &block
                 )
 
-                ::Google::Cloud::Compute::V1::TargetPoolInstanceHealth.decode_json result_json[:body], { ignore_unknown_fields: true }
+                ::Google::Cloud::Compute::V1::TargetPoolInstanceHealth.decode_json result_json[:body], ignore_unknown_fields: true
               end
 
               ##
@@ -193,8 +194,6 @@ module Google
               #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
               # @return [::Google::Cloud::Compute::V1::Operation]
               def insert request_pb, options:, &block
-                request_json = JSON.parse ::Google::Cloud::Compute::V1::InsertTargetPoolRequest.encode_json(request_pb)
-
                 uri = "/compute/v1/projects/#{request_pb.project}/regions/#{request_pb.region}/targetPools"
                 body = request_pb.target_pool_resource.to_json
 
@@ -205,7 +204,7 @@ module Google
                   &block
                 )
 
-                ::Google::Cloud::Compute::V1::Operation.decode_json result_json[:body], { ignore_unknown_fields: true }
+                ::Google::Cloud::Compute::V1::Operation.decode_json result_json[:body], ignore_unknown_fields: true
               end
 
               ##
@@ -217,17 +216,23 @@ module Google
               #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
               # @return [::Google::Cloud::Compute::V1::TargetPoolList]
               def list request_pb, options:, &block
-                request_json = JSON.parse ::Google::Cloud::Compute::V1::ListTargetPoolsRequest.encode_json(request_pb)
-
                 uri = "/compute/v1/projects/#{request_pb.project}/regions/#{request_pb.region}/targetPools"
+
+                query_string_params = {}
+                query_string_params["filter"] = request_pb.filter.to_s if request_pb.filter && request_pb.filter != ""
+                query_string_params["maxResults"] = request_pb.max_results.to_s if request_pb.max_results && request_pb.max_results != 0
+                query_string_params["orderBy"] =  request_pb.order_by.to_s if request_pb.order_by && request_pb.order_by != ""
+                query_string_params["pageToken"] = request_pb.page_token.to_s if request_pb.page_token && request_pb.page_token != ""
+                query_string_params["returnPartialSuccess"] = request_pb.return_partial_success.to_s if request_pb.return_partial_success && request_pb.return_partial_success != false
 
                 result_json = @client_stub.make_get_request(
                   uri:     uri,
+                  params:  query_string_params,
                   options: options,
                   &block
                 )
 
-                ::Google::Cloud::Compute::V1::TargetPoolList.decode_json result_json[:body], { ignore_unknown_fields: true }
+                ::Google::Cloud::Compute::V1::TargetPoolList.decode_json result_json[:body], ignore_unknown_fields: true
               end
 
               ##
@@ -239,8 +244,6 @@ module Google
               #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
               # @return [::Google::Cloud::Compute::V1::Operation]
               def remove_health_check request_pb, options:, &block
-                request_json = JSON.parse ::Google::Cloud::Compute::V1::RemoveHealthCheckTargetPoolRequest.encode_json(request_pb)
-
                 uri = "/compute/v1/projects/#{request_pb.project}/regions/#{request_pb.region}/targetPools/#{request_pb.target_pool}/removeHealthCheck"
                 body = request_pb.target_pools_remove_health_check_request_resource.to_json
 
@@ -251,7 +254,7 @@ module Google
                   &block
                 )
 
-                ::Google::Cloud::Compute::V1::Operation.decode_json result_json[:body], { ignore_unknown_fields: true }
+                ::Google::Cloud::Compute::V1::Operation.decode_json result_json[:body], ignore_unknown_fields: true
               end
 
               ##
@@ -263,8 +266,6 @@ module Google
               #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
               # @return [::Google::Cloud::Compute::V1::Operation]
               def remove_instance request_pb, options:, &block
-                request_json = JSON.parse ::Google::Cloud::Compute::V1::RemoveInstanceTargetPoolRequest.encode_json(request_pb)
-
                 uri = "/compute/v1/projects/#{request_pb.project}/regions/#{request_pb.region}/targetPools/#{request_pb.target_pool}/removeInstance"
                 body = request_pb.target_pools_remove_instance_request_resource.to_json
 
@@ -275,7 +276,7 @@ module Google
                   &block
                 )
 
-                ::Google::Cloud::Compute::V1::Operation.decode_json result_json[:body], { ignore_unknown_fields: true }
+                ::Google::Cloud::Compute::V1::Operation.decode_json result_json[:body], ignore_unknown_fields: true
               end
 
               ##
@@ -287,8 +288,6 @@ module Google
               #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
               # @return [::Google::Cloud::Compute::V1::Operation]
               def set_backup request_pb, options:, &block
-                request_json = JSON.parse ::Google::Cloud::Compute::V1::SetBackupTargetPoolRequest.encode_json(request_pb)
-
                 uri = "/compute/v1/projects/#{request_pb.project}/regions/#{request_pb.region}/targetPools/#{request_pb.target_pool}/setBackup"
                 body = request_pb.target_reference_resource.to_json
 
@@ -299,7 +298,7 @@ module Google
                   &block
                 )
 
-                ::Google::Cloud::Compute::V1::Operation.decode_json result_json[:body], { ignore_unknown_fields: true }
+                ::Google::Cloud::Compute::V1::Operation.decode_json result_json[:body], ignore_unknown_fields: true
               end
             end
           end

@@ -55,8 +55,6 @@ module Google
               #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
               # @return [::Google::Cloud::Compute::V1::Operation]
               def add_signed_url_key request_pb, options:, &block
-                request_json = JSON.parse ::Google::Cloud::Compute::V1::AddSignedUrlKeyBackendServiceRequest.encode_json(request_pb)
-
                 uri = "/compute/v1/projects/#{request_pb.project}/global/backendServices/#{request_pb.backend_service}/addSignedUrlKey"
                 body = request_pb.signed_url_key_resource.to_json
 
@@ -67,7 +65,7 @@ module Google
                   &block
                 )
 
-                ::Google::Cloud::Compute::V1::Operation.decode_json result_json[:body], { ignore_unknown_fields: true }
+                ::Google::Cloud::Compute::V1::Operation.decode_json result_json[:body], ignore_unknown_fields: true
               end
 
               ##
@@ -79,17 +77,24 @@ module Google
               #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
               # @return [::Google::Cloud::Compute::V1::BackendServiceAggregatedList]
               def aggregated_list request_pb, options:, &block
-                request_json = JSON.parse ::Google::Cloud::Compute::V1::AggregatedListBackendServicesRequest.encode_json(request_pb)
-
                 uri = "/compute/v1/projects/#{request_pb.project}/aggregated/backendServices"
+
+                query_string_params = {}
+                query_string_params["filter"] = request_pb.filter.to_s if request_pb.filter && request_pb.filter != ""
+                query_string_params["includeAllScopes"] = request_pb.include_all_scopes.to_s if request_pb.include_all_scopes && request_pb.include_all_scopes != false
+                query_string_params["maxResults"] = request_pb.max_results.to_s if request_pb.max_results && request_pb.max_results != 0
+                query_string_params["orderBy"] =  request_pb.order_by.to_s if request_pb.order_by && request_pb.order_by != ""
+                query_string_params["pageToken"] = request_pb.page_token.to_s if request_pb.page_token && request_pb.page_token != ""
+                query_string_params["returnPartialSuccess"] = request_pb.return_partial_success.to_s if request_pb.return_partial_success && request_pb.return_partial_success != false
 
                 result_json = @client_stub.make_get_request(
                   uri:     uri,
+                  params:  query_string_params,
                   options: options,
                   &block
                 )
 
-                ::Google::Cloud::Compute::V1::BackendServiceAggregatedList.decode_json result_json[:body], { ignore_unknown_fields: true }
+                ::Google::Cloud::Compute::V1::BackendServiceAggregatedList.decode_json result_json[:body], ignore_unknown_fields: true
               end
 
               ##
@@ -101,17 +106,19 @@ module Google
               #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
               # @return [::Google::Cloud::Compute::V1::Operation]
               def delete request_pb, options:, &block
-                request_json = JSON.parse ::Google::Cloud::Compute::V1::DeleteBackendServiceRequest.encode_json(request_pb)
-
                 uri = "/compute/v1/projects/#{request_pb.project}/global/backendServices/#{request_pb.backend_service}"
+
+                query_string_params = {}
+                query_string_params["requestId"] = request_pb.request_id.to_s if request_pb.request_id && request_pb.request_id != ""
 
                 result_json = @client_stub.make_delete_request(
                   uri:     uri,
+                  params:  query_string_params,
                   options: options,
                   &block
                 )
 
-                ::Google::Cloud::Compute::V1::Operation.decode_json result_json[:body], { ignore_unknown_fields: true }
+                ::Google::Cloud::Compute::V1::Operation.decode_json result_json[:body], ignore_unknown_fields: true
               end
 
               ##
@@ -123,17 +130,20 @@ module Google
               #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
               # @return [::Google::Cloud::Compute::V1::Operation]
               def delete_signed_url_key request_pb, options:, &block
-                request_json = JSON.parse ::Google::Cloud::Compute::V1::DeleteSignedUrlKeyBackendServiceRequest.encode_json(request_pb)
-
                 uri = "/compute/v1/projects/#{request_pb.project}/global/backendServices/#{request_pb.backend_service}/deleteSignedUrlKey"
+
+                query_string_params = {}
+                query_string_params["keyName"] = request_pb.key_name.to_s if request_pb.key_name && request_pb.key_name != ""
+                query_string_params["requestId"] = request_pb.request_id.to_s if request_pb.request_id && request_pb.request_id != ""
 
                 result_json = @client_stub.make_post_request(
                   uri:     uri,
+                  params:  query_string_params,
                   options: options,
                   &block
                 )
 
-                ::Google::Cloud::Compute::V1::Operation.decode_json result_json[:body], { ignore_unknown_fields: true }
+                ::Google::Cloud::Compute::V1::Operation.decode_json result_json[:body], ignore_unknown_fields: true
               end
 
               ##
@@ -145,8 +155,6 @@ module Google
               #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
               # @return [::Google::Cloud::Compute::V1::BackendService]
               def get request_pb, options:, &block
-                request_json = JSON.parse ::Google::Cloud::Compute::V1::GetBackendServiceRequest.encode_json(request_pb)
-
                 uri = "/compute/v1/projects/#{request_pb.project}/global/backendServices/#{request_pb.backend_service}"
 
                 result_json = @client_stub.make_get_request(
@@ -155,7 +163,7 @@ module Google
                   &block
                 )
 
-                ::Google::Cloud::Compute::V1::BackendService.decode_json result_json[:body], { ignore_unknown_fields: true }
+                ::Google::Cloud::Compute::V1::BackendService.decode_json result_json[:body], ignore_unknown_fields: true
               end
 
               ##
@@ -171,8 +179,6 @@ module Google
               #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
               # @return [::Google::Cloud::Compute::V1::BackendServiceGroupHealth]
               def get_health request_pb, options:, &block
-                request_json = JSON.parse ::Google::Cloud::Compute::V1::GetHealthBackendServiceRequest.encode_json(request_pb)
-
                 uri = "/compute/v1/projects/#{request_pb.project}/global/backendServices/#{request_pb.backend_service}/getHealth"
                 body = request_pb.resource_group_reference_resource.to_json
 
@@ -183,7 +189,7 @@ module Google
                   &block
                 )
 
-                ::Google::Cloud::Compute::V1::BackendServiceGroupHealth.decode_json result_json[:body], { ignore_unknown_fields: true }
+                ::Google::Cloud::Compute::V1::BackendServiceGroupHealth.decode_json result_json[:body], ignore_unknown_fields: true
               end
 
               ##
@@ -195,8 +201,6 @@ module Google
               #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
               # @return [::Google::Cloud::Compute::V1::Operation]
               def insert request_pb, options:, &block
-                request_json = JSON.parse ::Google::Cloud::Compute::V1::InsertBackendServiceRequest.encode_json(request_pb)
-
                 uri = "/compute/v1/projects/#{request_pb.project}/global/backendServices"
                 body = request_pb.backend_service_resource.to_json
 
@@ -207,7 +211,7 @@ module Google
                   &block
                 )
 
-                ::Google::Cloud::Compute::V1::Operation.decode_json result_json[:body], { ignore_unknown_fields: true }
+                ::Google::Cloud::Compute::V1::Operation.decode_json result_json[:body], ignore_unknown_fields: true
               end
 
               ##
@@ -219,17 +223,23 @@ module Google
               #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
               # @return [::Google::Cloud::Compute::V1::BackendServiceList]
               def list request_pb, options:, &block
-                request_json = JSON.parse ::Google::Cloud::Compute::V1::ListBackendServicesRequest.encode_json(request_pb)
-
                 uri = "/compute/v1/projects/#{request_pb.project}/global/backendServices"
+
+                query_string_params = {}
+                query_string_params["filter"] = request_pb.filter.to_s if request_pb.filter && request_pb.filter != ""
+                query_string_params["maxResults"] = request_pb.max_results.to_s if request_pb.max_results && request_pb.max_results != 0
+                query_string_params["orderBy"] =  request_pb.order_by.to_s if request_pb.order_by && request_pb.order_by != ""
+                query_string_params["pageToken"] = request_pb.page_token.to_s if request_pb.page_token && request_pb.page_token != ""
+                query_string_params["returnPartialSuccess"] = request_pb.return_partial_success.to_s if request_pb.return_partial_success && request_pb.return_partial_success != false
 
                 result_json = @client_stub.make_get_request(
                   uri:     uri,
+                  params:  query_string_params,
                   options: options,
                   &block
                 )
 
-                ::Google::Cloud::Compute::V1::BackendServiceList.decode_json result_json[:body], { ignore_unknown_fields: true }
+                ::Google::Cloud::Compute::V1::BackendServiceList.decode_json result_json[:body], ignore_unknown_fields: true
               end
 
               ##
@@ -241,8 +251,6 @@ module Google
               #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
               # @return [::Google::Cloud::Compute::V1::Operation]
               def patch request_pb, options:, &block
-                request_json = JSON.parse ::Google::Cloud::Compute::V1::PatchBackendServiceRequest.encode_json(request_pb)
-
                 uri = "/compute/v1/projects/#{request_pb.project}/global/backendServices/#{request_pb.backend_service}"
                 body = request_pb.backend_service_resource.to_json
 
@@ -253,7 +261,7 @@ module Google
                   &block
                 )
 
-                ::Google::Cloud::Compute::V1::Operation.decode_json result_json[:body], { ignore_unknown_fields: true }
+                ::Google::Cloud::Compute::V1::Operation.decode_json result_json[:body], ignore_unknown_fields: true
               end
 
               ##
@@ -265,8 +273,6 @@ module Google
               #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
               # @return [::Google::Cloud::Compute::V1::Operation]
               def set_security_policy request_pb, options:, &block
-                request_json = JSON.parse ::Google::Cloud::Compute::V1::SetSecurityPolicyBackendServiceRequest.encode_json(request_pb)
-
                 uri = "/compute/v1/projects/#{request_pb.project}/global/backendServices/#{request_pb.backend_service}/setSecurityPolicy"
                 body = request_pb.security_policy_reference_resource.to_json
 
@@ -277,7 +283,7 @@ module Google
                   &block
                 )
 
-                ::Google::Cloud::Compute::V1::Operation.decode_json result_json[:body], { ignore_unknown_fields: true }
+                ::Google::Cloud::Compute::V1::Operation.decode_json result_json[:body], ignore_unknown_fields: true
               end
 
               ##
@@ -289,8 +295,6 @@ module Google
               #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
               # @return [::Google::Cloud::Compute::V1::Operation]
               def update request_pb, options:, &block
-                request_json = JSON.parse ::Google::Cloud::Compute::V1::UpdateBackendServiceRequest.encode_json(request_pb)
-
                 uri = "/compute/v1/projects/#{request_pb.project}/global/backendServices/#{request_pb.backend_service}"
                 body = request_pb.backend_service_resource.to_json
 
@@ -301,7 +305,7 @@ module Google
                   &block
                 )
 
-                ::Google::Cloud::Compute::V1::Operation.decode_json result_json[:body], { ignore_unknown_fields: true }
+                ::Google::Cloud::Compute::V1::Operation.decode_json result_json[:body], ignore_unknown_fields: true
               end
             end
           end

@@ -55,17 +55,24 @@ module Google
               #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
               # @return [::Google::Cloud::Compute::V1::NodeTemplateAggregatedList]
               def aggregated_list request_pb, options:, &block
-                request_json = JSON.parse ::Google::Cloud::Compute::V1::AggregatedListNodeTemplatesRequest.encode_json(request_pb)
-
                 uri = "/compute/v1/projects/#{request_pb.project}/aggregated/nodeTemplates"
+
+                query_string_params = {}
+                query_string_params["filter"] = request_pb.filter.to_s if request_pb.filter && request_pb.filter != ""
+                query_string_params["includeAllScopes"] = request_pb.include_all_scopes.to_s if request_pb.include_all_scopes && request_pb.include_all_scopes != false
+                query_string_params["maxResults"] = request_pb.max_results.to_s if request_pb.max_results && request_pb.max_results != 0
+                query_string_params["orderBy"] =  request_pb.order_by.to_s if request_pb.order_by && request_pb.order_by != ""
+                query_string_params["pageToken"] = request_pb.page_token.to_s if request_pb.page_token && request_pb.page_token != ""
+                query_string_params["returnPartialSuccess"] = request_pb.return_partial_success.to_s if request_pb.return_partial_success && request_pb.return_partial_success != false
 
                 result_json = @client_stub.make_get_request(
                   uri:     uri,
+                  params:  query_string_params,
                   options: options,
                   &block
                 )
 
-                ::Google::Cloud::Compute::V1::NodeTemplateAggregatedList.decode_json result_json[:body], { ignore_unknown_fields: true }
+                ::Google::Cloud::Compute::V1::NodeTemplateAggregatedList.decode_json result_json[:body], ignore_unknown_fields: true
               end
 
               ##
@@ -77,17 +84,19 @@ module Google
               #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
               # @return [::Google::Cloud::Compute::V1::Operation]
               def delete request_pb, options:, &block
-                request_json = JSON.parse ::Google::Cloud::Compute::V1::DeleteNodeTemplateRequest.encode_json(request_pb)
-
                 uri = "/compute/v1/projects/#{request_pb.project}/regions/#{request_pb.region}/nodeTemplates/#{request_pb.node_template}"
+
+                query_string_params = {}
+                query_string_params["requestId"] = request_pb.request_id.to_s if request_pb.request_id && request_pb.request_id != ""
 
                 result_json = @client_stub.make_delete_request(
                   uri:     uri,
+                  params:  query_string_params,
                   options: options,
                   &block
                 )
 
-                ::Google::Cloud::Compute::V1::Operation.decode_json result_json[:body], { ignore_unknown_fields: true }
+                ::Google::Cloud::Compute::V1::Operation.decode_json result_json[:body], ignore_unknown_fields: true
               end
 
               ##
@@ -99,8 +108,6 @@ module Google
               #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
               # @return [::Google::Cloud::Compute::V1::NodeTemplate]
               def get request_pb, options:, &block
-                request_json = JSON.parse ::Google::Cloud::Compute::V1::GetNodeTemplateRequest.encode_json(request_pb)
-
                 uri = "/compute/v1/projects/#{request_pb.project}/regions/#{request_pb.region}/nodeTemplates/#{request_pb.node_template}"
 
                 result_json = @client_stub.make_get_request(
@@ -109,7 +116,7 @@ module Google
                   &block
                 )
 
-                ::Google::Cloud::Compute::V1::NodeTemplate.decode_json result_json[:body], { ignore_unknown_fields: true }
+                ::Google::Cloud::Compute::V1::NodeTemplate.decode_json result_json[:body], ignore_unknown_fields: true
               end
 
               ##
@@ -121,17 +128,19 @@ module Google
               #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
               # @return [::Google::Cloud::Compute::V1::Policy]
               def get_iam_policy request_pb, options:, &block
-                request_json = JSON.parse ::Google::Cloud::Compute::V1::GetIamPolicyNodeTemplateRequest.encode_json(request_pb)
-
                 uri = "/compute/v1/projects/#{request_pb.project}/regions/#{request_pb.region}/nodeTemplates/#{request_pb.resource}/getIamPolicy"
+
+                query_string_params = {}
+                query_string_params["optionsRequestedPolicyVersion"] = request_pb.options_requested_policy_version.to_s if request_pb.options_requested_policy_version && request_pb.options_requested_policy_version != 0
 
                 result_json = @client_stub.make_get_request(
                   uri:     uri,
+                  params:  query_string_params,
                   options: options,
                   &block
                 )
 
-                ::Google::Cloud::Compute::V1::Policy.decode_json result_json[:body], { ignore_unknown_fields: true }
+                ::Google::Cloud::Compute::V1::Policy.decode_json result_json[:body], ignore_unknown_fields: true
               end
 
               ##
@@ -143,8 +152,6 @@ module Google
               #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
               # @return [::Google::Cloud::Compute::V1::Operation]
               def insert request_pb, options:, &block
-                request_json = JSON.parse ::Google::Cloud::Compute::V1::InsertNodeTemplateRequest.encode_json(request_pb)
-
                 uri = "/compute/v1/projects/#{request_pb.project}/regions/#{request_pb.region}/nodeTemplates"
                 body = request_pb.node_template_resource.to_json
 
@@ -155,7 +162,7 @@ module Google
                   &block
                 )
 
-                ::Google::Cloud::Compute::V1::Operation.decode_json result_json[:body], { ignore_unknown_fields: true }
+                ::Google::Cloud::Compute::V1::Operation.decode_json result_json[:body], ignore_unknown_fields: true
               end
 
               ##
@@ -167,17 +174,23 @@ module Google
               #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
               # @return [::Google::Cloud::Compute::V1::NodeTemplateList]
               def list request_pb, options:, &block
-                request_json = JSON.parse ::Google::Cloud::Compute::V1::ListNodeTemplatesRequest.encode_json(request_pb)
-
                 uri = "/compute/v1/projects/#{request_pb.project}/regions/#{request_pb.region}/nodeTemplates"
+
+                query_string_params = {}
+                query_string_params["filter"] = request_pb.filter.to_s if request_pb.filter && request_pb.filter != ""
+                query_string_params["maxResults"] = request_pb.max_results.to_s if request_pb.max_results && request_pb.max_results != 0
+                query_string_params["orderBy"] =  request_pb.order_by.to_s if request_pb.order_by && request_pb.order_by != ""
+                query_string_params["pageToken"] = request_pb.page_token.to_s if request_pb.page_token && request_pb.page_token != ""
+                query_string_params["returnPartialSuccess"] = request_pb.return_partial_success.to_s if request_pb.return_partial_success && request_pb.return_partial_success != false
 
                 result_json = @client_stub.make_get_request(
                   uri:     uri,
+                  params:  query_string_params,
                   options: options,
                   &block
                 )
 
-                ::Google::Cloud::Compute::V1::NodeTemplateList.decode_json result_json[:body], { ignore_unknown_fields: true }
+                ::Google::Cloud::Compute::V1::NodeTemplateList.decode_json result_json[:body], ignore_unknown_fields: true
               end
 
               ##
@@ -189,8 +202,6 @@ module Google
               #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
               # @return [::Google::Cloud::Compute::V1::Policy]
               def set_iam_policy request_pb, options:, &block
-                request_json = JSON.parse ::Google::Cloud::Compute::V1::SetIamPolicyNodeTemplateRequest.encode_json(request_pb)
-
                 uri = "/compute/v1/projects/#{request_pb.project}/regions/#{request_pb.region}/nodeTemplates/#{request_pb.resource}/setIamPolicy"
                 body = request_pb.region_set_policy_request_resource.to_json
 
@@ -201,7 +212,7 @@ module Google
                   &block
                 )
 
-                ::Google::Cloud::Compute::V1::Policy.decode_json result_json[:body], { ignore_unknown_fields: true }
+                ::Google::Cloud::Compute::V1::Policy.decode_json result_json[:body], ignore_unknown_fields: true
               end
 
               ##
@@ -213,8 +224,6 @@ module Google
               #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
               # @return [::Google::Cloud::Compute::V1::TestPermissionsResponse]
               def test_iam_permissions request_pb, options:, &block
-                request_json = JSON.parse ::Google::Cloud::Compute::V1::TestIamPermissionsNodeTemplateRequest.encode_json(request_pb)
-
                 uri = "/compute/v1/projects/#{request_pb.project}/regions/#{request_pb.region}/nodeTemplates/#{request_pb.resource}/testIamPermissions"
                 body = request_pb.test_permissions_request_resource.to_json
 
@@ -225,7 +234,7 @@ module Google
                   &block
                 )
 
-                ::Google::Cloud::Compute::V1::TestPermissionsResponse.decode_json result_json[:body], { ignore_unknown_fields: true }
+                ::Google::Cloud::Compute::V1::TestPermissionsResponse.decode_json result_json[:body], ignore_unknown_fields: true
               end
             end
           end

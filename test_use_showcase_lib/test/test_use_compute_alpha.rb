@@ -68,4 +68,27 @@ class TestUseComputeAlpha < Minitest::Test
       end
     end
   end
+
+  def test_api_error_404
+    project = "client-debugging"
+    region = "us-central1"
+
+    client = ::Google::Cloud::Compute::V1::Addresses::Rest::Client.new
+
+    exception = assert_raises Google::Cloud::NotFoundError do
+      client.get(address: 'nonexists1123512345', project: project, region: region)
+    end
+
+    assert_match /The resource '[^']+' was not found/, exception.message
+  end
+
+  def test_client_error_no_prj
+    region = "us-central1"
+    client = ::Google::Cloud::Compute::V1::Addresses::Rest::Client.new
+    exception = assert_raises Google::Cloud::InvalidArgumentError do
+      client.get(address: 'nonexists1123512345', region: region)
+    end
+    assert exception.message.include?('An error has occurred when making a REST request: Invalid resource field value in the request.')
+  end
+
 end
