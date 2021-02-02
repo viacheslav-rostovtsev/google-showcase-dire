@@ -65,14 +65,17 @@ module Google
                 query_string_params["pageToken"] = request_pb.page_token.to_s if request_pb.page_token && request_pb.page_token != ""
                 query_string_params["returnPartialSuccess"] = request_pb.return_partial_success.to_s if request_pb.return_partial_success && request_pb.return_partial_success != false
 
-                result_json = @client_stub.make_get_request(
+                response = @client_stub.make_get_request(
                   uri:     uri,
                   params:  query_string_params,
                   options: options,
-                  &block
                 )
 
-                ::Google::Cloud::Compute::V1::TargetHttpsProxyAggregatedList.decode_json result_json[:body], ignore_unknown_fields: true
+                result = ::Google::Cloud::Compute::V1::TargetHttpsProxyAggregatedList.decode_json response.body, ignore_unknown_fields: true
+
+                yield result, response if block_given?
+
+                result
               end
 
               ##
@@ -87,16 +90,19 @@ module Google
                 uri = "/compute/v1/projects/#{request_pb.project}/global/targetHttpsProxies/#{request_pb.target_https_proxy}"
 
                 query_string_params = {}
-                query_string_params["requestId"] = request_pb.request_id.to_s if request_pb.request_id && request_pb.request_id != ""
+                query_string_params["requestId"] =  request_pb.request_id.to_s if request_pb.request_id && request_pb.request_id != ""
 
-                result_json = @client_stub.make_delete_request(
+                response = @client_stub.make_delete_request(
                   uri:     uri,
                   params:  query_string_params,
                   options: options,
-                  &block
                 )
 
-                ::Google::Cloud::Compute::V1::Operation.decode_json result_json[:body], ignore_unknown_fields: true
+                result = ::Google::Cloud::Compute::V1::Operation.decode_json response.body, ignore_unknown_fields: true
+
+                yield result, response if block_given?
+
+                result
               end
 
               ##
@@ -110,13 +116,16 @@ module Google
               def get request_pb, options:, &block
                 uri = "/compute/v1/projects/#{request_pb.project}/global/targetHttpsProxies/#{request_pb.target_https_proxy}"
 
-                result_json = @client_stub.make_get_request(
+                response = @client_stub.make_get_request(
                   uri:     uri,
                   options: options,
-                  &block
                 )
 
-                ::Google::Cloud::Compute::V1::TargetHttpsProxy.decode_json result_json[:body], ignore_unknown_fields: true
+                result = ::Google::Cloud::Compute::V1::TargetHttpsProxy.decode_json response.body, ignore_unknown_fields: true
+
+                yield result, response if block_given?
+
+                result
               end
 
               ##
@@ -131,14 +140,17 @@ module Google
                 uri = "/compute/v1/projects/#{request_pb.project}/global/targetHttpsProxies"
                 body = request_pb.target_https_proxy_resource.to_json
 
-                result_json = @client_stub.make_post_request(
+                response = @client_stub.make_post_request(
                   uri:     uri,
                   body:    body,
                   options: options,
-                  &block
                 )
 
-                ::Google::Cloud::Compute::V1::Operation.decode_json result_json[:body], ignore_unknown_fields: true
+                result = ::Google::Cloud::Compute::V1::Operation.decode_json response.body, ignore_unknown_fields: true
+
+                yield result, response if block_given?
+
+                result
               end
 
               ##
@@ -159,14 +171,17 @@ module Google
                 query_string_params["pageToken"] = request_pb.page_token.to_s if request_pb.page_token && request_pb.page_token != ""
                 query_string_params["returnPartialSuccess"] = request_pb.return_partial_success.to_s if request_pb.return_partial_success && request_pb.return_partial_success != false
 
-                result_json = @client_stub.make_get_request(
+                response = @client_stub.make_get_request(
                   uri:     uri,
                   params:  query_string_params,
                   options: options,
-                  &block
                 )
 
-                ::Google::Cloud::Compute::V1::TargetHttpsProxyList.decode_json result_json[:body], ignore_unknown_fields: true
+                result = ::Google::Cloud::Compute::V1::TargetHttpsProxyList.decode_json response.body, ignore_unknown_fields: true
+
+                yield result, response if block_given?
+
+                result
               end
 
               ##
@@ -181,14 +196,17 @@ module Google
                 uri = "/compute/v1/projects/#{request_pb.project}/global/targetHttpsProxies/#{request_pb.target_https_proxy}/setQuicOverride"
                 body = request_pb.target_https_proxies_set_quic_override_request_resource.to_json
 
-                result_json = @client_stub.make_post_request(
+                response = @client_stub.make_post_request(
                   uri:     uri,
                   body:    body,
                   options: options,
-                  &block
                 )
 
-                ::Google::Cloud::Compute::V1::Operation.decode_json result_json[:body], ignore_unknown_fields: true
+                result = ::Google::Cloud::Compute::V1::Operation.decode_json response.body, ignore_unknown_fields: true
+
+                yield result, response if block_given?
+
+                result
               end
 
               ##
@@ -203,14 +221,17 @@ module Google
                 uri = "/compute/v1/projects/#{request_pb.project}/targetHttpsProxies/#{request_pb.target_https_proxy}/setSslCertificates"
                 body = request_pb.target_https_proxies_set_ssl_certificates_request_resource.to_json
 
-                result_json = @client_stub.make_post_request(
+                response = @client_stub.make_post_request(
                   uri:     uri,
                   body:    body,
                   options: options,
-                  &block
                 )
 
-                ::Google::Cloud::Compute::V1::Operation.decode_json result_json[:body], ignore_unknown_fields: true
+                result = ::Google::Cloud::Compute::V1::Operation.decode_json response.body, ignore_unknown_fields: true
+
+                yield result, response if block_given?
+
+                result
               end
 
               ##
@@ -225,14 +246,17 @@ module Google
                 uri = "/compute/v1/projects/#{request_pb.project}/global/targetHttpsProxies/#{request_pb.target_https_proxy}/setSslPolicy"
                 body = request_pb.ssl_policy_reference_resource.to_json
 
-                result_json = @client_stub.make_post_request(
+                response = @client_stub.make_post_request(
                   uri:     uri,
                   body:    body,
                   options: options,
-                  &block
                 )
 
-                ::Google::Cloud::Compute::V1::Operation.decode_json result_json[:body], ignore_unknown_fields: true
+                result = ::Google::Cloud::Compute::V1::Operation.decode_json response.body, ignore_unknown_fields: true
+
+                yield result, response if block_given?
+
+                result
               end
 
               ##
@@ -247,14 +271,17 @@ module Google
                 uri = "/compute/v1/projects/#{request_pb.project}/targetHttpsProxies/#{request_pb.target_https_proxy}/setUrlMap"
                 body = request_pb.url_map_reference_resource.to_json
 
-                result_json = @client_stub.make_post_request(
+                response = @client_stub.make_post_request(
                   uri:     uri,
                   body:    body,
                   options: options,
-                  &block
                 )
 
-                ::Google::Cloud::Compute::V1::Operation.decode_json result_json[:body], ignore_unknown_fields: true
+                result = ::Google::Cloud::Compute::V1::Operation.decode_json response.body, ignore_unknown_fields: true
+
+                yield result, response if block_given?
+
+                result
               end
             end
           end

@@ -65,14 +65,17 @@ module Google
                 query_string_params["pageToken"] = request_pb.page_token.to_s if request_pb.page_token && request_pb.page_token != ""
                 query_string_params["returnPartialSuccess"] = request_pb.return_partial_success.to_s if request_pb.return_partial_success && request_pb.return_partial_success != false
 
-                result_json = @client_stub.make_get_request(
+                response = @client_stub.make_get_request(
                   uri:     uri,
                   params:  query_string_params,
                   options: options,
-                  &block
                 )
 
-                ::Google::Cloud::Compute::V1::OperationAggregatedList.decode_json result_json[:body], ignore_unknown_fields: true
+                result = ::Google::Cloud::Compute::V1::OperationAggregatedList.decode_json response.body, ignore_unknown_fields: true
+
+                yield result, response if block_given?
+
+                result
               end
 
               ##
@@ -86,13 +89,16 @@ module Google
               def delete request_pb, options:, &block
                 uri = "/compute/v1/projects/#{request_pb.project}/global/operations/#{request_pb.operation}"
 
-                result_json = @client_stub.make_delete_request(
+                response = @client_stub.make_delete_request(
                   uri:     uri,
                   options: options,
-                  &block
                 )
 
-                ::Google::Cloud::Compute::V1::DeleteGlobalOperationResponse.decode_json result_json[:body], ignore_unknown_fields: true
+                result = ::Google::Cloud::Compute::V1::DeleteGlobalOperationResponse.decode_json response.body, ignore_unknown_fields: true
+
+                yield result, response if block_given?
+
+                result
               end
 
               ##
@@ -106,13 +112,16 @@ module Google
               def get request_pb, options:, &block
                 uri = "/compute/v1/projects/#{request_pb.project}/global/operations/#{request_pb.operation}"
 
-                result_json = @client_stub.make_get_request(
+                response = @client_stub.make_get_request(
                   uri:     uri,
                   options: options,
-                  &block
                 )
 
-                ::Google::Cloud::Compute::V1::Operation.decode_json result_json[:body], ignore_unknown_fields: true
+                result = ::Google::Cloud::Compute::V1::Operation.decode_json response.body, ignore_unknown_fields: true
+
+                yield result, response if block_given?
+
+                result
               end
 
               ##
@@ -133,14 +142,17 @@ module Google
                 query_string_params["pageToken"] = request_pb.page_token.to_s if request_pb.page_token && request_pb.page_token != ""
                 query_string_params["returnPartialSuccess"] = request_pb.return_partial_success.to_s if request_pb.return_partial_success && request_pb.return_partial_success != false
 
-                result_json = @client_stub.make_get_request(
+                response = @client_stub.make_get_request(
                   uri:     uri,
                   params:  query_string_params,
                   options: options,
-                  &block
                 )
 
-                ::Google::Cloud::Compute::V1::OperationList.decode_json result_json[:body], ignore_unknown_fields: true
+                result = ::Google::Cloud::Compute::V1::OperationList.decode_json response.body, ignore_unknown_fields: true
+
+                yield result, response if block_given?
+
+                result
               end
 
               ##
@@ -158,13 +170,16 @@ module Google
               def wait request_pb, options:, &block
                 uri = "/compute/v1/projects/#{request_pb.project}/global/operations/#{request_pb.operation}/wait"
 
-                result_json = @client_stub.make_post_request(
+                response = @client_stub.make_post_request(
                   uri:     uri,
                   options: options,
-                  &block
                 )
 
-                ::Google::Cloud::Compute::V1::Operation.decode_json result_json[:body], ignore_unknown_fields: true
+                result = ::Google::Cloud::Compute::V1::Operation.decode_json response.body, ignore_unknown_fields: true
+
+                yield result, response if block_given?
+
+                result
               end
             end
           end
