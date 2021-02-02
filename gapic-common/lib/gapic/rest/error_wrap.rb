@@ -23,7 +23,7 @@ module Gapic
     #
     module ErrorWrap
       class << self
-        def augment_faraday_error err
+        def augment_faraday_error! err
           return err unless err.response && err.response.is_a?(Hash)
           msg, status_code = try_parse_from_response err.response
 

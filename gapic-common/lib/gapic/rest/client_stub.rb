@@ -81,9 +81,6 @@ module Gapic
         yield result, response.env if block_given?
 
         result
-      rescue ::Faraday::Error => e
-        Gapic::Rest::ErrorWrap.augment_faraday_error e
-        raise
       end
     end
   end
