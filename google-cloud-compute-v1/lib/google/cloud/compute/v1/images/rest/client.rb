@@ -180,9 +180,8 @@ module Google
                 @images_stub.delete request, options: options do |response, env|
                   yield response, env if block_given?
                 end
-              rescue ::Gapic::Rest::Error => e
-                raise ::Google::Cloud::Error.from_error(e)
               rescue ::Faraday::Error => e
+                ::Gapic::Rest::ErrorWrap.augment_faraday_error! e
                 raise ::Google::Cloud::Error.from_error(e)
               end
 
@@ -234,9 +233,8 @@ module Google
                 @images_stub.deprecate request, options: options do |response, env|
                   yield response, env if block_given?
                 end
-              rescue ::Gapic::Rest::Error => e
-                raise ::Google::Cloud::Error.from_error(e)
               rescue ::Faraday::Error => e
+                ::Gapic::Rest::ErrorWrap.augment_faraday_error! e
                 raise ::Google::Cloud::Error.from_error(e)
               end
 
@@ -278,9 +276,8 @@ module Google
                 @images_stub.get request, options: options do |response, env|
                   yield response, env if block_given?
                 end
-              rescue ::Gapic::Rest::Error => e
-                raise ::Google::Cloud::Error.from_error(e)
               rescue ::Faraday::Error => e
+                ::Gapic::Rest::ErrorWrap.augment_faraday_error! e
                 raise ::Google::Cloud::Error.from_error(e)
               end
 
@@ -322,9 +319,8 @@ module Google
                 @images_stub.get_from_family request, options: options do |response, env|
                   yield response, env if block_given?
                 end
-              rescue ::Gapic::Rest::Error => e
-                raise ::Google::Cloud::Error.from_error(e)
               rescue ::Faraday::Error => e
+                ::Gapic::Rest::ErrorWrap.augment_faraday_error! e
                 raise ::Google::Cloud::Error.from_error(e)
               end
 
@@ -368,9 +364,8 @@ module Google
                 @images_stub.get_iam_policy request, options: options do |response, env|
                   yield response, env if block_given?
                 end
-              rescue ::Gapic::Rest::Error => e
-                raise ::Google::Cloud::Error.from_error(e)
               rescue ::Faraday::Error => e
+                ::Gapic::Rest::ErrorWrap.augment_faraday_error! e
                 raise ::Google::Cloud::Error.from_error(e)
               end
 
@@ -420,9 +415,8 @@ module Google
                 @images_stub.insert request, options: options do |response, env|
                   yield response, env if block_given?
                 end
-              rescue ::Gapic::Rest::Error => e
-                raise ::Google::Cloud::Error.from_error(e)
               rescue ::Faraday::Error => e
+                ::Gapic::Rest::ErrorWrap.augment_faraday_error! e
                 raise ::Google::Cloud::Error.from_error(e)
               end
 
@@ -482,9 +476,8 @@ module Google
                 @images_stub.list request, options: options do |response, env|
                   yield response, env if block_given?
                 end
-              rescue ::Gapic::Rest::Error => e
-                raise ::Google::Cloud::Error.from_error(e)
               rescue ::Faraday::Error => e
+                ::Gapic::Rest::ErrorWrap.augment_faraday_error! e
                 raise ::Google::Cloud::Error.from_error(e)
               end
 
@@ -534,9 +527,8 @@ module Google
                 @images_stub.patch request, options: options do |response, env|
                   yield response, env if block_given?
                 end
-              rescue ::Gapic::Rest::Error => e
-                raise ::Google::Cloud::Error.from_error(e)
               rescue ::Faraday::Error => e
+                ::Gapic::Rest::ErrorWrap.augment_faraday_error! e
                 raise ::Google::Cloud::Error.from_error(e)
               end
 
@@ -580,9 +572,8 @@ module Google
                 @images_stub.set_iam_policy request, options: options do |response, env|
                   yield response, env if block_given?
                 end
-              rescue ::Gapic::Rest::Error => e
-                raise ::Google::Cloud::Error.from_error(e)
               rescue ::Faraday::Error => e
+                ::Gapic::Rest::ErrorWrap.augment_faraday_error! e
                 raise ::Google::Cloud::Error.from_error(e)
               end
 
@@ -626,9 +617,8 @@ module Google
                 @images_stub.set_labels request, options: options do |response, env|
                   yield response, env if block_given?
                 end
-              rescue ::Gapic::Rest::Error => e
-                raise ::Google::Cloud::Error.from_error(e)
               rescue ::Faraday::Error => e
+                ::Gapic::Rest::ErrorWrap.augment_faraday_error! e
                 raise ::Google::Cloud::Error.from_error(e)
               end
 
@@ -672,9 +662,8 @@ module Google
                 @images_stub.test_iam_permissions request, options: options do |response, env|
                   yield response, env if block_given?
                 end
-              rescue ::Gapic::Rest::Error => e
-                raise ::Google::Cloud::Error.from_error(e)
               rescue ::Faraday::Error => e
+                ::Gapic::Rest::ErrorWrap.augment_faraday_error! e
                 raise ::Google::Cloud::Error.from_error(e)
               end
 

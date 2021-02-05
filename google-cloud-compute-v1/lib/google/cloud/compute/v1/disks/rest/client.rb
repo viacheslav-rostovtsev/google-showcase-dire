@@ -184,9 +184,8 @@ module Google
                 @disks_stub.add_resource_policies request, options: options do |response, env|
                   yield response, env if block_given?
                 end
-              rescue ::Gapic::Rest::Error => e
-                raise ::Google::Cloud::Error.from_error(e)
               rescue ::Faraday::Error => e
+                ::Gapic::Rest::ErrorWrap.augment_faraday_error! e
                 raise ::Google::Cloud::Error.from_error(e)
               end
 
@@ -248,9 +247,8 @@ module Google
                 @disks_stub.aggregated_list request, options: options do |response, env|
                   yield response, env if block_given?
                 end
-              rescue ::Gapic::Rest::Error => e
-                raise ::Google::Cloud::Error.from_error(e)
               rescue ::Faraday::Error => e
+                ::Gapic::Rest::ErrorWrap.augment_faraday_error! e
                 raise ::Google::Cloud::Error.from_error(e)
               end
 
@@ -304,9 +302,8 @@ module Google
                 @disks_stub.create_snapshot request, options: options do |response, env|
                   yield response, env if block_given?
                 end
-              rescue ::Gapic::Rest::Error => e
-                raise ::Google::Cloud::Error.from_error(e)
               rescue ::Faraday::Error => e
+                ::Gapic::Rest::ErrorWrap.augment_faraday_error! e
                 raise ::Google::Cloud::Error.from_error(e)
               end
 
@@ -356,9 +353,8 @@ module Google
                 @disks_stub.delete request, options: options do |response, env|
                   yield response, env if block_given?
                 end
-              rescue ::Gapic::Rest::Error => e
-                raise ::Google::Cloud::Error.from_error(e)
               rescue ::Faraday::Error => e
+                ::Gapic::Rest::ErrorWrap.augment_faraday_error! e
                 raise ::Google::Cloud::Error.from_error(e)
               end
 
@@ -402,9 +398,8 @@ module Google
                 @disks_stub.get request, options: options do |response, env|
                   yield response, env if block_given?
                 end
-              rescue ::Gapic::Rest::Error => e
-                raise ::Google::Cloud::Error.from_error(e)
               rescue ::Faraday::Error => e
+                ::Gapic::Rest::ErrorWrap.augment_faraday_error! e
                 raise ::Google::Cloud::Error.from_error(e)
               end
 
@@ -450,9 +445,8 @@ module Google
                 @disks_stub.get_iam_policy request, options: options do |response, env|
                   yield response, env if block_given?
                 end
-              rescue ::Gapic::Rest::Error => e
-                raise ::Google::Cloud::Error.from_error(e)
               rescue ::Faraday::Error => e
+                ::Gapic::Rest::ErrorWrap.augment_faraday_error! e
                 raise ::Google::Cloud::Error.from_error(e)
               end
 
@@ -504,9 +498,8 @@ module Google
                 @disks_stub.insert request, options: options do |response, env|
                   yield response, env if block_given?
                 end
-              rescue ::Gapic::Rest::Error => e
-                raise ::Google::Cloud::Error.from_error(e)
               rescue ::Faraday::Error => e
+                ::Gapic::Rest::ErrorWrap.augment_faraday_error! e
                 raise ::Google::Cloud::Error.from_error(e)
               end
 
@@ -568,9 +561,8 @@ module Google
                 @disks_stub.list request, options: options do |response, env|
                   yield response, env if block_given?
                 end
-              rescue ::Gapic::Rest::Error => e
-                raise ::Google::Cloud::Error.from_error(e)
               rescue ::Faraday::Error => e
+                ::Gapic::Rest::ErrorWrap.augment_faraday_error! e
                 raise ::Google::Cloud::Error.from_error(e)
               end
 
@@ -622,9 +614,8 @@ module Google
                 @disks_stub.remove_resource_policies request, options: options do |response, env|
                   yield response, env if block_given?
                 end
-              rescue ::Gapic::Rest::Error => e
-                raise ::Google::Cloud::Error.from_error(e)
               rescue ::Faraday::Error => e
+                ::Gapic::Rest::ErrorWrap.augment_faraday_error! e
                 raise ::Google::Cloud::Error.from_error(e)
               end
 
@@ -676,9 +667,8 @@ module Google
                 @disks_stub.resize request, options: options do |response, env|
                   yield response, env if block_given?
                 end
-              rescue ::Gapic::Rest::Error => e
-                raise ::Google::Cloud::Error.from_error(e)
               rescue ::Faraday::Error => e
+                ::Gapic::Rest::ErrorWrap.augment_faraday_error! e
                 raise ::Google::Cloud::Error.from_error(e)
               end
 
@@ -724,9 +714,8 @@ module Google
                 @disks_stub.set_iam_policy request, options: options do |response, env|
                   yield response, env if block_given?
                 end
-              rescue ::Gapic::Rest::Error => e
-                raise ::Google::Cloud::Error.from_error(e)
               rescue ::Faraday::Error => e
+                ::Gapic::Rest::ErrorWrap.augment_faraday_error! e
                 raise ::Google::Cloud::Error.from_error(e)
               end
 
@@ -778,9 +767,8 @@ module Google
                 @disks_stub.set_labels request, options: options do |response, env|
                   yield response, env if block_given?
                 end
-              rescue ::Gapic::Rest::Error => e
-                raise ::Google::Cloud::Error.from_error(e)
               rescue ::Faraday::Error => e
+                ::Gapic::Rest::ErrorWrap.augment_faraday_error! e
                 raise ::Google::Cloud::Error.from_error(e)
               end
 
@@ -826,9 +814,8 @@ module Google
                 @disks_stub.test_iam_permissions request, options: options do |response, env|
                   yield response, env if block_given?
                 end
-              rescue ::Gapic::Rest::Error => e
-                raise ::Google::Cloud::Error.from_error(e)
               rescue ::Faraday::Error => e
+                ::Gapic::Rest::ErrorWrap.augment_faraday_error! e
                 raise ::Google::Cloud::Error.from_error(e)
               end
 

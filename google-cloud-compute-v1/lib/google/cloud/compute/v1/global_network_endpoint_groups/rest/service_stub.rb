@@ -55,19 +55,20 @@ module Google
               #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
               # @return [::Google::Cloud::Compute::V1::Operation]
               def attach_network_endpoints request_pb, options:, &block
-                request_json = JSON.parse ::Google::Cloud::Compute::V1::AttachNetworkEndpointsGlobalNetworkEndpointGroupRequest.encode_json(request_pb)
-
                 uri = "/compute/v1/projects/#{request_pb.project}/global/networkEndpointGroups/#{request_pb.network_endpoint_group}/attachNetworkEndpoints"
                 body = request_pb.global_network_endpoint_groups_attach_endpoints_request_resource.to_json
 
-                result_json = @client_stub.make_post_request(
+                response = @client_stub.make_post_request(
                   uri:     uri,
                   body:    body,
                   options: options,
-                  &block
                 )
 
-                ::Google::Cloud::Compute::V1::Operation.decode_json result_json[:body], { ignore_unknown_fields: true }
+                result = ::Google::Cloud::Compute::V1::Operation.decode_json response.body, ignore_unknown_fields: true
+
+                yield result, response if block_given?
+
+                result
               end
 
               ##
@@ -79,17 +80,22 @@ module Google
               #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
               # @return [::Google::Cloud::Compute::V1::Operation]
               def delete request_pb, options:, &block
-                request_json = JSON.parse ::Google::Cloud::Compute::V1::DeleteGlobalNetworkEndpointGroupRequest.encode_json(request_pb)
-
                 uri = "/compute/v1/projects/#{request_pb.project}/global/networkEndpointGroups/#{request_pb.network_endpoint_group}"
 
-                result_json = @client_stub.make_delete_request(
+                query_string_params = {}
+                query_string_params["requestId"] =  request_pb.request_id.to_s if request_pb.request_id && request_pb.request_id != ""
+
+                response = @client_stub.make_delete_request(
                   uri:     uri,
+                  params:  query_string_params,
                   options: options,
-                  &block
                 )
 
-                ::Google::Cloud::Compute::V1::Operation.decode_json result_json[:body], { ignore_unknown_fields: true }
+                result = ::Google::Cloud::Compute::V1::Operation.decode_json response.body, ignore_unknown_fields: true
+
+                yield result, response if block_given?
+
+                result
               end
 
               ##
@@ -101,19 +107,20 @@ module Google
               #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
               # @return [::Google::Cloud::Compute::V1::Operation]
               def detach_network_endpoints request_pb, options:, &block
-                request_json = JSON.parse ::Google::Cloud::Compute::V1::DetachNetworkEndpointsGlobalNetworkEndpointGroupRequest.encode_json(request_pb)
-
                 uri = "/compute/v1/projects/#{request_pb.project}/global/networkEndpointGroups/#{request_pb.network_endpoint_group}/detachNetworkEndpoints"
                 body = request_pb.global_network_endpoint_groups_detach_endpoints_request_resource.to_json
 
-                result_json = @client_stub.make_post_request(
+                response = @client_stub.make_post_request(
                   uri:     uri,
                   body:    body,
                   options: options,
-                  &block
                 )
 
-                ::Google::Cloud::Compute::V1::Operation.decode_json result_json[:body], { ignore_unknown_fields: true }
+                result = ::Google::Cloud::Compute::V1::Operation.decode_json response.body, ignore_unknown_fields: true
+
+                yield result, response if block_given?
+
+                result
               end
 
               ##
@@ -125,17 +132,18 @@ module Google
               #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
               # @return [::Google::Cloud::Compute::V1::NetworkEndpointGroup]
               def get request_pb, options:, &block
-                request_json = JSON.parse ::Google::Cloud::Compute::V1::GetGlobalNetworkEndpointGroupRequest.encode_json(request_pb)
-
                 uri = "/compute/v1/projects/#{request_pb.project}/global/networkEndpointGroups/#{request_pb.network_endpoint_group}"
 
-                result_json = @client_stub.make_get_request(
+                response = @client_stub.make_get_request(
                   uri:     uri,
                   options: options,
-                  &block
                 )
 
-                ::Google::Cloud::Compute::V1::NetworkEndpointGroup.decode_json result_json[:body], { ignore_unknown_fields: true }
+                result = ::Google::Cloud::Compute::V1::NetworkEndpointGroup.decode_json response.body, ignore_unknown_fields: true
+
+                yield result, response if block_given?
+
+                result
               end
 
               ##
@@ -147,19 +155,20 @@ module Google
               #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
               # @return [::Google::Cloud::Compute::V1::Operation]
               def insert request_pb, options:, &block
-                request_json = JSON.parse ::Google::Cloud::Compute::V1::InsertGlobalNetworkEndpointGroupRequest.encode_json(request_pb)
-
                 uri = "/compute/v1/projects/#{request_pb.project}/global/networkEndpointGroups"
                 body = request_pb.network_endpoint_group_resource.to_json
 
-                result_json = @client_stub.make_post_request(
+                response = @client_stub.make_post_request(
                   uri:     uri,
                   body:    body,
                   options: options,
-                  &block
                 )
 
-                ::Google::Cloud::Compute::V1::Operation.decode_json result_json[:body], { ignore_unknown_fields: true }
+                result = ::Google::Cloud::Compute::V1::Operation.decode_json response.body, ignore_unknown_fields: true
+
+                yield result, response if block_given?
+
+                result
               end
 
               ##
@@ -171,17 +180,26 @@ module Google
               #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
               # @return [::Google::Cloud::Compute::V1::NetworkEndpointGroupList]
               def list request_pb, options:, &block
-                request_json = JSON.parse ::Google::Cloud::Compute::V1::ListGlobalNetworkEndpointGroupsRequest.encode_json(request_pb)
-
                 uri = "/compute/v1/projects/#{request_pb.project}/global/networkEndpointGroups"
 
-                result_json = @client_stub.make_get_request(
+                query_string_params = {}
+                query_string_params["filter"] = request_pb.filter.to_s if request_pb.filter && request_pb.filter != ""
+                query_string_params["maxResults"] = request_pb.max_results.to_s if request_pb.max_results && request_pb.max_results != 0
+                query_string_params["orderBy"] =  request_pb.order_by.to_s if request_pb.order_by && request_pb.order_by != ""
+                query_string_params["pageToken"] = request_pb.page_token.to_s if request_pb.page_token && request_pb.page_token != ""
+                query_string_params["returnPartialSuccess"] = request_pb.return_partial_success.to_s if request_pb.return_partial_success && request_pb.return_partial_success != false
+
+                response = @client_stub.make_get_request(
                   uri:     uri,
+                  params:  query_string_params,
                   options: options,
-                  &block
                 )
 
-                ::Google::Cloud::Compute::V1::NetworkEndpointGroupList.decode_json result_json[:body], { ignore_unknown_fields: true }
+                result = ::Google::Cloud::Compute::V1::NetworkEndpointGroupList.decode_json response.body, ignore_unknown_fields: true
+
+                yield result, response if block_given?
+
+                result
               end
 
               ##
@@ -193,17 +211,26 @@ module Google
               #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
               # @return [::Google::Cloud::Compute::V1::NetworkEndpointGroupsListNetworkEndpoints]
               def list_network_endpoints request_pb, options:, &block
-                request_json = JSON.parse ::Google::Cloud::Compute::V1::ListNetworkEndpointsGlobalNetworkEndpointGroupsRequest.encode_json(request_pb)
-
                 uri = "/compute/v1/projects/#{request_pb.project}/global/networkEndpointGroups/#{request_pb.network_endpoint_group}/listNetworkEndpoints"
 
-                result_json = @client_stub.make_post_request(
+                query_string_params = {}
+                query_string_params["filter"] = request_pb.filter.to_s if request_pb.filter && request_pb.filter != ""
+                query_string_params["maxResults"] = request_pb.max_results.to_s if request_pb.max_results && request_pb.max_results != 0
+                query_string_params["orderBy"] =  request_pb.order_by.to_s if request_pb.order_by && request_pb.order_by != ""
+                query_string_params["pageToken"] = request_pb.page_token.to_s if request_pb.page_token && request_pb.page_token != ""
+                query_string_params["returnPartialSuccess"] = request_pb.return_partial_success.to_s if request_pb.return_partial_success && request_pb.return_partial_success != false
+
+                response = @client_stub.make_post_request(
                   uri:     uri,
+                  params:  query_string_params,
                   options: options,
-                  &block
                 )
 
-                ::Google::Cloud::Compute::V1::NetworkEndpointGroupsListNetworkEndpoints.decode_json result_json[:body], { ignore_unknown_fields: true }
+                result = ::Google::Cloud::Compute::V1::NetworkEndpointGroupsListNetworkEndpoints.decode_json response.body, ignore_unknown_fields: true
+
+                yield result, response if block_given?
+
+                result
               end
             end
           end

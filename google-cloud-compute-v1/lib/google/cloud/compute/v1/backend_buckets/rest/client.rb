@@ -182,9 +182,8 @@ module Google
                 @backend_buckets_stub.add_signed_url_key request, options: options do |response, env|
                   yield response, env if block_given?
                 end
-              rescue ::Gapic::Rest::Error => e
-                raise ::Google::Cloud::Error.from_error(e)
               rescue ::Faraday::Error => e
+                ::Gapic::Rest::ErrorWrap.augment_faraday_error! e
                 raise ::Google::Cloud::Error.from_error(e)
               end
 
@@ -232,9 +231,8 @@ module Google
                 @backend_buckets_stub.delete request, options: options do |response, env|
                   yield response, env if block_given?
                 end
-              rescue ::Gapic::Rest::Error => e
-                raise ::Google::Cloud::Error.from_error(e)
               rescue ::Faraday::Error => e
+                ::Gapic::Rest::ErrorWrap.augment_faraday_error! e
                 raise ::Google::Cloud::Error.from_error(e)
               end
 
@@ -284,9 +282,8 @@ module Google
                 @backend_buckets_stub.delete_signed_url_key request, options: options do |response, env|
                   yield response, env if block_given?
                 end
-              rescue ::Gapic::Rest::Error => e
-                raise ::Google::Cloud::Error.from_error(e)
               rescue ::Faraday::Error => e
+                ::Gapic::Rest::ErrorWrap.augment_faraday_error! e
                 raise ::Google::Cloud::Error.from_error(e)
               end
 
@@ -328,9 +325,8 @@ module Google
                 @backend_buckets_stub.get request, options: options do |response, env|
                   yield response, env if block_given?
                 end
-              rescue ::Gapic::Rest::Error => e
-                raise ::Google::Cloud::Error.from_error(e)
               rescue ::Faraday::Error => e
+                ::Gapic::Rest::ErrorWrap.augment_faraday_error! e
                 raise ::Google::Cloud::Error.from_error(e)
               end
 
@@ -378,9 +374,8 @@ module Google
                 @backend_buckets_stub.insert request, options: options do |response, env|
                   yield response, env if block_given?
                 end
-              rescue ::Gapic::Rest::Error => e
-                raise ::Google::Cloud::Error.from_error(e)
               rescue ::Faraday::Error => e
+                ::Gapic::Rest::ErrorWrap.augment_faraday_error! e
                 raise ::Google::Cloud::Error.from_error(e)
               end
 
@@ -440,9 +435,8 @@ module Google
                 @backend_buckets_stub.list request, options: options do |response, env|
                   yield response, env if block_given?
                 end
-              rescue ::Gapic::Rest::Error => e
-                raise ::Google::Cloud::Error.from_error(e)
               rescue ::Faraday::Error => e
+                ::Gapic::Rest::ErrorWrap.augment_faraday_error! e
                 raise ::Google::Cloud::Error.from_error(e)
               end
 
@@ -492,9 +486,8 @@ module Google
                 @backend_buckets_stub.patch request, options: options do |response, env|
                   yield response, env if block_given?
                 end
-              rescue ::Gapic::Rest::Error => e
-                raise ::Google::Cloud::Error.from_error(e)
               rescue ::Faraday::Error => e
+                ::Gapic::Rest::ErrorWrap.augment_faraday_error! e
                 raise ::Google::Cloud::Error.from_error(e)
               end
 
@@ -544,9 +537,8 @@ module Google
                 @backend_buckets_stub.update request, options: options do |response, env|
                   yield response, env if block_given?
                 end
-              rescue ::Gapic::Rest::Error => e
-                raise ::Google::Cloud::Error.from_error(e)
               rescue ::Faraday::Error => e
+                ::Gapic::Rest::ErrorWrap.augment_faraday_error! e
                 raise ::Google::Cloud::Error.from_error(e)
               end
 

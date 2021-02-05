@@ -182,9 +182,8 @@ module Google
                 @networks_stub.add_peering request, options: options do |response, env|
                   yield response, env if block_given?
                 end
-              rescue ::Gapic::Rest::Error => e
-                raise ::Google::Cloud::Error.from_error(e)
               rescue ::Faraday::Error => e
+                ::Gapic::Rest::ErrorWrap.augment_faraday_error! e
                 raise ::Google::Cloud::Error.from_error(e)
               end
 
@@ -232,9 +231,8 @@ module Google
                 @networks_stub.delete request, options: options do |response, env|
                   yield response, env if block_given?
                 end
-              rescue ::Gapic::Rest::Error => e
-                raise ::Google::Cloud::Error.from_error(e)
               rescue ::Faraday::Error => e
+                ::Gapic::Rest::ErrorWrap.augment_faraday_error! e
                 raise ::Google::Cloud::Error.from_error(e)
               end
 
@@ -276,9 +274,8 @@ module Google
                 @networks_stub.get request, options: options do |response, env|
                   yield response, env if block_given?
                 end
-              rescue ::Gapic::Rest::Error => e
-                raise ::Google::Cloud::Error.from_error(e)
               rescue ::Faraday::Error => e
+                ::Gapic::Rest::ErrorWrap.augment_faraday_error! e
                 raise ::Google::Cloud::Error.from_error(e)
               end
 
@@ -326,9 +323,8 @@ module Google
                 @networks_stub.insert request, options: options do |response, env|
                   yield response, env if block_given?
                 end
-              rescue ::Gapic::Rest::Error => e
-                raise ::Google::Cloud::Error.from_error(e)
               rescue ::Faraday::Error => e
+                ::Gapic::Rest::ErrorWrap.augment_faraday_error! e
                 raise ::Google::Cloud::Error.from_error(e)
               end
 
@@ -388,9 +384,8 @@ module Google
                 @networks_stub.list request, options: options do |response, env|
                   yield response, env if block_given?
                 end
-              rescue ::Gapic::Rest::Error => e
-                raise ::Google::Cloud::Error.from_error(e)
               rescue ::Faraday::Error => e
+                ::Gapic::Rest::ErrorWrap.augment_faraday_error! e
                 raise ::Google::Cloud::Error.from_error(e)
               end
 
@@ -458,9 +453,8 @@ module Google
                 @networks_stub.list_peering_routes request, options: options do |response, env|
                   yield response, env if block_given?
                 end
-              rescue ::Gapic::Rest::Error => e
-                raise ::Google::Cloud::Error.from_error(e)
               rescue ::Faraday::Error => e
+                ::Gapic::Rest::ErrorWrap.augment_faraday_error! e
                 raise ::Google::Cloud::Error.from_error(e)
               end
 
@@ -510,9 +504,8 @@ module Google
                 @networks_stub.patch request, options: options do |response, env|
                   yield response, env if block_given?
                 end
-              rescue ::Gapic::Rest::Error => e
-                raise ::Google::Cloud::Error.from_error(e)
               rescue ::Faraday::Error => e
+                ::Gapic::Rest::ErrorWrap.augment_faraday_error! e
                 raise ::Google::Cloud::Error.from_error(e)
               end
 
@@ -562,9 +555,8 @@ module Google
                 @networks_stub.remove_peering request, options: options do |response, env|
                   yield response, env if block_given?
                 end
-              rescue ::Gapic::Rest::Error => e
-                raise ::Google::Cloud::Error.from_error(e)
               rescue ::Faraday::Error => e
+                ::Gapic::Rest::ErrorWrap.augment_faraday_error! e
                 raise ::Google::Cloud::Error.from_error(e)
               end
 
@@ -612,9 +604,8 @@ module Google
                 @networks_stub.switch_to_custom_mode request, options: options do |response, env|
                   yield response, env if block_given?
                 end
-              rescue ::Gapic::Rest::Error => e
-                raise ::Google::Cloud::Error.from_error(e)
               rescue ::Faraday::Error => e
+                ::Gapic::Rest::ErrorWrap.augment_faraday_error! e
                 raise ::Google::Cloud::Error.from_error(e)
               end
 
@@ -664,9 +655,8 @@ module Google
                 @networks_stub.update_peering request, options: options do |response, env|
                   yield response, env if block_given?
                 end
-              rescue ::Gapic::Rest::Error => e
-                raise ::Google::Cloud::Error.from_error(e)
               rescue ::Faraday::Error => e
+                ::Gapic::Rest::ErrorWrap.augment_faraday_error! e
                 raise ::Google::Cloud::Error.from_error(e)
               end
 

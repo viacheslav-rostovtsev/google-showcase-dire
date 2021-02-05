@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module type="RUBY_MODULE" version="4">
+  <component name="NewModuleRootManager" inherit-compiler-output="true">
+    <exclude-output />
+    <content url="file://$MODULE_DIR$/../../google-cloud-compute-v1/compute_small" />
+    <orderEntry type="jdk" jdkName="asdf: 2.7.1" jdkType="RUBY_SDK" />
+    <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" scope="PROVIDED" name="addressable (v2.7.0, asdf: 2.7.1) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="ast (v2.4.2, asdf: 2.7.1) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="bundler (v2.1.4, asdf: 2.7.1) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="docile (v1.3.5, asdf: 2.7.1) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="faraday (v1.3.0, asdf: 2.7.1) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="faraday-net_http (v1.0.1, asdf: 2.7.1) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="google-cloud-errors (v1.0.1, asdf: 2.7.1) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="google-protobuf (v3.14.0, asdf: 2.7.1) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="google-style (v1.24.0, asdf: 2.7.1) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="googleapis-common-protos (v1.3.10, asdf: 2.7.1) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="googleapis-common-protos-types (v1.0.5, asdf: 2.7.1) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="googleauth (v0.15.0, asdf: 2.7.1) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="grpc (v1.35.0, asdf: 2.7.1) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="jaro_winkler (v1.5.4, asdf: 2.7.1) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="jwt (v2.2.2, asdf: 2.7.1) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="memoist (v0.16.2, asdf: 2.7.1) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="minitest (v5.14.3, asdf: 2.7.1) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="minitest-focus (v1.2.1, asdf: 2.7.1) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="minitest-rg (v5.2.0, asdf: 2.7.1) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="multi_json (v1.15.0, asdf: 2.7.1) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="multipart-post (v2.1.1, asdf: 2.7.1) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="os (v1.1.1, asdf: 2.7.1) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="parallel (v1.20.1, asdf: 2.7.1) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="parser (v3.0.0.0, asdf: 2.7.1) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="public_suffix (v4.0.6, asdf: 2.7.1) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="rainbow (v3.0.0, asdf: 2.7.1) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="rake (v13.0.3, asdf: 2.7.1) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="redcarpet (v3.5.1, asdf: 2.7.1) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="rubocop (v0.74.0, asdf: 2.7.1) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="ruby-progressbar (v1.11.0, asdf: 2.7.1) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="ruby2_keywords (v0.0.4, asdf: 2.7.1) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="signet (v0.14.1, asdf: 2.7.1) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="simplecov (v0.21.2, asdf: 2.7.1) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="simplecov-html (v0.12.3, asdf: 2.7.1) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="simplecov_json_formatter (v0.1.2, asdf: 2.7.1) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="unicode-display_width (v1.6.1, asdf: 2.7.1) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="yard (v0.9.26, asdf: 2.7.1) [gem]" level="application" />
+  </component>
+  <component name="RubyModuleProperties">
+    <option name="autoCreated" value="true" />
+  </component>
+</module>

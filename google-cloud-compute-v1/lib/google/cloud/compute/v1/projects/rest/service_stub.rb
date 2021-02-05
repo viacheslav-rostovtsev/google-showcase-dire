@@ -55,17 +55,22 @@ module Google
               #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
               # @return [::Google::Cloud::Compute::V1::Operation]
               def disable_xpn_host request_pb, options:, &block
-                request_json = JSON.parse ::Google::Cloud::Compute::V1::DisableXpnHostProjectRequest.encode_json(request_pb)
-
                 uri = "/compute/v1/projects/#{request_pb.project}/disableXpnHost"
 
-                result_json = @client_stub.make_post_request(
+                query_string_params = {}
+                query_string_params["requestId"] = request_pb.request_id.to_s if request_pb.request_id && request_pb.request_id != ""
+
+                response = @client_stub.make_post_request(
                   uri:     uri,
+                  params:  query_string_params,
                   options: options,
-                  &block
                 )
 
-                ::Google::Cloud::Compute::V1::Operation.decode_json result_json[:body], { ignore_unknown_fields: true }
+                result = ::Google::Cloud::Compute::V1::Operation.decode_json response.body, ignore_unknown_fields: true
+
+                yield result, response if block_given?
+
+                result
               end
 
               ##
@@ -77,19 +82,20 @@ module Google
               #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
               # @return [::Google::Cloud::Compute::V1::Operation]
               def disable_xpn_resource request_pb, options:, &block
-                request_json = JSON.parse ::Google::Cloud::Compute::V1::DisableXpnResourceProjectRequest.encode_json(request_pb)
-
                 uri = "/compute/v1/projects/#{request_pb.project}/disableXpnResource"
                 body = request_pb.projects_disable_xpn_resource_request_resource.to_json
 
-                result_json = @client_stub.make_post_request(
+                response = @client_stub.make_post_request(
                   uri:     uri,
                   body:    body,
                   options: options,
-                  &block
                 )
 
-                ::Google::Cloud::Compute::V1::Operation.decode_json result_json[:body], { ignore_unknown_fields: true }
+                result = ::Google::Cloud::Compute::V1::Operation.decode_json response.body, ignore_unknown_fields: true
+
+                yield result, response if block_given?
+
+                result
               end
 
               ##
@@ -101,17 +107,22 @@ module Google
               #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
               # @return [::Google::Cloud::Compute::V1::Operation]
               def enable_xpn_host request_pb, options:, &block
-                request_json = JSON.parse ::Google::Cloud::Compute::V1::EnableXpnHostProjectRequest.encode_json(request_pb)
-
                 uri = "/compute/v1/projects/#{request_pb.project}/enableXpnHost"
 
-                result_json = @client_stub.make_post_request(
+                query_string_params = {}
+                query_string_params["requestId"] = request_pb.request_id.to_s if request_pb.request_id && request_pb.request_id != ""
+
+                response = @client_stub.make_post_request(
                   uri:     uri,
+                  params:  query_string_params,
                   options: options,
-                  &block
                 )
 
-                ::Google::Cloud::Compute::V1::Operation.decode_json result_json[:body], { ignore_unknown_fields: true }
+                result = ::Google::Cloud::Compute::V1::Operation.decode_json response.body, ignore_unknown_fields: true
+
+                yield result, response if block_given?
+
+                result
               end
 
               ##
@@ -123,19 +134,20 @@ module Google
               #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
               # @return [::Google::Cloud::Compute::V1::Operation]
               def enable_xpn_resource request_pb, options:, &block
-                request_json = JSON.parse ::Google::Cloud::Compute::V1::EnableXpnResourceProjectRequest.encode_json(request_pb)
-
                 uri = "/compute/v1/projects/#{request_pb.project}/enableXpnResource"
                 body = request_pb.projects_enable_xpn_resource_request_resource.to_json
 
-                result_json = @client_stub.make_post_request(
+                response = @client_stub.make_post_request(
                   uri:     uri,
                   body:    body,
                   options: options,
-                  &block
                 )
 
-                ::Google::Cloud::Compute::V1::Operation.decode_json result_json[:body], { ignore_unknown_fields: true }
+                result = ::Google::Cloud::Compute::V1::Operation.decode_json response.body, ignore_unknown_fields: true
+
+                yield result, response if block_given?
+
+                result
               end
 
               ##
@@ -147,17 +159,18 @@ module Google
               #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
               # @return [::Google::Cloud::Compute::V1::Project]
               def get request_pb, options:, &block
-                request_json = JSON.parse ::Google::Cloud::Compute::V1::GetProjectRequest.encode_json(request_pb)
-
                 uri = "/compute/v1/projects/#{request_pb.project}"
 
-                result_json = @client_stub.make_get_request(
+                response = @client_stub.make_get_request(
                   uri:     uri,
                   options: options,
-                  &block
                 )
 
-                ::Google::Cloud::Compute::V1::Project.decode_json result_json[:body], { ignore_unknown_fields: true }
+                result = ::Google::Cloud::Compute::V1::Project.decode_json response.body, ignore_unknown_fields: true
+
+                yield result, response if block_given?
+
+                result
               end
 
               ##
@@ -169,17 +182,18 @@ module Google
               #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
               # @return [::Google::Cloud::Compute::V1::Project]
               def get_xpn_host request_pb, options:, &block
-                request_json = JSON.parse ::Google::Cloud::Compute::V1::GetXpnHostProjectRequest.encode_json(request_pb)
-
                 uri = "/compute/v1/projects/#{request_pb.project}/getXpnHost"
 
-                result_json = @client_stub.make_get_request(
+                response = @client_stub.make_get_request(
                   uri:     uri,
                   options: options,
-                  &block
                 )
 
-                ::Google::Cloud::Compute::V1::Project.decode_json result_json[:body], { ignore_unknown_fields: true }
+                result = ::Google::Cloud::Compute::V1::Project.decode_json response.body, ignore_unknown_fields: true
+
+                yield result, response if block_given?
+
+                result
               end
 
               ##
@@ -191,17 +205,26 @@ module Google
               #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
               # @return [::Google::Cloud::Compute::V1::ProjectsGetXpnResources]
               def get_xpn_resources request_pb, options:, &block
-                request_json = JSON.parse ::Google::Cloud::Compute::V1::GetXpnResourcesProjectsRequest.encode_json(request_pb)
-
                 uri = "/compute/v1/projects/#{request_pb.project}/getXpnResources"
 
-                result_json = @client_stub.make_get_request(
+                query_string_params = {}
+                query_string_params["filter"] = request_pb.filter.to_s if request_pb.filter && request_pb.filter != ""
+                query_string_params["maxResults"] = request_pb.max_results.to_s if request_pb.max_results && request_pb.max_results != 0
+                query_string_params["orderBy"] =  request_pb.order_by.to_s if request_pb.order_by && request_pb.order_by != ""
+                query_string_params["pageToken"] = request_pb.page_token.to_s if request_pb.page_token && request_pb.page_token != ""
+                query_string_params["returnPartialSuccess"] = request_pb.return_partial_success.to_s if request_pb.return_partial_success && request_pb.return_partial_success != false
+
+                response = @client_stub.make_get_request(
                   uri:     uri,
+                  params:  query_string_params,
                   options: options,
-                  &block
                 )
 
-                ::Google::Cloud::Compute::V1::ProjectsGetXpnResources.decode_json result_json[:body], { ignore_unknown_fields: true }
+                result = ::Google::Cloud::Compute::V1::ProjectsGetXpnResources.decode_json response.body, ignore_unknown_fields: true
+
+                yield result, response if block_given?
+
+                result
               end
 
               ##
@@ -213,19 +236,20 @@ module Google
               #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
               # @return [::Google::Cloud::Compute::V1::XpnHostList]
               def list_xpn_hosts request_pb, options:, &block
-                request_json = JSON.parse ::Google::Cloud::Compute::V1::ListXpnHostsProjectsRequest.encode_json(request_pb)
-
                 uri = "/compute/v1/projects/#{request_pb.project}/listXpnHosts"
                 body = request_pb.projects_list_xpn_hosts_request_resource.to_json
 
-                result_json = @client_stub.make_post_request(
+                response = @client_stub.make_post_request(
                   uri:     uri,
                   body:    body,
                   options: options,
-                  &block
                 )
 
-                ::Google::Cloud::Compute::V1::XpnHostList.decode_json result_json[:body], { ignore_unknown_fields: true }
+                result = ::Google::Cloud::Compute::V1::XpnHostList.decode_json response.body, ignore_unknown_fields: true
+
+                yield result, response if block_given?
+
+                result
               end
 
               ##
@@ -237,19 +261,20 @@ module Google
               #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
               # @return [::Google::Cloud::Compute::V1::Operation]
               def move_disk request_pb, options:, &block
-                request_json = JSON.parse ::Google::Cloud::Compute::V1::MoveDiskProjectRequest.encode_json(request_pb)
-
                 uri = "/compute/v1/projects/#{request_pb.project}/moveDisk"
                 body = request_pb.disk_move_request_resource.to_json
 
-                result_json = @client_stub.make_post_request(
+                response = @client_stub.make_post_request(
                   uri:     uri,
                   body:    body,
                   options: options,
-                  &block
                 )
 
-                ::Google::Cloud::Compute::V1::Operation.decode_json result_json[:body], { ignore_unknown_fields: true }
+                result = ::Google::Cloud::Compute::V1::Operation.decode_json response.body, ignore_unknown_fields: true
+
+                yield result, response if block_given?
+
+                result
               end
 
               ##
@@ -261,19 +286,20 @@ module Google
               #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
               # @return [::Google::Cloud::Compute::V1::Operation]
               def move_instance request_pb, options:, &block
-                request_json = JSON.parse ::Google::Cloud::Compute::V1::MoveInstanceProjectRequest.encode_json(request_pb)
-
                 uri = "/compute/v1/projects/#{request_pb.project}/moveInstance"
                 body = request_pb.instance_move_request_resource.to_json
 
-                result_json = @client_stub.make_post_request(
+                response = @client_stub.make_post_request(
                   uri:     uri,
                   body:    body,
                   options: options,
-                  &block
                 )
 
-                ::Google::Cloud::Compute::V1::Operation.decode_json result_json[:body], { ignore_unknown_fields: true }
+                result = ::Google::Cloud::Compute::V1::Operation.decode_json response.body, ignore_unknown_fields: true
+
+                yield result, response if block_given?
+
+                result
               end
 
               ##
@@ -285,19 +311,20 @@ module Google
               #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
               # @return [::Google::Cloud::Compute::V1::Operation]
               def set_common_instance_metadata request_pb, options:, &block
-                request_json = JSON.parse ::Google::Cloud::Compute::V1::SetCommonInstanceMetadataProjectRequest.encode_json(request_pb)
-
                 uri = "/compute/v1/projects/#{request_pb.project}/setCommonInstanceMetadata"
                 body = request_pb.metadata_resource.to_json
 
-                result_json = @client_stub.make_post_request(
+                response = @client_stub.make_post_request(
                   uri:     uri,
                   body:    body,
                   options: options,
-                  &block
                 )
 
-                ::Google::Cloud::Compute::V1::Operation.decode_json result_json[:body], { ignore_unknown_fields: true }
+                result = ::Google::Cloud::Compute::V1::Operation.decode_json response.body, ignore_unknown_fields: true
+
+                yield result, response if block_given?
+
+                result
               end
 
               ##
@@ -309,19 +336,20 @@ module Google
               #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
               # @return [::Google::Cloud::Compute::V1::Operation]
               def set_default_network_tier request_pb, options:, &block
-                request_json = JSON.parse ::Google::Cloud::Compute::V1::SetDefaultNetworkTierProjectRequest.encode_json(request_pb)
-
                 uri = "/compute/v1/projects/#{request_pb.project}/setDefaultNetworkTier"
                 body = request_pb.projects_set_default_network_tier_request_resource.to_json
 
-                result_json = @client_stub.make_post_request(
+                response = @client_stub.make_post_request(
                   uri:     uri,
                   body:    body,
                   options: options,
-                  &block
                 )
 
-                ::Google::Cloud::Compute::V1::Operation.decode_json result_json[:body], { ignore_unknown_fields: true }
+                result = ::Google::Cloud::Compute::V1::Operation.decode_json response.body, ignore_unknown_fields: true
+
+                yield result, response if block_given?
+
+                result
               end
 
               ##
@@ -333,19 +361,20 @@ module Google
               #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
               # @return [::Google::Cloud::Compute::V1::Operation]
               def set_usage_export_bucket request_pb, options:, &block
-                request_json = JSON.parse ::Google::Cloud::Compute::V1::SetUsageExportBucketProjectRequest.encode_json(request_pb)
-
                 uri = "/compute/v1/projects/#{request_pb.project}/setUsageExportBucket"
                 body = request_pb.usage_export_location_resource.to_json
 
-                result_json = @client_stub.make_post_request(
+                response = @client_stub.make_post_request(
                   uri:     uri,
                   body:    body,
                   options: options,
-                  &block
                 )
 
-                ::Google::Cloud::Compute::V1::Operation.decode_json result_json[:body], { ignore_unknown_fields: true }
+                result = ::Google::Cloud::Compute::V1::Operation.decode_json response.body, ignore_unknown_fields: true
+
+                yield result, response if block_given?
+
+                result
               end
             end
           end

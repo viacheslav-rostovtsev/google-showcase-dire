@@ -55,19 +55,20 @@ module Google
               #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
               # @return [::Google::Cloud::Compute::V1::Operation]
               def add_nodes request_pb, options:, &block
-                request_json = JSON.parse ::Google::Cloud::Compute::V1::AddNodesNodeGroupRequest.encode_json(request_pb)
-
                 uri = "/compute/v1/projects/#{request_pb.project}/zones/#{request_pb.zone}/nodeGroups/#{request_pb.node_group}/addNodes"
                 body = request_pb.node_groups_add_nodes_request_resource.to_json
 
-                result_json = @client_stub.make_post_request(
+                response = @client_stub.make_post_request(
                   uri:     uri,
                   body:    body,
                   options: options,
-                  &block
                 )
 
-                ::Google::Cloud::Compute::V1::Operation.decode_json result_json[:body], { ignore_unknown_fields: true }
+                result = ::Google::Cloud::Compute::V1::Operation.decode_json response.body, ignore_unknown_fields: true
+
+                yield result, response if block_given?
+
+                result
               end
 
               ##
@@ -79,17 +80,27 @@ module Google
               #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
               # @return [::Google::Cloud::Compute::V1::NodeGroupAggregatedList]
               def aggregated_list request_pb, options:, &block
-                request_json = JSON.parse ::Google::Cloud::Compute::V1::AggregatedListNodeGroupsRequest.encode_json(request_pb)
-
                 uri = "/compute/v1/projects/#{request_pb.project}/aggregated/nodeGroups"
 
-                result_json = @client_stub.make_get_request(
+                query_string_params = {}
+                query_string_params["filter"] = request_pb.filter.to_s if request_pb.filter && request_pb.filter != ""
+                query_string_params["includeAllScopes"] = request_pb.include_all_scopes.to_s if request_pb.include_all_scopes && request_pb.include_all_scopes != false
+                query_string_params["maxResults"] = request_pb.max_results.to_s if request_pb.max_results && request_pb.max_results != 0
+                query_string_params["orderBy"] =  request_pb.order_by.to_s if request_pb.order_by && request_pb.order_by != ""
+                query_string_params["pageToken"] = request_pb.page_token.to_s if request_pb.page_token && request_pb.page_token != ""
+                query_string_params["returnPartialSuccess"] = request_pb.return_partial_success.to_s if request_pb.return_partial_success && request_pb.return_partial_success != false
+
+                response = @client_stub.make_get_request(
                   uri:     uri,
+                  params:  query_string_params,
                   options: options,
-                  &block
                 )
 
-                ::Google::Cloud::Compute::V1::NodeGroupAggregatedList.decode_json result_json[:body], { ignore_unknown_fields: true }
+                result = ::Google::Cloud::Compute::V1::NodeGroupAggregatedList.decode_json response.body, ignore_unknown_fields: true
+
+                yield result, response if block_given?
+
+                result
               end
 
               ##
@@ -101,17 +112,22 @@ module Google
               #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
               # @return [::Google::Cloud::Compute::V1::Operation]
               def delete request_pb, options:, &block
-                request_json = JSON.parse ::Google::Cloud::Compute::V1::DeleteNodeGroupRequest.encode_json(request_pb)
-
                 uri = "/compute/v1/projects/#{request_pb.project}/zones/#{request_pb.zone}/nodeGroups/#{request_pb.node_group}"
 
-                result_json = @client_stub.make_delete_request(
+                query_string_params = {}
+                query_string_params["requestId"] =  request_pb.request_id.to_s if request_pb.request_id && request_pb.request_id != ""
+
+                response = @client_stub.make_delete_request(
                   uri:     uri,
+                  params:  query_string_params,
                   options: options,
-                  &block
                 )
 
-                ::Google::Cloud::Compute::V1::Operation.decode_json result_json[:body], { ignore_unknown_fields: true }
+                result = ::Google::Cloud::Compute::V1::Operation.decode_json response.body, ignore_unknown_fields: true
+
+                yield result, response if block_given?
+
+                result
               end
 
               ##
@@ -123,19 +139,20 @@ module Google
               #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
               # @return [::Google::Cloud::Compute::V1::Operation]
               def delete_nodes request_pb, options:, &block
-                request_json = JSON.parse ::Google::Cloud::Compute::V1::DeleteNodesNodeGroupRequest.encode_json(request_pb)
-
                 uri = "/compute/v1/projects/#{request_pb.project}/zones/#{request_pb.zone}/nodeGroups/#{request_pb.node_group}/deleteNodes"
                 body = request_pb.node_groups_delete_nodes_request_resource.to_json
 
-                result_json = @client_stub.make_post_request(
+                response = @client_stub.make_post_request(
                   uri:     uri,
                   body:    body,
                   options: options,
-                  &block
                 )
 
-                ::Google::Cloud::Compute::V1::Operation.decode_json result_json[:body], { ignore_unknown_fields: true }
+                result = ::Google::Cloud::Compute::V1::Operation.decode_json response.body, ignore_unknown_fields: true
+
+                yield result, response if block_given?
+
+                result
               end
 
               ##
@@ -147,17 +164,18 @@ module Google
               #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
               # @return [::Google::Cloud::Compute::V1::NodeGroup]
               def get request_pb, options:, &block
-                request_json = JSON.parse ::Google::Cloud::Compute::V1::GetNodeGroupRequest.encode_json(request_pb)
-
                 uri = "/compute/v1/projects/#{request_pb.project}/zones/#{request_pb.zone}/nodeGroups/#{request_pb.node_group}"
 
-                result_json = @client_stub.make_get_request(
+                response = @client_stub.make_get_request(
                   uri:     uri,
                   options: options,
-                  &block
                 )
 
-                ::Google::Cloud::Compute::V1::NodeGroup.decode_json result_json[:body], { ignore_unknown_fields: true }
+                result = ::Google::Cloud::Compute::V1::NodeGroup.decode_json response.body, ignore_unknown_fields: true
+
+                yield result, response if block_given?
+
+                result
               end
 
               ##
@@ -169,17 +187,22 @@ module Google
               #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
               # @return [::Google::Cloud::Compute::V1::Policy]
               def get_iam_policy request_pb, options:, &block
-                request_json = JSON.parse ::Google::Cloud::Compute::V1::GetIamPolicyNodeGroupRequest.encode_json(request_pb)
-
                 uri = "/compute/v1/projects/#{request_pb.project}/zones/#{request_pb.zone}/nodeGroups/#{request_pb.resource}/getIamPolicy"
 
-                result_json = @client_stub.make_get_request(
+                query_string_params = {}
+                query_string_params["optionsRequestedPolicyVersion"] = request_pb.options_requested_policy_version.to_s if request_pb.options_requested_policy_version && request_pb.options_requested_policy_version != 0
+
+                response = @client_stub.make_get_request(
                   uri:     uri,
+                  params:  query_string_params,
                   options: options,
-                  &block
                 )
 
-                ::Google::Cloud::Compute::V1::Policy.decode_json result_json[:body], { ignore_unknown_fields: true }
+                result = ::Google::Cloud::Compute::V1::Policy.decode_json response.body, ignore_unknown_fields: true
+
+                yield result, response if block_given?
+
+                result
               end
 
               ##
@@ -191,19 +214,20 @@ module Google
               #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
               # @return [::Google::Cloud::Compute::V1::Operation]
               def insert request_pb, options:, &block
-                request_json = JSON.parse ::Google::Cloud::Compute::V1::InsertNodeGroupRequest.encode_json(request_pb)
-
                 uri = "/compute/v1/projects/#{request_pb.project}/zones/#{request_pb.zone}/nodeGroups"
                 body = request_pb.node_group_resource.to_json
 
-                result_json = @client_stub.make_post_request(
+                response = @client_stub.make_post_request(
                   uri:     uri,
                   body:    body,
                   options: options,
-                  &block
                 )
 
-                ::Google::Cloud::Compute::V1::Operation.decode_json result_json[:body], { ignore_unknown_fields: true }
+                result = ::Google::Cloud::Compute::V1::Operation.decode_json response.body, ignore_unknown_fields: true
+
+                yield result, response if block_given?
+
+                result
               end
 
               ##
@@ -215,17 +239,26 @@ module Google
               #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
               # @return [::Google::Cloud::Compute::V1::NodeGroupList]
               def list request_pb, options:, &block
-                request_json = JSON.parse ::Google::Cloud::Compute::V1::ListNodeGroupsRequest.encode_json(request_pb)
-
                 uri = "/compute/v1/projects/#{request_pb.project}/zones/#{request_pb.zone}/nodeGroups"
 
-                result_json = @client_stub.make_get_request(
+                query_string_params = {}
+                query_string_params["filter"] = request_pb.filter.to_s if request_pb.filter && request_pb.filter != ""
+                query_string_params["maxResults"] = request_pb.max_results.to_s if request_pb.max_results && request_pb.max_results != 0
+                query_string_params["orderBy"] =  request_pb.order_by.to_s if request_pb.order_by && request_pb.order_by != ""
+                query_string_params["pageToken"] = request_pb.page_token.to_s if request_pb.page_token && request_pb.page_token != ""
+                query_string_params["returnPartialSuccess"] = request_pb.return_partial_success.to_s if request_pb.return_partial_success && request_pb.return_partial_success != false
+
+                response = @client_stub.make_get_request(
                   uri:     uri,
+                  params:  query_string_params,
                   options: options,
-                  &block
                 )
 
-                ::Google::Cloud::Compute::V1::NodeGroupList.decode_json result_json[:body], { ignore_unknown_fields: true }
+                result = ::Google::Cloud::Compute::V1::NodeGroupList.decode_json response.body, ignore_unknown_fields: true
+
+                yield result, response if block_given?
+
+                result
               end
 
               ##
@@ -237,17 +270,26 @@ module Google
               #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
               # @return [::Google::Cloud::Compute::V1::NodeGroupsListNodes]
               def list_nodes request_pb, options:, &block
-                request_json = JSON.parse ::Google::Cloud::Compute::V1::ListNodesNodeGroupsRequest.encode_json(request_pb)
-
                 uri = "/compute/v1/projects/#{request_pb.project}/zones/#{request_pb.zone}/nodeGroups/#{request_pb.node_group}/listNodes"
 
-                result_json = @client_stub.make_post_request(
+                query_string_params = {}
+                query_string_params["filter"] = request_pb.filter.to_s if request_pb.filter && request_pb.filter != ""
+                query_string_params["maxResults"] = request_pb.max_results.to_s if request_pb.max_results && request_pb.max_results != 0
+                query_string_params["orderBy"] =  request_pb.order_by.to_s if request_pb.order_by && request_pb.order_by != ""
+                query_string_params["pageToken"] = request_pb.page_token.to_s if request_pb.page_token && request_pb.page_token != ""
+                query_string_params["returnPartialSuccess"] = request_pb.return_partial_success.to_s if request_pb.return_partial_success && request_pb.return_partial_success != false
+
+                response = @client_stub.make_post_request(
                   uri:     uri,
+                  params:  query_string_params,
                   options: options,
-                  &block
                 )
 
-                ::Google::Cloud::Compute::V1::NodeGroupsListNodes.decode_json result_json[:body], { ignore_unknown_fields: true }
+                result = ::Google::Cloud::Compute::V1::NodeGroupsListNodes.decode_json response.body, ignore_unknown_fields: true
+
+                yield result, response if block_given?
+
+                result
               end
 
               ##
@@ -259,19 +301,20 @@ module Google
               #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
               # @return [::Google::Cloud::Compute::V1::Operation]
               def patch request_pb, options:, &block
-                request_json = JSON.parse ::Google::Cloud::Compute::V1::PatchNodeGroupRequest.encode_json(request_pb)
-
                 uri = "/compute/v1/projects/#{request_pb.project}/zones/#{request_pb.zone}/nodeGroups/#{request_pb.node_group}"
                 body = request_pb.node_group_resource.to_json
 
-                result_json = @client_stub.make_patch_request(
+                response = @client_stub.make_patch_request(
                   uri:     uri,
                   body:    body,
                   options: options,
-                  &block
                 )
 
-                ::Google::Cloud::Compute::V1::Operation.decode_json result_json[:body], { ignore_unknown_fields: true }
+                result = ::Google::Cloud::Compute::V1::Operation.decode_json response.body, ignore_unknown_fields: true
+
+                yield result, response if block_given?
+
+                result
               end
 
               ##
@@ -283,19 +326,20 @@ module Google
               #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
               # @return [::Google::Cloud::Compute::V1::Policy]
               def set_iam_policy request_pb, options:, &block
-                request_json = JSON.parse ::Google::Cloud::Compute::V1::SetIamPolicyNodeGroupRequest.encode_json(request_pb)
-
                 uri = "/compute/v1/projects/#{request_pb.project}/zones/#{request_pb.zone}/nodeGroups/#{request_pb.resource}/setIamPolicy"
                 body = request_pb.zone_set_policy_request_resource.to_json
 
-                result_json = @client_stub.make_post_request(
+                response = @client_stub.make_post_request(
                   uri:     uri,
                   body:    body,
                   options: options,
-                  &block
                 )
 
-                ::Google::Cloud::Compute::V1::Policy.decode_json result_json[:body], { ignore_unknown_fields: true }
+                result = ::Google::Cloud::Compute::V1::Policy.decode_json response.body, ignore_unknown_fields: true
+
+                yield result, response if block_given?
+
+                result
               end
 
               ##
@@ -307,19 +351,20 @@ module Google
               #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
               # @return [::Google::Cloud::Compute::V1::Operation]
               def set_node_template request_pb, options:, &block
-                request_json = JSON.parse ::Google::Cloud::Compute::V1::SetNodeTemplateNodeGroupRequest.encode_json(request_pb)
-
                 uri = "/compute/v1/projects/#{request_pb.project}/zones/#{request_pb.zone}/nodeGroups/#{request_pb.node_group}/setNodeTemplate"
                 body = request_pb.node_groups_set_node_template_request_resource.to_json
 
-                result_json = @client_stub.make_post_request(
+                response = @client_stub.make_post_request(
                   uri:     uri,
                   body:    body,
                   options: options,
-                  &block
                 )
 
-                ::Google::Cloud::Compute::V1::Operation.decode_json result_json[:body], { ignore_unknown_fields: true }
+                result = ::Google::Cloud::Compute::V1::Operation.decode_json response.body, ignore_unknown_fields: true
+
+                yield result, response if block_given?
+
+                result
               end
 
               ##
@@ -331,19 +376,20 @@ module Google
               #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
               # @return [::Google::Cloud::Compute::V1::TestPermissionsResponse]
               def test_iam_permissions request_pb, options:, &block
-                request_json = JSON.parse ::Google::Cloud::Compute::V1::TestIamPermissionsNodeGroupRequest.encode_json(request_pb)
-
                 uri = "/compute/v1/projects/#{request_pb.project}/zones/#{request_pb.zone}/nodeGroups/#{request_pb.resource}/testIamPermissions"
                 body = request_pb.test_permissions_request_resource.to_json
 
-                result_json = @client_stub.make_post_request(
+                response = @client_stub.make_post_request(
                   uri:     uri,
                   body:    body,
                   options: options,
-                  &block
                 )
 
-                ::Google::Cloud::Compute::V1::TestPermissionsResponse.decode_json result_json[:body], { ignore_unknown_fields: true }
+                result = ::Google::Cloud::Compute::V1::TestPermissionsResponse.decode_json response.body, ignore_unknown_fields: true
+
+                yield result, response if block_given?
+
+                result
               end
             end
           end

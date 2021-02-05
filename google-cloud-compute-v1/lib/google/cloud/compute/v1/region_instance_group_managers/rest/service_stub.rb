@@ -59,19 +59,20 @@ module Google
               #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
               # @return [::Google::Cloud::Compute::V1::Operation]
               def abandon_instances request_pb, options:, &block
-                request_json = JSON.parse ::Google::Cloud::Compute::V1::AbandonInstancesRegionInstanceGroupManagerRequest.encode_json(request_pb)
-
                 uri = "/compute/v1/projects/#{request_pb.project}/regions/#{request_pb.region}/instanceGroupManagers/#{request_pb.instance_group_manager}/abandonInstances"
                 body = request_pb.region_instance_group_managers_abandon_instances_request_resource.to_json
 
-                result_json = @client_stub.make_post_request(
+                response = @client_stub.make_post_request(
                   uri:     uri,
                   body:    body,
                   options: options,
-                  &block
                 )
 
-                ::Google::Cloud::Compute::V1::Operation.decode_json result_json[:body], { ignore_unknown_fields: true }
+                result = ::Google::Cloud::Compute::V1::Operation.decode_json response.body, ignore_unknown_fields: true
+
+                yield result, response if block_given?
+
+                result
               end
 
               ##
@@ -83,19 +84,20 @@ module Google
               #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
               # @return [::Google::Cloud::Compute::V1::Operation]
               def apply_updates_to_instances request_pb, options:, &block
-                request_json = JSON.parse ::Google::Cloud::Compute::V1::ApplyUpdatesToInstancesRegionInstanceGroupManagerRequest.encode_json(request_pb)
-
                 uri = "/compute/v1/projects/#{request_pb.project}/regions/#{request_pb.region}/instanceGroupManagers/#{request_pb.instance_group_manager}/applyUpdatesToInstances"
                 body = request_pb.region_instance_group_managers_apply_updates_request_resource.to_json
 
-                result_json = @client_stub.make_post_request(
+                response = @client_stub.make_post_request(
                   uri:     uri,
                   body:    body,
                   options: options,
-                  &block
                 )
 
-                ::Google::Cloud::Compute::V1::Operation.decode_json result_json[:body], { ignore_unknown_fields: true }
+                result = ::Google::Cloud::Compute::V1::Operation.decode_json response.body, ignore_unknown_fields: true
+
+                yield result, response if block_given?
+
+                result
               end
 
               ##
@@ -107,19 +109,20 @@ module Google
               #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
               # @return [::Google::Cloud::Compute::V1::Operation]
               def create_instances request_pb, options:, &block
-                request_json = JSON.parse ::Google::Cloud::Compute::V1::CreateInstancesRegionInstanceGroupManagerRequest.encode_json(request_pb)
-
                 uri = "/compute/v1/projects/#{request_pb.project}/regions/#{request_pb.region}/instanceGroupManagers/#{request_pb.instance_group_manager}/createInstances"
                 body = request_pb.region_instance_group_managers_create_instances_request_resource.to_json
 
-                result_json = @client_stub.make_post_request(
+                response = @client_stub.make_post_request(
                   uri:     uri,
                   body:    body,
                   options: options,
-                  &block
                 )
 
-                ::Google::Cloud::Compute::V1::Operation.decode_json result_json[:body], { ignore_unknown_fields: true }
+                result = ::Google::Cloud::Compute::V1::Operation.decode_json response.body, ignore_unknown_fields: true
+
+                yield result, response if block_given?
+
+                result
               end
 
               ##
@@ -131,17 +134,22 @@ module Google
               #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
               # @return [::Google::Cloud::Compute::V1::Operation]
               def delete request_pb, options:, &block
-                request_json = JSON.parse ::Google::Cloud::Compute::V1::DeleteRegionInstanceGroupManagerRequest.encode_json(request_pb)
-
                 uri = "/compute/v1/projects/#{request_pb.project}/regions/#{request_pb.region}/instanceGroupManagers/#{request_pb.instance_group_manager}"
 
-                result_json = @client_stub.make_delete_request(
+                query_string_params = {}
+                query_string_params["requestId"] =  request_pb.request_id.to_s if request_pb.request_id && request_pb.request_id != ""
+
+                response = @client_stub.make_delete_request(
                   uri:     uri,
+                  params:  query_string_params,
                   options: options,
-                  &block
                 )
 
-                ::Google::Cloud::Compute::V1::Operation.decode_json result_json[:body], { ignore_unknown_fields: true }
+                result = ::Google::Cloud::Compute::V1::Operation.decode_json response.body, ignore_unknown_fields: true
+
+                yield result, response if block_given?
+
+                result
               end
 
               ##
@@ -157,19 +165,20 @@ module Google
               #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
               # @return [::Google::Cloud::Compute::V1::Operation]
               def delete_instances request_pb, options:, &block
-                request_json = JSON.parse ::Google::Cloud::Compute::V1::DeleteInstancesRegionInstanceGroupManagerRequest.encode_json(request_pb)
-
                 uri = "/compute/v1/projects/#{request_pb.project}/regions/#{request_pb.region}/instanceGroupManagers/#{request_pb.instance_group_manager}/deleteInstances"
                 body = request_pb.region_instance_group_managers_delete_instances_request_resource.to_json
 
-                result_json = @client_stub.make_post_request(
+                response = @client_stub.make_post_request(
                   uri:     uri,
                   body:    body,
                   options: options,
-                  &block
                 )
 
-                ::Google::Cloud::Compute::V1::Operation.decode_json result_json[:body], { ignore_unknown_fields: true }
+                result = ::Google::Cloud::Compute::V1::Operation.decode_json response.body, ignore_unknown_fields: true
+
+                yield result, response if block_given?
+
+                result
               end
 
               ##
@@ -181,19 +190,20 @@ module Google
               #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
               # @return [::Google::Cloud::Compute::V1::Operation]
               def delete_per_instance_configs request_pb, options:, &block
-                request_json = JSON.parse ::Google::Cloud::Compute::V1::DeletePerInstanceConfigsRegionInstanceGroupManagerRequest.encode_json(request_pb)
-
                 uri = "/compute/v1/projects/#{request_pb.project}/regions/#{request_pb.region}/instanceGroupManagers/#{request_pb.instance_group_manager}/deletePerInstanceConfigs"
                 body = request_pb.region_instance_group_manager_delete_instance_config_req_resource.to_json
 
-                result_json = @client_stub.make_post_request(
+                response = @client_stub.make_post_request(
                   uri:     uri,
                   body:    body,
                   options: options,
-                  &block
                 )
 
-                ::Google::Cloud::Compute::V1::Operation.decode_json result_json[:body], { ignore_unknown_fields: true }
+                result = ::Google::Cloud::Compute::V1::Operation.decode_json response.body, ignore_unknown_fields: true
+
+                yield result, response if block_given?
+
+                result
               end
 
               ##
@@ -205,17 +215,18 @@ module Google
               #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
               # @return [::Google::Cloud::Compute::V1::InstanceGroupManager]
               def get request_pb, options:, &block
-                request_json = JSON.parse ::Google::Cloud::Compute::V1::GetRegionInstanceGroupManagerRequest.encode_json(request_pb)
-
                 uri = "/compute/v1/projects/#{request_pb.project}/regions/#{request_pb.region}/instanceGroupManagers/#{request_pb.instance_group_manager}"
 
-                result_json = @client_stub.make_get_request(
+                response = @client_stub.make_get_request(
                   uri:     uri,
                   options: options,
-                  &block
                 )
 
-                ::Google::Cloud::Compute::V1::InstanceGroupManager.decode_json result_json[:body], { ignore_unknown_fields: true }
+                result = ::Google::Cloud::Compute::V1::InstanceGroupManager.decode_json response.body, ignore_unknown_fields: true
+
+                yield result, response if block_given?
+
+                result
               end
 
               ##
@@ -229,19 +240,20 @@ module Google
               #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
               # @return [::Google::Cloud::Compute::V1::Operation]
               def insert request_pb, options:, &block
-                request_json = JSON.parse ::Google::Cloud::Compute::V1::InsertRegionInstanceGroupManagerRequest.encode_json(request_pb)
-
                 uri = "/compute/v1/projects/#{request_pb.project}/regions/#{request_pb.region}/instanceGroupManagers"
                 body = request_pb.instance_group_manager_resource.to_json
 
-                result_json = @client_stub.make_post_request(
+                response = @client_stub.make_post_request(
                   uri:     uri,
                   body:    body,
                   options: options,
-                  &block
                 )
 
-                ::Google::Cloud::Compute::V1::Operation.decode_json result_json[:body], { ignore_unknown_fields: true }
+                result = ::Google::Cloud::Compute::V1::Operation.decode_json response.body, ignore_unknown_fields: true
+
+                yield result, response if block_given?
+
+                result
               end
 
               ##
@@ -253,17 +265,26 @@ module Google
               #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
               # @return [::Google::Cloud::Compute::V1::RegionInstanceGroupManagerList]
               def list request_pb, options:, &block
-                request_json = JSON.parse ::Google::Cloud::Compute::V1::ListRegionInstanceGroupManagersRequest.encode_json(request_pb)
-
                 uri = "/compute/v1/projects/#{request_pb.project}/regions/#{request_pb.region}/instanceGroupManagers"
 
-                result_json = @client_stub.make_get_request(
+                query_string_params = {}
+                query_string_params["filter"] = request_pb.filter.to_s if request_pb.filter && request_pb.filter != ""
+                query_string_params["maxResults"] = request_pb.max_results.to_s if request_pb.max_results && request_pb.max_results != 0
+                query_string_params["orderBy"] =  request_pb.order_by.to_s if request_pb.order_by && request_pb.order_by != ""
+                query_string_params["pageToken"] = request_pb.page_token.to_s if request_pb.page_token && request_pb.page_token != ""
+                query_string_params["returnPartialSuccess"] = request_pb.return_partial_success.to_s if request_pb.return_partial_success && request_pb.return_partial_success != false
+
+                response = @client_stub.make_get_request(
                   uri:     uri,
+                  params:  query_string_params,
                   options: options,
-                  &block
                 )
 
-                ::Google::Cloud::Compute::V1::RegionInstanceGroupManagerList.decode_json result_json[:body], { ignore_unknown_fields: true }
+                result = ::Google::Cloud::Compute::V1::RegionInstanceGroupManagerList.decode_json response.body, ignore_unknown_fields: true
+
+                yield result, response if block_given?
+
+                result
               end
 
               ##
@@ -275,17 +296,26 @@ module Google
               #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
               # @return [::Google::Cloud::Compute::V1::RegionInstanceGroupManagersListErrorsResponse]
               def list_errors request_pb, options:, &block
-                request_json = JSON.parse ::Google::Cloud::Compute::V1::ListErrorsRegionInstanceGroupManagersRequest.encode_json(request_pb)
-
                 uri = "/compute/v1/projects/#{request_pb.project}/regions/#{request_pb.region}/instanceGroupManagers/#{request_pb.instance_group_manager}/listErrors"
 
-                result_json = @client_stub.make_get_request(
+                query_string_params = {}
+                query_string_params["filter"] = request_pb.filter.to_s if request_pb.filter && request_pb.filter != ""
+                query_string_params["maxResults"] = request_pb.max_results.to_s if request_pb.max_results && request_pb.max_results != 0
+                query_string_params["orderBy"] =  request_pb.order_by.to_s if request_pb.order_by && request_pb.order_by != ""
+                query_string_params["pageToken"] = request_pb.page_token.to_s if request_pb.page_token && request_pb.page_token != ""
+                query_string_params["returnPartialSuccess"] = request_pb.return_partial_success.to_s if request_pb.return_partial_success && request_pb.return_partial_success != false
+
+                response = @client_stub.make_get_request(
                   uri:     uri,
+                  params:  query_string_params,
                   options: options,
-                  &block
                 )
 
-                ::Google::Cloud::Compute::V1::RegionInstanceGroupManagersListErrorsResponse.decode_json result_json[:body], { ignore_unknown_fields: true }
+                result = ::Google::Cloud::Compute::V1::RegionInstanceGroupManagersListErrorsResponse.decode_json response.body, ignore_unknown_fields: true
+
+                yield result, response if block_given?
+
+                result
               end
 
               ##
@@ -297,17 +327,26 @@ module Google
               #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
               # @return [::Google::Cloud::Compute::V1::RegionInstanceGroupManagersListInstancesResponse]
               def list_managed_instances request_pb, options:, &block
-                request_json = JSON.parse ::Google::Cloud::Compute::V1::ListManagedInstancesRegionInstanceGroupManagersRequest.encode_json(request_pb)
-
                 uri = "/compute/v1/projects/#{request_pb.project}/regions/#{request_pb.region}/instanceGroupManagers/#{request_pb.instance_group_manager}/listManagedInstances"
 
-                result_json = @client_stub.make_post_request(
+                query_string_params = {}
+                query_string_params["filter"] = request_pb.filter.to_s if request_pb.filter && request_pb.filter != ""
+                query_string_params["maxResults"] = request_pb.max_results.to_s if request_pb.max_results && request_pb.max_results != 0
+                query_string_params["orderBy"] =  request_pb.order_by.to_s if request_pb.order_by && request_pb.order_by != ""
+                query_string_params["pageToken"] = request_pb.page_token.to_s if request_pb.page_token && request_pb.page_token != ""
+                query_string_params["returnPartialSuccess"] = request_pb.return_partial_success.to_s if request_pb.return_partial_success && request_pb.return_partial_success != false
+
+                response = @client_stub.make_post_request(
                   uri:     uri,
+                  params:  query_string_params,
                   options: options,
-                  &block
                 )
 
-                ::Google::Cloud::Compute::V1::RegionInstanceGroupManagersListInstancesResponse.decode_json result_json[:body], { ignore_unknown_fields: true }
+                result = ::Google::Cloud::Compute::V1::RegionInstanceGroupManagersListInstancesResponse.decode_json response.body, ignore_unknown_fields: true
+
+                yield result, response if block_given?
+
+                result
               end
 
               ##
@@ -319,17 +358,26 @@ module Google
               #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
               # @return [::Google::Cloud::Compute::V1::RegionInstanceGroupManagersListInstanceConfigsResp]
               def list_per_instance_configs request_pb, options:, &block
-                request_json = JSON.parse ::Google::Cloud::Compute::V1::ListPerInstanceConfigsRegionInstanceGroupManagersRequest.encode_json(request_pb)
-
                 uri = "/compute/v1/projects/#{request_pb.project}/regions/#{request_pb.region}/instanceGroupManagers/#{request_pb.instance_group_manager}/listPerInstanceConfigs"
 
-                result_json = @client_stub.make_post_request(
+                query_string_params = {}
+                query_string_params["filter"] = request_pb.filter.to_s if request_pb.filter && request_pb.filter != ""
+                query_string_params["maxResults"] = request_pb.max_results.to_s if request_pb.max_results && request_pb.max_results != 0
+                query_string_params["orderBy"] =  request_pb.order_by.to_s if request_pb.order_by && request_pb.order_by != ""
+                query_string_params["pageToken"] = request_pb.page_token.to_s if request_pb.page_token && request_pb.page_token != ""
+                query_string_params["returnPartialSuccess"] = request_pb.return_partial_success.to_s if request_pb.return_partial_success && request_pb.return_partial_success != false
+
+                response = @client_stub.make_post_request(
                   uri:     uri,
+                  params:  query_string_params,
                   options: options,
-                  &block
                 )
 
-                ::Google::Cloud::Compute::V1::RegionInstanceGroupManagersListInstanceConfigsResp.decode_json result_json[:body], { ignore_unknown_fields: true }
+                result = ::Google::Cloud::Compute::V1::RegionInstanceGroupManagersListInstanceConfigsResp.decode_json response.body, ignore_unknown_fields: true
+
+                yield result, response if block_given?
+
+                result
               end
 
               ##
@@ -341,19 +389,20 @@ module Google
               #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
               # @return [::Google::Cloud::Compute::V1::Operation]
               def patch request_pb, options:, &block
-                request_json = JSON.parse ::Google::Cloud::Compute::V1::PatchRegionInstanceGroupManagerRequest.encode_json(request_pb)
-
                 uri = "/compute/v1/projects/#{request_pb.project}/regions/#{request_pb.region}/instanceGroupManagers/#{request_pb.instance_group_manager}"
                 body = request_pb.instance_group_manager_resource.to_json
 
-                result_json = @client_stub.make_patch_request(
+                response = @client_stub.make_patch_request(
                   uri:     uri,
                   body:    body,
                   options: options,
-                  &block
                 )
 
-                ::Google::Cloud::Compute::V1::Operation.decode_json result_json[:body], { ignore_unknown_fields: true }
+                result = ::Google::Cloud::Compute::V1::Operation.decode_json response.body, ignore_unknown_fields: true
+
+                yield result, response if block_given?
+
+                result
               end
 
               ##
@@ -365,19 +414,20 @@ module Google
               #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
               # @return [::Google::Cloud::Compute::V1::Operation]
               def patch_per_instance_configs request_pb, options:, &block
-                request_json = JSON.parse ::Google::Cloud::Compute::V1::PatchPerInstanceConfigsRegionInstanceGroupManagerRequest.encode_json(request_pb)
-
                 uri = "/compute/v1/projects/#{request_pb.project}/regions/#{request_pb.region}/instanceGroupManagers/#{request_pb.instance_group_manager}/patchPerInstanceConfigs"
                 body = request_pb.region_instance_group_manager_patch_instance_config_req_resource.to_json
 
-                result_json = @client_stub.make_post_request(
+                response = @client_stub.make_post_request(
                   uri:     uri,
                   body:    body,
                   options: options,
-                  &block
                 )
 
-                ::Google::Cloud::Compute::V1::Operation.decode_json result_json[:body], { ignore_unknown_fields: true }
+                result = ::Google::Cloud::Compute::V1::Operation.decode_json response.body, ignore_unknown_fields: true
+
+                yield result, response if block_given?
+
+                result
               end
 
               ##
@@ -393,19 +443,20 @@ module Google
               #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
               # @return [::Google::Cloud::Compute::V1::Operation]
               def recreate_instances request_pb, options:, &block
-                request_json = JSON.parse ::Google::Cloud::Compute::V1::RecreateInstancesRegionInstanceGroupManagerRequest.encode_json(request_pb)
-
                 uri = "/compute/v1/projects/#{request_pb.project}/regions/#{request_pb.region}/instanceGroupManagers/#{request_pb.instance_group_manager}/recreateInstances"
                 body = request_pb.region_instance_group_managers_recreate_request_resource.to_json
 
-                result_json = @client_stub.make_post_request(
+                response = @client_stub.make_post_request(
                   uri:     uri,
                   body:    body,
                   options: options,
-                  &block
                 )
 
-                ::Google::Cloud::Compute::V1::Operation.decode_json result_json[:body], { ignore_unknown_fields: true }
+                result = ::Google::Cloud::Compute::V1::Operation.decode_json response.body, ignore_unknown_fields: true
+
+                yield result, response if block_given?
+
+                result
               end
 
               ##
@@ -421,17 +472,23 @@ module Google
               #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
               # @return [::Google::Cloud::Compute::V1::Operation]
               def resize request_pb, options:, &block
-                request_json = JSON.parse ::Google::Cloud::Compute::V1::ResizeRegionInstanceGroupManagerRequest.encode_json(request_pb)
-
                 uri = "/compute/v1/projects/#{request_pb.project}/regions/#{request_pb.region}/instanceGroupManagers/#{request_pb.instance_group_manager}/resize"
 
-                result_json = @client_stub.make_post_request(
+                query_string_params = {}
+                query_string_params["requestId"] = request_pb.request_id.to_s if request_pb.request_id && request_pb.request_id != ""
+                query_string_params["size"] = request_pb.size.to_s if request_pb.size && request_pb.size != 0
+
+                response = @client_stub.make_post_request(
                   uri:     uri,
+                  params:  query_string_params,
                   options: options,
-                  &block
                 )
 
-                ::Google::Cloud::Compute::V1::Operation.decode_json result_json[:body], { ignore_unknown_fields: true }
+                result = ::Google::Cloud::Compute::V1::Operation.decode_json response.body, ignore_unknown_fields: true
+
+                yield result, response if block_given?
+
+                result
               end
 
               ##
@@ -443,19 +500,20 @@ module Google
               #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
               # @return [::Google::Cloud::Compute::V1::Operation]
               def set_instance_template request_pb, options:, &block
-                request_json = JSON.parse ::Google::Cloud::Compute::V1::SetInstanceTemplateRegionInstanceGroupManagerRequest.encode_json(request_pb)
-
                 uri = "/compute/v1/projects/#{request_pb.project}/regions/#{request_pb.region}/instanceGroupManagers/#{request_pb.instance_group_manager}/setInstanceTemplate"
                 body = request_pb.region_instance_group_managers_set_template_request_resource.to_json
 
-                result_json = @client_stub.make_post_request(
+                response = @client_stub.make_post_request(
                   uri:     uri,
                   body:    body,
                   options: options,
-                  &block
                 )
 
-                ::Google::Cloud::Compute::V1::Operation.decode_json result_json[:body], { ignore_unknown_fields: true }
+                result = ::Google::Cloud::Compute::V1::Operation.decode_json response.body, ignore_unknown_fields: true
+
+                yield result, response if block_given?
+
+                result
               end
 
               ##
@@ -467,19 +525,20 @@ module Google
               #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
               # @return [::Google::Cloud::Compute::V1::Operation]
               def set_target_pools request_pb, options:, &block
-                request_json = JSON.parse ::Google::Cloud::Compute::V1::SetTargetPoolsRegionInstanceGroupManagerRequest.encode_json(request_pb)
-
                 uri = "/compute/v1/projects/#{request_pb.project}/regions/#{request_pb.region}/instanceGroupManagers/#{request_pb.instance_group_manager}/setTargetPools"
                 body = request_pb.region_instance_group_managers_set_target_pools_request_resource.to_json
 
-                result_json = @client_stub.make_post_request(
+                response = @client_stub.make_post_request(
                   uri:     uri,
                   body:    body,
                   options: options,
-                  &block
                 )
 
-                ::Google::Cloud::Compute::V1::Operation.decode_json result_json[:body], { ignore_unknown_fields: true }
+                result = ::Google::Cloud::Compute::V1::Operation.decode_json response.body, ignore_unknown_fields: true
+
+                yield result, response if block_given?
+
+                result
               end
 
               ##
@@ -491,19 +550,20 @@ module Google
               #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
               # @return [::Google::Cloud::Compute::V1::Operation]
               def update_per_instance_configs request_pb, options:, &block
-                request_json = JSON.parse ::Google::Cloud::Compute::V1::UpdatePerInstanceConfigsRegionInstanceGroupManagerRequest.encode_json(request_pb)
-
                 uri = "/compute/v1/projects/#{request_pb.project}/regions/#{request_pb.region}/instanceGroupManagers/#{request_pb.instance_group_manager}/updatePerInstanceConfigs"
                 body = request_pb.region_instance_group_manager_update_instance_config_req_resource.to_json
 
-                result_json = @client_stub.make_post_request(
+                response = @client_stub.make_post_request(
                   uri:     uri,
                   body:    body,
                   options: options,
-                  &block
                 )
 
-                ::Google::Cloud::Compute::V1::Operation.decode_json result_json[:body], { ignore_unknown_fields: true }
+                result = ::Google::Cloud::Compute::V1::Operation.decode_json response.body, ignore_unknown_fields: true
+
+                yield result, response if block_given?
+
+                result
               end
             end
           end
