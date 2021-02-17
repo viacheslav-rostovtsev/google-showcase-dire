@@ -5,7 +5,7 @@ require "google/cloud/compute/v1/instances"
 require "google/cloud/compute/v1/zone_operations"
 
 $default_zone = 'us-central1-a'
-$default_project = ENV['PROJECT_ID']
+$default_project = "client-debugging"
 $machine_type = 'zones/'+$default_zone+'/machineTypes/n1-standard-1'
 $image =  'https://www.googleapis.com/compute/v1/projects/debian-cloud/global/images/debian-7-wheezy-v20150710'
 
@@ -69,8 +69,8 @@ class TestUseComputeSmoke < Minitest::Test
     exception = assert_raises Google::Cloud::NotFoundError do
       @client.get(instance: 'nonexists1123512345', zone: $default_zone, project: $default_project)
     end
-    assert exception.message.include?('An error has occurred when making a REST request: The resource')
-    assert exception.message.include?('was not found')
+
+    assert_match /The resource '[^']+' was not found/, exception.message
   end
 
   def test_client_error_no_prj
@@ -79,6 +79,4 @@ class TestUseComputeSmoke < Minitest::Test
     end
     assert exception.message.include?('An error has occurred when making a REST request: Invalid resource field value in the request.')
   end
-
-
 end

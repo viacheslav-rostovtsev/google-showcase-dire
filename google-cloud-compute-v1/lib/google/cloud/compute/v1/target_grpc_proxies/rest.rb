@@ -22,6 +22,7 @@ module Google
     module Compute
       module V1
         require "gapic/rest"
+        require "google/cloud/compute/v1/target_grpc_proxies/rest/grpc_transcoding"
         require "google/cloud/compute/v1/target_grpc_proxies/rest/client"
         ##
         # The TargetGrpcProxies API.

@@ -22,6 +22,7 @@ module Google
     module Compute
       module V1
         require "gapic/rest"
+        require "google/cloud/compute/v1/health_checks/rest/grpc_transcoding"
         require "google/cloud/compute/v1/health_checks/rest/client"
         ##
         # The HealthChecks API.

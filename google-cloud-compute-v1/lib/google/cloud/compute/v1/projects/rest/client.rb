@@ -31,6 +31,8 @@ module Google
             # The Projects API.
             #
             class Client
+              include GrpcTranscoding
+
               # @private
               attr_reader :projects_stub
 
@@ -113,7 +115,7 @@ module Google
               def initialize
                 # These require statements are intentionally placed here to initialize
                 # the REST modules only when it's required.
-                require "google/cloud/compute/v1/projects/rest/service_stub"
+                require "gapic/rest"
 
                 # Create the configuration object
                 @config = Configuration.new Client.configure
@@ -128,10 +130,7 @@ module Google
                   credentials = Credentials.new credentials, scope: @config.scope
                 end
 
-                @projects_stub = ::Google::Cloud::Compute::V1::Projects::Rest::ServiceStub.new(
-                  credentials: credentials,
-                  endpoint:    @config.endpoint
-                )
+                @client_stub = ::Gapic::Rest::ClientStub.new endpoint: @config.endpoint, credentials: credentials
               end
 
               # Service calls
@@ -147,7 +146,9 @@ module Google
               #     A request object representing the call parameters. Required. To specify no
               #     parameters, or to keep all the default parameter values, pass an empty Hash.
               #   @param options [::Gapic::CallOptions, ::Hash]
-              #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
+              #     Overrides the default settings for this call, e.g, timeout, retries etc. Optional.
+              #     Note: currently retry functionality is not implemented. While it is possible
+              #     to set it using ::Gapic::CallOptions, it will not be applied
               #
               # @overload disable_xpn_host(project: nil, request_id: nil)
               #   Pass arguments to `disable_xpn_host` via keyword arguments. Note that at
@@ -162,7 +163,6 @@ module Google
               #     For example, consider a situation where you make an initial request and the request times out. If you make the request again with the same request ID, the server can check if original operation with the same request ID was received, and if so, will ignore the second request. This prevents clients from accidentally creating duplicate commitments.
               #
               #     The request ID must be a valid UUID with the exception that zero UUID is not supported (00000000-0000-0000-0000-000000000000).
-              #
               # @yield [result, env] Access the result along with the Faraday environment object
               # @yieldparam result [::Google::Cloud::Compute::V1::Operation]
               # @yieldparam env [::Faraday::Env]
@@ -175,12 +175,33 @@ module Google
 
                 request = ::Gapic::Protobuf.coerce request, to: ::Google::Cloud::Compute::V1::DisableXpnHostProjectRequest
 
-                @projects_stub.disable_xpn_host request, options: options do |response, env|
-                  yield response, env if block_given?
-                end
+                # Converts hash and nil to an options object
+                options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
+
+                # Customize the options with defaults
+                call_metadata = {}
+
+                # Set x-goog-api-client header
+                call_metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
+                  lib_name: @config.lib_name, lib_version: @config.lib_version,
+                  gapic_version: ::Google::Cloud::Compute::V1::VERSION
+
+                options.apply_defaults timeout:  @config.timeout,
+                                       metadata: call_metadata
+
+                (uri, _body, query_string_params) = transcode_disable_xpn_host request
+                response = @client_stub.make_post_request(
+                  uri:     uri,
+                  params:  query_string_params,
+                  options: options,
+                )
+                result = ::Google::Cloud::Compute::V1::Operation.decode_json response.body, ignore_unknown_fields: true
+
+                yield result, response if block_given?
+                result
               rescue ::Faraday::Error => e
-                ::Gapic::Rest::ErrorWrap.augment_faraday_error! e
-                raise ::Google::Cloud::Error.from_error(e)
+                gapic_error = ::Gapic::Rest::Error.wrap_faraday_error e
+                raise ::Google::Cloud::Error.from_error(gapic_error)
               end
 
               ##
@@ -194,7 +215,9 @@ module Google
               #     A request object representing the call parameters. Required. To specify no
               #     parameters, or to keep all the default parameter values, pass an empty Hash.
               #   @param options [::Gapic::CallOptions, ::Hash]
-              #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
+              #     Overrides the default settings for this call, e.g, timeout, retries etc. Optional.
+              #     Note: currently retry functionality is not implemented. While it is possible
+              #     to set it using ::Gapic::CallOptions, it will not be applied
               #
               # @overload disable_xpn_resource(project: nil, projects_disable_xpn_resource_request_resource: nil, request_id: nil)
               #   Pass arguments to `disable_xpn_resource` via keyword arguments. Note that at
@@ -211,7 +234,6 @@ module Google
               #     For example, consider a situation where you make an initial request and the request times out. If you make the request again with the same request ID, the server can check if original operation with the same request ID was received, and if so, will ignore the second request. This prevents clients from accidentally creating duplicate commitments.
               #
               #     The request ID must be a valid UUID with the exception that zero UUID is not supported (00000000-0000-0000-0000-000000000000).
-              #
               # @yield [result, env] Access the result along with the Faraday environment object
               # @yieldparam result [::Google::Cloud::Compute::V1::Operation]
               # @yieldparam env [::Faraday::Env]
@@ -224,12 +246,33 @@ module Google
 
                 request = ::Gapic::Protobuf.coerce request, to: ::Google::Cloud::Compute::V1::DisableXpnResourceProjectRequest
 
-                @projects_stub.disable_xpn_resource request, options: options do |response, env|
-                  yield response, env if block_given?
-                end
+                # Converts hash and nil to an options object
+                options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
+
+                # Customize the options with defaults
+                call_metadata = {}
+
+                # Set x-goog-api-client header
+                call_metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
+                  lib_name: @config.lib_name, lib_version: @config.lib_version,
+                  gapic_version: ::Google::Cloud::Compute::V1::VERSION
+
+                options.apply_defaults timeout:  @config.timeout,
+                                       metadata: call_metadata
+
+                (uri, body, _query_string_params) = transcode_disable_xpn_resource request
+                response = @client_stub.make_post_request(
+                  uri:     uri,
+                  body:    body,
+                  options: options,
+                )
+                result = ::Google::Cloud::Compute::V1::Operation.decode_json response.body, ignore_unknown_fields: true
+
+                yield result, response if block_given?
+                result
               rescue ::Faraday::Error => e
-                ::Gapic::Rest::ErrorWrap.augment_faraday_error! e
-                raise ::Google::Cloud::Error.from_error(e)
+                gapic_error = ::Gapic::Rest::Error.wrap_faraday_error e
+                raise ::Google::Cloud::Error.from_error(gapic_error)
               end
 
               ##
@@ -243,7 +286,9 @@ module Google
               #     A request object representing the call parameters. Required. To specify no
               #     parameters, or to keep all the default parameter values, pass an empty Hash.
               #   @param options [::Gapic::CallOptions, ::Hash]
-              #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
+              #     Overrides the default settings for this call, e.g, timeout, retries etc. Optional.
+              #     Note: currently retry functionality is not implemented. While it is possible
+              #     to set it using ::Gapic::CallOptions, it will not be applied
               #
               # @overload enable_xpn_host(project: nil, request_id: nil)
               #   Pass arguments to `enable_xpn_host` via keyword arguments. Note that at
@@ -258,7 +303,6 @@ module Google
               #     For example, consider a situation where you make an initial request and the request times out. If you make the request again with the same request ID, the server can check if original operation with the same request ID was received, and if so, will ignore the second request. This prevents clients from accidentally creating duplicate commitments.
               #
               #     The request ID must be a valid UUID with the exception that zero UUID is not supported (00000000-0000-0000-0000-000000000000).
-              #
               # @yield [result, env] Access the result along with the Faraday environment object
               # @yieldparam result [::Google::Cloud::Compute::V1::Operation]
               # @yieldparam env [::Faraday::Env]
@@ -271,12 +315,33 @@ module Google
 
                 request = ::Gapic::Protobuf.coerce request, to: ::Google::Cloud::Compute::V1::EnableXpnHostProjectRequest
 
-                @projects_stub.enable_xpn_host request, options: options do |response, env|
-                  yield response, env if block_given?
-                end
+                # Converts hash and nil to an options object
+                options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
+
+                # Customize the options with defaults
+                call_metadata = {}
+
+                # Set x-goog-api-client header
+                call_metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
+                  lib_name: @config.lib_name, lib_version: @config.lib_version,
+                  gapic_version: ::Google::Cloud::Compute::V1::VERSION
+
+                options.apply_defaults timeout:  @config.timeout,
+                                       metadata: call_metadata
+
+                (uri, _body, query_string_params) = transcode_enable_xpn_host request
+                response = @client_stub.make_post_request(
+                  uri:     uri,
+                  params:  query_string_params,
+                  options: options,
+                )
+                result = ::Google::Cloud::Compute::V1::Operation.decode_json response.body, ignore_unknown_fields: true
+
+                yield result, response if block_given?
+                result
               rescue ::Faraday::Error => e
-                ::Gapic::Rest::ErrorWrap.augment_faraday_error! e
-                raise ::Google::Cloud::Error.from_error(e)
+                gapic_error = ::Gapic::Rest::Error.wrap_faraday_error e
+                raise ::Google::Cloud::Error.from_error(gapic_error)
               end
 
               ##
@@ -290,7 +355,9 @@ module Google
               #     A request object representing the call parameters. Required. To specify no
               #     parameters, or to keep all the default parameter values, pass an empty Hash.
               #   @param options [::Gapic::CallOptions, ::Hash]
-              #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
+              #     Overrides the default settings for this call, e.g, timeout, retries etc. Optional.
+              #     Note: currently retry functionality is not implemented. While it is possible
+              #     to set it using ::Gapic::CallOptions, it will not be applied
               #
               # @overload enable_xpn_resource(project: nil, projects_enable_xpn_resource_request_resource: nil, request_id: nil)
               #   Pass arguments to `enable_xpn_resource` via keyword arguments. Note that at
@@ -307,7 +374,6 @@ module Google
               #     For example, consider a situation where you make an initial request and the request times out. If you make the request again with the same request ID, the server can check if original operation with the same request ID was received, and if so, will ignore the second request. This prevents clients from accidentally creating duplicate commitments.
               #
               #     The request ID must be a valid UUID with the exception that zero UUID is not supported (00000000-0000-0000-0000-000000000000).
-              #
               # @yield [result, env] Access the result along with the Faraday environment object
               # @yieldparam result [::Google::Cloud::Compute::V1::Operation]
               # @yieldparam env [::Faraday::Env]
@@ -320,12 +386,33 @@ module Google
 
                 request = ::Gapic::Protobuf.coerce request, to: ::Google::Cloud::Compute::V1::EnableXpnResourceProjectRequest
 
-                @projects_stub.enable_xpn_resource request, options: options do |response, env|
-                  yield response, env if block_given?
-                end
+                # Converts hash and nil to an options object
+                options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
+
+                # Customize the options with defaults
+                call_metadata = {}
+
+                # Set x-goog-api-client header
+                call_metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
+                  lib_name: @config.lib_name, lib_version: @config.lib_version,
+                  gapic_version: ::Google::Cloud::Compute::V1::VERSION
+
+                options.apply_defaults timeout:  @config.timeout,
+                                       metadata: call_metadata
+
+                (uri, body, _query_string_params) = transcode_enable_xpn_resource request
+                response = @client_stub.make_post_request(
+                  uri:     uri,
+                  body:    body,
+                  options: options,
+                )
+                result = ::Google::Cloud::Compute::V1::Operation.decode_json response.body, ignore_unknown_fields: true
+
+                yield result, response if block_given?
+                result
               rescue ::Faraday::Error => e
-                ::Gapic::Rest::ErrorWrap.augment_faraday_error! e
-                raise ::Google::Cloud::Error.from_error(e)
+                gapic_error = ::Gapic::Rest::Error.wrap_faraday_error e
+                raise ::Google::Cloud::Error.from_error(gapic_error)
               end
 
               ##
@@ -339,7 +426,9 @@ module Google
               #     A request object representing the call parameters. Required. To specify no
               #     parameters, or to keep all the default parameter values, pass an empty Hash.
               #   @param options [::Gapic::CallOptions, ::Hash]
-              #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
+              #     Overrides the default settings for this call, e.g, timeout, retries etc. Optional.
+              #     Note: currently retry functionality is not implemented. While it is possible
+              #     to set it using ::Gapic::CallOptions, it will not be applied
               #
               # @overload get(project: nil)
               #   Pass arguments to `get` via keyword arguments. Note that at
@@ -348,7 +437,6 @@ module Google
               #
               #   @param project [::String]
               #     Project ID for this request.
-              #
               # @yield [result, env] Access the result along with the Faraday environment object
               # @yieldparam result [::Google::Cloud::Compute::V1::Project]
               # @yieldparam env [::Faraday::Env]
@@ -361,12 +449,32 @@ module Google
 
                 request = ::Gapic::Protobuf.coerce request, to: ::Google::Cloud::Compute::V1::GetProjectRequest
 
-                @projects_stub.get request, options: options do |response, env|
-                  yield response, env if block_given?
-                end
+                # Converts hash and nil to an options object
+                options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
+
+                # Customize the options with defaults
+                call_metadata = {}
+
+                # Set x-goog-api-client header
+                call_metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
+                  lib_name: @config.lib_name, lib_version: @config.lib_version,
+                  gapic_version: ::Google::Cloud::Compute::V1::VERSION
+
+                options.apply_defaults timeout:  @config.timeout,
+                                       metadata: call_metadata
+
+                (uri, _body, _query_string_params) = transcode_get request
+                response = @client_stub.make_get_request(
+                  uri:     uri,
+                  options: options,
+                )
+                result = ::Google::Cloud::Compute::V1::Project.decode_json response.body, ignore_unknown_fields: true
+
+                yield result, response if block_given?
+                result
               rescue ::Faraday::Error => e
-                ::Gapic::Rest::ErrorWrap.augment_faraday_error! e
-                raise ::Google::Cloud::Error.from_error(e)
+                gapic_error = ::Gapic::Rest::Error.wrap_faraday_error e
+                raise ::Google::Cloud::Error.from_error(gapic_error)
               end
 
               ##
@@ -380,7 +488,9 @@ module Google
               #     A request object representing the call parameters. Required. To specify no
               #     parameters, or to keep all the default parameter values, pass an empty Hash.
               #   @param options [::Gapic::CallOptions, ::Hash]
-              #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
+              #     Overrides the default settings for this call, e.g, timeout, retries etc. Optional.
+              #     Note: currently retry functionality is not implemented. While it is possible
+              #     to set it using ::Gapic::CallOptions, it will not be applied
               #
               # @overload get_xpn_host(project: nil)
               #   Pass arguments to `get_xpn_host` via keyword arguments. Note that at
@@ -389,7 +499,6 @@ module Google
               #
               #   @param project [::String]
               #     Project ID for this request.
-              #
               # @yield [result, env] Access the result along with the Faraday environment object
               # @yieldparam result [::Google::Cloud::Compute::V1::Project]
               # @yieldparam env [::Faraday::Env]
@@ -402,12 +511,32 @@ module Google
 
                 request = ::Gapic::Protobuf.coerce request, to: ::Google::Cloud::Compute::V1::GetXpnHostProjectRequest
 
-                @projects_stub.get_xpn_host request, options: options do |response, env|
-                  yield response, env if block_given?
-                end
+                # Converts hash and nil to an options object
+                options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
+
+                # Customize the options with defaults
+                call_metadata = {}
+
+                # Set x-goog-api-client header
+                call_metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
+                  lib_name: @config.lib_name, lib_version: @config.lib_version,
+                  gapic_version: ::Google::Cloud::Compute::V1::VERSION
+
+                options.apply_defaults timeout:  @config.timeout,
+                                       metadata: call_metadata
+
+                (uri, _body, _query_string_params) = transcode_get_xpn_host request
+                response = @client_stub.make_get_request(
+                  uri:     uri,
+                  options: options,
+                )
+                result = ::Google::Cloud::Compute::V1::Project.decode_json response.body, ignore_unknown_fields: true
+
+                yield result, response if block_given?
+                result
               rescue ::Faraday::Error => e
-                ::Gapic::Rest::ErrorWrap.augment_faraday_error! e
-                raise ::Google::Cloud::Error.from_error(e)
+                gapic_error = ::Gapic::Rest::Error.wrap_faraday_error e
+                raise ::Google::Cloud::Error.from_error(gapic_error)
               end
 
               ##
@@ -421,7 +550,9 @@ module Google
               #     A request object representing the call parameters. Required. To specify no
               #     parameters, or to keep all the default parameter values, pass an empty Hash.
               #   @param options [::Gapic::CallOptions, ::Hash]
-              #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
+              #     Overrides the default settings for this call, e.g, timeout, retries etc. Optional.
+              #     Note: currently retry functionality is not implemented. While it is possible
+              #     to set it using ::Gapic::CallOptions, it will not be applied
               #
               # @overload get_xpn_resources(filter: nil, max_results: nil, order_by: nil, page_token: nil, project: nil, return_partial_success: nil)
               #   Pass arguments to `get_xpn_resources` via keyword arguments. Note that at
@@ -450,7 +581,6 @@ module Google
               #     Project ID for this request.
               #   @param return_partial_success [::Boolean]
               #     Opt-in for partial success behavior which provides partial results in case of failure. The default value is false and the logic is the same as today.
-              #
               # @yield [result, env] Access the result along with the Faraday environment object
               # @yieldparam result [::Google::Cloud::Compute::V1::ProjectsGetXpnResources]
               # @yieldparam env [::Faraday::Env]
@@ -463,12 +593,33 @@ module Google
 
                 request = ::Gapic::Protobuf.coerce request, to: ::Google::Cloud::Compute::V1::GetXpnResourcesProjectsRequest
 
-                @projects_stub.get_xpn_resources request, options: options do |response, env|
-                  yield response, env if block_given?
-                end
+                # Converts hash and nil to an options object
+                options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
+
+                # Customize the options with defaults
+                call_metadata = {}
+
+                # Set x-goog-api-client header
+                call_metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
+                  lib_name: @config.lib_name, lib_version: @config.lib_version,
+                  gapic_version: ::Google::Cloud::Compute::V1::VERSION
+
+                options.apply_defaults timeout:  @config.timeout,
+                                       metadata: call_metadata
+
+                (uri, _body, query_string_params) = transcode_get_xpn_resources request
+                response = @client_stub.make_get_request(
+                  uri:     uri,
+                  params:  query_string_params,
+                  options: options,
+                )
+                result = ::Google::Cloud::Compute::V1::ProjectsGetXpnResources.decode_json response.body, ignore_unknown_fields: true
+
+                yield result, response if block_given?
+                result
               rescue ::Faraday::Error => e
-                ::Gapic::Rest::ErrorWrap.augment_faraday_error! e
-                raise ::Google::Cloud::Error.from_error(e)
+                gapic_error = ::Gapic::Rest::Error.wrap_faraday_error e
+                raise ::Google::Cloud::Error.from_error(gapic_error)
               end
 
               ##
@@ -482,7 +633,9 @@ module Google
               #     A request object representing the call parameters. Required. To specify no
               #     parameters, or to keep all the default parameter values, pass an empty Hash.
               #   @param options [::Gapic::CallOptions, ::Hash]
-              #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
+              #     Overrides the default settings for this call, e.g, timeout, retries etc. Optional.
+              #     Note: currently retry functionality is not implemented. While it is possible
+              #     to set it using ::Gapic::CallOptions, it will not be applied
               #
               # @overload list_xpn_hosts(filter: nil, max_results: nil, order_by: nil, page_token: nil, project: nil, projects_list_xpn_hosts_request_resource: nil, return_partial_success: nil)
               #   Pass arguments to `list_xpn_hosts` via keyword arguments. Note that at
@@ -513,7 +666,6 @@ module Google
               #     The body resource for this request
               #   @param return_partial_success [::Boolean]
               #     Opt-in for partial success behavior which provides partial results in case of failure. The default value is false and the logic is the same as today.
-              #
               # @yield [result, env] Access the result along with the Faraday environment object
               # @yieldparam result [::Google::Cloud::Compute::V1::XpnHostList]
               # @yieldparam env [::Faraday::Env]
@@ -526,12 +678,33 @@ module Google
 
                 request = ::Gapic::Protobuf.coerce request, to: ::Google::Cloud::Compute::V1::ListXpnHostsProjectsRequest
 
-                @projects_stub.list_xpn_hosts request, options: options do |response, env|
-                  yield response, env if block_given?
-                end
+                # Converts hash and nil to an options object
+                options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
+
+                # Customize the options with defaults
+                call_metadata = {}
+
+                # Set x-goog-api-client header
+                call_metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
+                  lib_name: @config.lib_name, lib_version: @config.lib_version,
+                  gapic_version: ::Google::Cloud::Compute::V1::VERSION
+
+                options.apply_defaults timeout:  @config.timeout,
+                                       metadata: call_metadata
+
+                (uri, body, _query_string_params) = transcode_list_xpn_hosts request
+                response = @client_stub.make_post_request(
+                  uri:     uri,
+                  body:    body,
+                  options: options,
+                )
+                result = ::Google::Cloud::Compute::V1::XpnHostList.decode_json response.body, ignore_unknown_fields: true
+
+                yield result, response if block_given?
+                result
               rescue ::Faraday::Error => e
-                ::Gapic::Rest::ErrorWrap.augment_faraday_error! e
-                raise ::Google::Cloud::Error.from_error(e)
+                gapic_error = ::Gapic::Rest::Error.wrap_faraday_error e
+                raise ::Google::Cloud::Error.from_error(gapic_error)
               end
 
               ##
@@ -545,7 +718,9 @@ module Google
               #     A request object representing the call parameters. Required. To specify no
               #     parameters, or to keep all the default parameter values, pass an empty Hash.
               #   @param options [::Gapic::CallOptions, ::Hash]
-              #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
+              #     Overrides the default settings for this call, e.g, timeout, retries etc. Optional.
+              #     Note: currently retry functionality is not implemented. While it is possible
+              #     to set it using ::Gapic::CallOptions, it will not be applied
               #
               # @overload move_disk(disk_move_request_resource: nil, project: nil, request_id: nil)
               #   Pass arguments to `move_disk` via keyword arguments. Note that at
@@ -562,7 +737,6 @@ module Google
               #     For example, consider a situation where you make an initial request and the request times out. If you make the request again with the same request ID, the server can check if original operation with the same request ID was received, and if so, will ignore the second request. This prevents clients from accidentally creating duplicate commitments.
               #
               #     The request ID must be a valid UUID with the exception that zero UUID is not supported (00000000-0000-0000-0000-000000000000).
-              #
               # @yield [result, env] Access the result along with the Faraday environment object
               # @yieldparam result [::Google::Cloud::Compute::V1::Operation]
               # @yieldparam env [::Faraday::Env]
@@ -575,12 +749,33 @@ module Google
 
                 request = ::Gapic::Protobuf.coerce request, to: ::Google::Cloud::Compute::V1::MoveDiskProjectRequest
 
-                @projects_stub.move_disk request, options: options do |response, env|
-                  yield response, env if block_given?
-                end
+                # Converts hash and nil to an options object
+                options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
+
+                # Customize the options with defaults
+                call_metadata = {}
+
+                # Set x-goog-api-client header
+                call_metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
+                  lib_name: @config.lib_name, lib_version: @config.lib_version,
+                  gapic_version: ::Google::Cloud::Compute::V1::VERSION
+
+                options.apply_defaults timeout:  @config.timeout,
+                                       metadata: call_metadata
+
+                (uri, body, _query_string_params) = transcode_move_disk request
+                response = @client_stub.make_post_request(
+                  uri:     uri,
+                  body:    body,
+                  options: options,
+                )
+                result = ::Google::Cloud::Compute::V1::Operation.decode_json response.body, ignore_unknown_fields: true
+
+                yield result, response if block_given?
+                result
               rescue ::Faraday::Error => e
-                ::Gapic::Rest::ErrorWrap.augment_faraday_error! e
-                raise ::Google::Cloud::Error.from_error(e)
+                gapic_error = ::Gapic::Rest::Error.wrap_faraday_error e
+                raise ::Google::Cloud::Error.from_error(gapic_error)
               end
 
               ##
@@ -594,7 +789,9 @@ module Google
               #     A request object representing the call parameters. Required. To specify no
               #     parameters, or to keep all the default parameter values, pass an empty Hash.
               #   @param options [::Gapic::CallOptions, ::Hash]
-              #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
+              #     Overrides the default settings for this call, e.g, timeout, retries etc. Optional.
+              #     Note: currently retry functionality is not implemented. While it is possible
+              #     to set it using ::Gapic::CallOptions, it will not be applied
               #
               # @overload move_instance(instance_move_request_resource: nil, project: nil, request_id: nil)
               #   Pass arguments to `move_instance` via keyword arguments. Note that at
@@ -611,7 +808,6 @@ module Google
               #     For example, consider a situation where you make an initial request and the request times out. If you make the request again with the same request ID, the server can check if original operation with the same request ID was received, and if so, will ignore the second request. This prevents clients from accidentally creating duplicate commitments.
               #
               #     The request ID must be a valid UUID with the exception that zero UUID is not supported (00000000-0000-0000-0000-000000000000).
-              #
               # @yield [result, env] Access the result along with the Faraday environment object
               # @yieldparam result [::Google::Cloud::Compute::V1::Operation]
               # @yieldparam env [::Faraday::Env]
@@ -624,12 +820,33 @@ module Google
 
                 request = ::Gapic::Protobuf.coerce request, to: ::Google::Cloud::Compute::V1::MoveInstanceProjectRequest
 
-                @projects_stub.move_instance request, options: options do |response, env|
-                  yield response, env if block_given?
-                end
+                # Converts hash and nil to an options object
+                options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
+
+                # Customize the options with defaults
+                call_metadata = {}
+
+                # Set x-goog-api-client header
+                call_metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
+                  lib_name: @config.lib_name, lib_version: @config.lib_version,
+                  gapic_version: ::Google::Cloud::Compute::V1::VERSION
+
+                options.apply_defaults timeout:  @config.timeout,
+                                       metadata: call_metadata
+
+                (uri, body, _query_string_params) = transcode_move_instance request
+                response = @client_stub.make_post_request(
+                  uri:     uri,
+                  body:    body,
+                  options: options,
+                )
+                result = ::Google::Cloud::Compute::V1::Operation.decode_json response.body, ignore_unknown_fields: true
+
+                yield result, response if block_given?
+                result
               rescue ::Faraday::Error => e
-                ::Gapic::Rest::ErrorWrap.augment_faraday_error! e
-                raise ::Google::Cloud::Error.from_error(e)
+                gapic_error = ::Gapic::Rest::Error.wrap_faraday_error e
+                raise ::Google::Cloud::Error.from_error(gapic_error)
               end
 
               ##
@@ -643,7 +860,9 @@ module Google
               #     A request object representing the call parameters. Required. To specify no
               #     parameters, or to keep all the default parameter values, pass an empty Hash.
               #   @param options [::Gapic::CallOptions, ::Hash]
-              #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
+              #     Overrides the default settings for this call, e.g, timeout, retries etc. Optional.
+              #     Note: currently retry functionality is not implemented. While it is possible
+              #     to set it using ::Gapic::CallOptions, it will not be applied
               #
               # @overload set_common_instance_metadata(metadata_resource: nil, project: nil, request_id: nil)
               #   Pass arguments to `set_common_instance_metadata` via keyword arguments. Note that at
@@ -660,7 +879,6 @@ module Google
               #     For example, consider a situation where you make an initial request and the request times out. If you make the request again with the same request ID, the server can check if original operation with the same request ID was received, and if so, will ignore the second request. This prevents clients from accidentally creating duplicate commitments.
               #
               #     The request ID must be a valid UUID with the exception that zero UUID is not supported (00000000-0000-0000-0000-000000000000).
-              #
               # @yield [result, env] Access the result along with the Faraday environment object
               # @yieldparam result [::Google::Cloud::Compute::V1::Operation]
               # @yieldparam env [::Faraday::Env]
@@ -673,12 +891,33 @@ module Google
 
                 request = ::Gapic::Protobuf.coerce request, to: ::Google::Cloud::Compute::V1::SetCommonInstanceMetadataProjectRequest
 
-                @projects_stub.set_common_instance_metadata request, options: options do |response, env|
-                  yield response, env if block_given?
-                end
+                # Converts hash and nil to an options object
+                options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
+
+                # Customize the options with defaults
+                call_metadata = {}
+
+                # Set x-goog-api-client header
+                call_metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
+                  lib_name: @config.lib_name, lib_version: @config.lib_version,
+                  gapic_version: ::Google::Cloud::Compute::V1::VERSION
+
+                options.apply_defaults timeout:  @config.timeout,
+                                       metadata: call_metadata
+
+                (uri, body, _query_string_params) = transcode_set_common_instance_metadata request
+                response = @client_stub.make_post_request(
+                  uri:     uri,
+                  body:    body,
+                  options: options,
+                )
+                result = ::Google::Cloud::Compute::V1::Operation.decode_json response.body, ignore_unknown_fields: true
+
+                yield result, response if block_given?
+                result
               rescue ::Faraday::Error => e
-                ::Gapic::Rest::ErrorWrap.augment_faraday_error! e
-                raise ::Google::Cloud::Error.from_error(e)
+                gapic_error = ::Gapic::Rest::Error.wrap_faraday_error e
+                raise ::Google::Cloud::Error.from_error(gapic_error)
               end
 
               ##
@@ -692,7 +931,9 @@ module Google
               #     A request object representing the call parameters. Required. To specify no
               #     parameters, or to keep all the default parameter values, pass an empty Hash.
               #   @param options [::Gapic::CallOptions, ::Hash]
-              #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
+              #     Overrides the default settings for this call, e.g, timeout, retries etc. Optional.
+              #     Note: currently retry functionality is not implemented. While it is possible
+              #     to set it using ::Gapic::CallOptions, it will not be applied
               #
               # @overload set_default_network_tier(project: nil, projects_set_default_network_tier_request_resource: nil, request_id: nil)
               #   Pass arguments to `set_default_network_tier` via keyword arguments. Note that at
@@ -709,7 +950,6 @@ module Google
               #     For example, consider a situation where you make an initial request and the request times out. If you make the request again with the same request ID, the server can check if original operation with the same request ID was received, and if so, will ignore the second request. This prevents clients from accidentally creating duplicate commitments.
               #
               #     The request ID must be a valid UUID with the exception that zero UUID is not supported (00000000-0000-0000-0000-000000000000).
-              #
               # @yield [result, env] Access the result along with the Faraday environment object
               # @yieldparam result [::Google::Cloud::Compute::V1::Operation]
               # @yieldparam env [::Faraday::Env]
@@ -722,12 +962,33 @@ module Google
 
                 request = ::Gapic::Protobuf.coerce request, to: ::Google::Cloud::Compute::V1::SetDefaultNetworkTierProjectRequest
 
-                @projects_stub.set_default_network_tier request, options: options do |response, env|
-                  yield response, env if block_given?
-                end
+                # Converts hash and nil to an options object
+                options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
+
+                # Customize the options with defaults
+                call_metadata = {}
+
+                # Set x-goog-api-client header
+                call_metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
+                  lib_name: @config.lib_name, lib_version: @config.lib_version,
+                  gapic_version: ::Google::Cloud::Compute::V1::VERSION
+
+                options.apply_defaults timeout:  @config.timeout,
+                                       metadata: call_metadata
+
+                (uri, body, _query_string_params) = transcode_set_default_network_tier request
+                response = @client_stub.make_post_request(
+                  uri:     uri,
+                  body:    body,
+                  options: options,
+                )
+                result = ::Google::Cloud::Compute::V1::Operation.decode_json response.body, ignore_unknown_fields: true
+
+                yield result, response if block_given?
+                result
               rescue ::Faraday::Error => e
-                ::Gapic::Rest::ErrorWrap.augment_faraday_error! e
-                raise ::Google::Cloud::Error.from_error(e)
+                gapic_error = ::Gapic::Rest::Error.wrap_faraday_error e
+                raise ::Google::Cloud::Error.from_error(gapic_error)
               end
 
               ##
@@ -741,7 +1002,9 @@ module Google
               #     A request object representing the call parameters. Required. To specify no
               #     parameters, or to keep all the default parameter values, pass an empty Hash.
               #   @param options [::Gapic::CallOptions, ::Hash]
-              #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
+              #     Overrides the default settings for this call, e.g, timeout, retries etc. Optional.
+              #     Note: currently retry functionality is not implemented. While it is possible
+              #     to set it using ::Gapic::CallOptions, it will not be applied
               #
               # @overload set_usage_export_bucket(project: nil, request_id: nil, usage_export_location_resource: nil)
               #   Pass arguments to `set_usage_export_bucket` via keyword arguments. Note that at
@@ -758,7 +1021,6 @@ module Google
               #     The request ID must be a valid UUID with the exception that zero UUID is not supported (00000000-0000-0000-0000-000000000000).
               #   @param usage_export_location_resource [::Google::Cloud::Compute::V1::UsageExportLocation, ::Hash]
               #     The body resource for this request
-              #
               # @yield [result, env] Access the result along with the Faraday environment object
               # @yieldparam result [::Google::Cloud::Compute::V1::Operation]
               # @yieldparam env [::Faraday::Env]
@@ -771,12 +1033,33 @@ module Google
 
                 request = ::Gapic::Protobuf.coerce request, to: ::Google::Cloud::Compute::V1::SetUsageExportBucketProjectRequest
 
-                @projects_stub.set_usage_export_bucket request, options: options do |response, env|
-                  yield response, env if block_given?
-                end
+                # Converts hash and nil to an options object
+                options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
+
+                # Customize the options with defaults
+                call_metadata = {}
+
+                # Set x-goog-api-client header
+                call_metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
+                  lib_name: @config.lib_name, lib_version: @config.lib_version,
+                  gapic_version: ::Google::Cloud::Compute::V1::VERSION
+
+                options.apply_defaults timeout:  @config.timeout,
+                                       metadata: call_metadata
+
+                (uri, body, _query_string_params) = transcode_set_usage_export_bucket request
+                response = @client_stub.make_post_request(
+                  uri:     uri,
+                  body:    body,
+                  options: options,
+                )
+                result = ::Google::Cloud::Compute::V1::Operation.decode_json response.body, ignore_unknown_fields: true
+
+                yield result, response if block_given?
+                result
               rescue ::Faraday::Error => e
-                ::Gapic::Rest::ErrorWrap.augment_faraday_error! e
-                raise ::Google::Cloud::Error.from_error(e)
+                gapic_error = ::Gapic::Rest::Error.wrap_faraday_error e
+                raise ::Google::Cloud::Error.from_error(gapic_error)
               end
 
               ##
@@ -828,14 +1111,6 @@ module Google
               # @!attribute [rw] timeout
               #   The call timeout in seconds.
               #   @return [::Numeric]
-              # @!attribute [rw] retry_policy
-              #   The retry policy. The value is a hash with the following keys:
-              #    *  `:initial_delay` (*type:* `Numeric`) - The initial delay in seconds.
-              #    *  `:max_delay` (*type:* `Numeric`) - The max delay in seconds.
-              #    *  `:multiplier` (*type:* `Numeric`) - The incremental backoff multiplier.
-              #    *  `:retry_codes` (*type:* `Array<String>`) - The error codes that should
-              #       trigger a retry.
-              #   @return [::Hash]
               #
               class Configuration
                 extend ::Gapic::Config
@@ -849,142 +1124,12 @@ module Google
                 config_attr :lib_name,      nil, ::String, nil
                 config_attr :lib_version,   nil, ::String, nil
                 config_attr :timeout,       nil, ::Numeric, nil
-                config_attr :retry_policy,  nil, ::Hash, ::Proc, nil
 
                 # @private
                 def initialize parent_config = nil
                   @parent_config = parent_config unless parent_config.nil?
 
                   yield self if block_given?
-                end
-
-                ##
-                # Configurations for individual RPCs
-                # @return [Rpcs]
-                #
-                def rpcs
-                  @rpcs ||= begin
-                    parent_rpcs = nil
-                    parent_rpcs = @parent_config.rpcs if defined?(@parent_config) && @parent_config&.respond_to?(:rpcs)
-                    Rpcs.new parent_rpcs
-                  end
-                end
-
-                ##
-                # Configuration RPC class for the Projects API.
-                #
-                # Includes fields providing the configuration for each RPC in this service.
-                # Each configuration object is of type `Gapic::Config::Method` and includes
-                # the following configuration fields:
-                #
-                #  *  `timeout` (*type:* `Numeric`) - The call timeout in seconds
-                #  *  `metadata` (*type:* `Hash{Symbol=>String}`) - Additional gRPC headers
-                #  *  `retry_policy (*type:* `Hash`) - The retry policy. The policy fields
-                #     include the following keys:
-                #      *  `:initial_delay` (*type:* `Numeric`) - The initial delay in seconds.
-                #      *  `:max_delay` (*type:* `Numeric`) - The max delay in seconds.
-                #      *  `:multiplier` (*type:* `Numeric`) - The incremental backoff multiplier.
-                #      *  `:retry_codes` (*type:* `Array<String>`) - The error codes that should
-                #         trigger a retry.
-                #
-                class Rpcs
-                  ##
-                  # RPC-specific configuration for `disable_xpn_host`
-                  # @return [::Gapic::Config::Method]
-                  #
-                  attr_reader :disable_xpn_host
-                  ##
-                  # RPC-specific configuration for `disable_xpn_resource`
-                  # @return [::Gapic::Config::Method]
-                  #
-                  attr_reader :disable_xpn_resource
-                  ##
-                  # RPC-specific configuration for `enable_xpn_host`
-                  # @return [::Gapic::Config::Method]
-                  #
-                  attr_reader :enable_xpn_host
-                  ##
-                  # RPC-specific configuration for `enable_xpn_resource`
-                  # @return [::Gapic::Config::Method]
-                  #
-                  attr_reader :enable_xpn_resource
-                  ##
-                  # RPC-specific configuration for `get`
-                  # @return [::Gapic::Config::Method]
-                  #
-                  attr_reader :get
-                  ##
-                  # RPC-specific configuration for `get_xpn_host`
-                  # @return [::Gapic::Config::Method]
-                  #
-                  attr_reader :get_xpn_host
-                  ##
-                  # RPC-specific configuration for `get_xpn_resources`
-                  # @return [::Gapic::Config::Method]
-                  #
-                  attr_reader :get_xpn_resources
-                  ##
-                  # RPC-specific configuration for `list_xpn_hosts`
-                  # @return [::Gapic::Config::Method]
-                  #
-                  attr_reader :list_xpn_hosts
-                  ##
-                  # RPC-specific configuration for `move_disk`
-                  # @return [::Gapic::Config::Method]
-                  #
-                  attr_reader :move_disk
-                  ##
-                  # RPC-specific configuration for `move_instance`
-                  # @return [::Gapic::Config::Method]
-                  #
-                  attr_reader :move_instance
-                  ##
-                  # RPC-specific configuration for `set_common_instance_metadata`
-                  # @return [::Gapic::Config::Method]
-                  #
-                  attr_reader :set_common_instance_metadata
-                  ##
-                  # RPC-specific configuration for `set_default_network_tier`
-                  # @return [::Gapic::Config::Method]
-                  #
-                  attr_reader :set_default_network_tier
-                  ##
-                  # RPC-specific configuration for `set_usage_export_bucket`
-                  # @return [::Gapic::Config::Method]
-                  #
-                  attr_reader :set_usage_export_bucket
-
-                  # @private
-                  def initialize parent_rpcs = nil
-                    disable_xpn_host_config = parent_rpcs&.disable_xpn_host if parent_rpcs&.respond_to? :disable_xpn_host
-                    @disable_xpn_host = ::Gapic::Config::Method.new disable_xpn_host_config
-                    disable_xpn_resource_config = parent_rpcs&.disable_xpn_resource if parent_rpcs&.respond_to? :disable_xpn_resource
-                    @disable_xpn_resource = ::Gapic::Config::Method.new disable_xpn_resource_config
-                    enable_xpn_host_config = parent_rpcs&.enable_xpn_host if parent_rpcs&.respond_to? :enable_xpn_host
-                    @enable_xpn_host = ::Gapic::Config::Method.new enable_xpn_host_config
-                    enable_xpn_resource_config = parent_rpcs&.enable_xpn_resource if parent_rpcs&.respond_to? :enable_xpn_resource
-                    @enable_xpn_resource = ::Gapic::Config::Method.new enable_xpn_resource_config
-                    get_config = parent_rpcs&.get if parent_rpcs&.respond_to? :get
-                    @get = ::Gapic::Config::Method.new get_config
-                    get_xpn_host_config = parent_rpcs&.get_xpn_host if parent_rpcs&.respond_to? :get_xpn_host
-                    @get_xpn_host = ::Gapic::Config::Method.new get_xpn_host_config
-                    get_xpn_resources_config = parent_rpcs&.get_xpn_resources if parent_rpcs&.respond_to? :get_xpn_resources
-                    @get_xpn_resources = ::Gapic::Config::Method.new get_xpn_resources_config
-                    list_xpn_hosts_config = parent_rpcs&.list_xpn_hosts if parent_rpcs&.respond_to? :list_xpn_hosts
-                    @list_xpn_hosts = ::Gapic::Config::Method.new list_xpn_hosts_config
-                    move_disk_config = parent_rpcs&.move_disk if parent_rpcs&.respond_to? :move_disk
-                    @move_disk = ::Gapic::Config::Method.new move_disk_config
-                    move_instance_config = parent_rpcs&.move_instance if parent_rpcs&.respond_to? :move_instance
-                    @move_instance = ::Gapic::Config::Method.new move_instance_config
-                    set_common_instance_metadata_config = parent_rpcs&.set_common_instance_metadata if parent_rpcs&.respond_to? :set_common_instance_metadata
-                    @set_common_instance_metadata = ::Gapic::Config::Method.new set_common_instance_metadata_config
-                    set_default_network_tier_config = parent_rpcs&.set_default_network_tier if parent_rpcs&.respond_to? :set_default_network_tier
-                    @set_default_network_tier = ::Gapic::Config::Method.new set_default_network_tier_config
-                    set_usage_export_bucket_config = parent_rpcs&.set_usage_export_bucket if parent_rpcs&.respond_to? :set_usage_export_bucket
-                    @set_usage_export_bucket = ::Gapic::Config::Method.new set_usage_export_bucket_config
-
-                    yield self if block_given?
-                  end
                 end
               end
             end

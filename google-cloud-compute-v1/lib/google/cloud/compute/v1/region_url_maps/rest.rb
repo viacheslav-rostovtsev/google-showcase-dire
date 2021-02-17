@@ -22,6 +22,7 @@ module Google
     module Compute
       module V1
         require "gapic/rest"
+        require "google/cloud/compute/v1/region_url_maps/rest/grpc_transcoding"
         require "google/cloud/compute/v1/region_url_maps/rest/client"
         ##
         # The RegionUrlMaps API.

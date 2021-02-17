@@ -5,7 +5,7 @@ require "google/cloud/compute/v1/zones"
 require "google/cloud/compute/v1/regions"
 
 $default_zone = 'us-central1-a'
-$default_project = ENV['PROJECT_ID']
+$default_project = "client-debugging"
 
 class TestUseComputePagination < Minitest::Test
 

@@ -22,6 +22,7 @@ module Google
     module Compute
       module V1
         require "gapic/rest"
+        require "google/cloud/compute/v1/backend_buckets/rest/grpc_transcoding"
         require "google/cloud/compute/v1/backend_buckets/rest/client"
         ##
         # The BackendBuckets API.

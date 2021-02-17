@@ -13,6 +13,7 @@ class TestUseComputePagination < Minitest::Test
   def test_max_results
     zones = @client.list project: $default_project
     print zones.items.length
+    assert zones.items.length > 3
 
     zones_2 = @client.list project: $default_project, max_results: 3
     print zones_2.items.length

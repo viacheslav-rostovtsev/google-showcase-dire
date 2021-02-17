@@ -31,6 +31,8 @@ module Google
             # The NetworkEndpointGroups API.
             #
             class Client
+              include GrpcTranscoding
+
               # @private
               attr_reader :network_endpoint_groups_stub
 
@@ -113,7 +115,7 @@ module Google
               def initialize
                 # These require statements are intentionally placed here to initialize
                 # the REST modules only when it's required.
-                require "google/cloud/compute/v1/network_endpoint_groups/rest/service_stub"
+                require "gapic/rest"
 
                 # Create the configuration object
                 @config = Configuration.new Client.configure
@@ -128,10 +130,7 @@ module Google
                   credentials = Credentials.new credentials, scope: @config.scope
                 end
 
-                @network_endpoint_groups_stub = ::Google::Cloud::Compute::V1::NetworkEndpointGroups::Rest::ServiceStub.new(
-                  credentials: credentials,
-                  endpoint:    @config.endpoint
-                )
+                @client_stub = ::Gapic::Rest::ClientStub.new endpoint: @config.endpoint, credentials: credentials
               end
 
               # Service calls
@@ -147,7 +146,9 @@ module Google
               #     A request object representing the call parameters. Required. To specify no
               #     parameters, or to keep all the default parameter values, pass an empty Hash.
               #   @param options [::Gapic::CallOptions, ::Hash]
-              #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
+              #     Overrides the default settings for this call, e.g, timeout, retries etc. Optional.
+              #     Note: currently retry functionality is not implemented. While it is possible
+              #     to set it using ::Gapic::CallOptions, it will not be applied
               #
               # @overload aggregated_list(filter: nil, include_all_scopes: nil, max_results: nil, order_by: nil, page_token: nil, project: nil, return_partial_success: nil)
               #   Pass arguments to `aggregated_list` via keyword arguments. Note that at
@@ -178,7 +179,6 @@ module Google
               #     Project ID for this request.
               #   @param return_partial_success [::Boolean]
               #     Opt-in for partial success behavior which provides partial results in case of failure. The default value is false and the logic is the same as today.
-              #
               # @yield [result, env] Access the result along with the Faraday environment object
               # @yieldparam result [::Google::Cloud::Compute::V1::NetworkEndpointGroupAggregatedList]
               # @yieldparam env [::Faraday::Env]
@@ -191,12 +191,33 @@ module Google
 
                 request = ::Gapic::Protobuf.coerce request, to: ::Google::Cloud::Compute::V1::AggregatedListNetworkEndpointGroupsRequest
 
-                @network_endpoint_groups_stub.aggregated_list request, options: options do |response, env|
-                  yield response, env if block_given?
-                end
+                # Converts hash and nil to an options object
+                options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
+
+                # Customize the options with defaults
+                call_metadata = {}
+
+                # Set x-goog-api-client header
+                call_metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
+                  lib_name: @config.lib_name, lib_version: @config.lib_version,
+                  gapic_version: ::Google::Cloud::Compute::V1::VERSION
+
+                options.apply_defaults timeout:  @config.timeout,
+                                       metadata: call_metadata
+
+                (uri, _body, query_string_params) = transcode_aggregated_list request
+                response = @client_stub.make_get_request(
+                  uri:     uri,
+                  params:  query_string_params,
+                  options: options,
+                )
+                result = ::Google::Cloud::Compute::V1::NetworkEndpointGroupAggregatedList.decode_json response.body, ignore_unknown_fields: true
+
+                yield result, response if block_given?
+                result
               rescue ::Faraday::Error => e
-                ::Gapic::Rest::ErrorWrap.augment_faraday_error! e
-                raise ::Google::Cloud::Error.from_error(e)
+                gapic_error = ::Gapic::Rest::Error.wrap_faraday_error e
+                raise ::Google::Cloud::Error.from_error(gapic_error)
               end
 
               ##
@@ -210,7 +231,9 @@ module Google
               #     A request object representing the call parameters. Required. To specify no
               #     parameters, or to keep all the default parameter values, pass an empty Hash.
               #   @param options [::Gapic::CallOptions, ::Hash]
-              #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
+              #     Overrides the default settings for this call, e.g, timeout, retries etc. Optional.
+              #     Note: currently retry functionality is not implemented. While it is possible
+              #     to set it using ::Gapic::CallOptions, it will not be applied
               #
               # @overload attach_network_endpoints(network_endpoint_group: nil, network_endpoint_groups_attach_endpoints_request_resource: nil, project: nil, request_id: nil, zone: nil)
               #   Pass arguments to `attach_network_endpoints` via keyword arguments. Note that at
@@ -231,7 +254,6 @@ module Google
               #     The request ID must be a valid UUID with the exception that zero UUID is not supported (00000000-0000-0000-0000-000000000000).
               #   @param zone [::String]
               #     The name of the zone where the network endpoint group is located. It should comply with RFC1035.
-              #
               # @yield [result, env] Access the result along with the Faraday environment object
               # @yieldparam result [::Google::Cloud::Compute::V1::Operation]
               # @yieldparam env [::Faraday::Env]
@@ -244,12 +266,33 @@ module Google
 
                 request = ::Gapic::Protobuf.coerce request, to: ::Google::Cloud::Compute::V1::AttachNetworkEndpointsNetworkEndpointGroupRequest
 
-                @network_endpoint_groups_stub.attach_network_endpoints request, options: options do |response, env|
-                  yield response, env if block_given?
-                end
+                # Converts hash and nil to an options object
+                options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
+
+                # Customize the options with defaults
+                call_metadata = {}
+
+                # Set x-goog-api-client header
+                call_metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
+                  lib_name: @config.lib_name, lib_version: @config.lib_version,
+                  gapic_version: ::Google::Cloud::Compute::V1::VERSION
+
+                options.apply_defaults timeout:  @config.timeout,
+                                       metadata: call_metadata
+
+                (uri, body, _query_string_params) = transcode_attach_network_endpoints request
+                response = @client_stub.make_post_request(
+                  uri:     uri,
+                  body:    body,
+                  options: options,
+                )
+                result = ::Google::Cloud::Compute::V1::Operation.decode_json response.body, ignore_unknown_fields: true
+
+                yield result, response if block_given?
+                result
               rescue ::Faraday::Error => e
-                ::Gapic::Rest::ErrorWrap.augment_faraday_error! e
-                raise ::Google::Cloud::Error.from_error(e)
+                gapic_error = ::Gapic::Rest::Error.wrap_faraday_error e
+                raise ::Google::Cloud::Error.from_error(gapic_error)
               end
 
               ##
@@ -263,7 +306,9 @@ module Google
               #     A request object representing the call parameters. Required. To specify no
               #     parameters, or to keep all the default parameter values, pass an empty Hash.
               #   @param options [::Gapic::CallOptions, ::Hash]
-              #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
+              #     Overrides the default settings for this call, e.g, timeout, retries etc. Optional.
+              #     Note: currently retry functionality is not implemented. While it is possible
+              #     to set it using ::Gapic::CallOptions, it will not be applied
               #
               # @overload delete(network_endpoint_group: nil, project: nil, request_id: nil, zone: nil)
               #   Pass arguments to `delete` via keyword arguments. Note that at
@@ -282,7 +327,6 @@ module Google
               #     The request ID must be a valid UUID with the exception that zero UUID is not supported (00000000-0000-0000-0000-000000000000).
               #   @param zone [::String]
               #     The name of the zone where the network endpoint group is located. It should comply with RFC1035.
-              #
               # @yield [result, env] Access the result along with the Faraday environment object
               # @yieldparam result [::Google::Cloud::Compute::V1::Operation]
               # @yieldparam env [::Faraday::Env]
@@ -295,12 +339,33 @@ module Google
 
                 request = ::Gapic::Protobuf.coerce request, to: ::Google::Cloud::Compute::V1::DeleteNetworkEndpointGroupRequest
 
-                @network_endpoint_groups_stub.delete request, options: options do |response, env|
-                  yield response, env if block_given?
-                end
+                # Converts hash and nil to an options object
+                options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
+
+                # Customize the options with defaults
+                call_metadata = {}
+
+                # Set x-goog-api-client header
+                call_metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
+                  lib_name: @config.lib_name, lib_version: @config.lib_version,
+                  gapic_version: ::Google::Cloud::Compute::V1::VERSION
+
+                options.apply_defaults timeout:  @config.timeout,
+                                       metadata: call_metadata
+
+                (uri, _body, query_string_params) = transcode_delete request
+                response = @client_stub.make_delete_request(
+                  uri:     uri,
+                  params:  query_string_params,
+                  options: options,
+                )
+                result = ::Google::Cloud::Compute::V1::Operation.decode_json response.body, ignore_unknown_fields: true
+
+                yield result, response if block_given?
+                result
               rescue ::Faraday::Error => e
-                ::Gapic::Rest::ErrorWrap.augment_faraday_error! e
-                raise ::Google::Cloud::Error.from_error(e)
+                gapic_error = ::Gapic::Rest::Error.wrap_faraday_error e
+                raise ::Google::Cloud::Error.from_error(gapic_error)
               end
 
               ##
@@ -314,7 +379,9 @@ module Google
               #     A request object representing the call parameters. Required. To specify no
               #     parameters, or to keep all the default parameter values, pass an empty Hash.
               #   @param options [::Gapic::CallOptions, ::Hash]
-              #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
+              #     Overrides the default settings for this call, e.g, timeout, retries etc. Optional.
+              #     Note: currently retry functionality is not implemented. While it is possible
+              #     to set it using ::Gapic::CallOptions, it will not be applied
               #
               # @overload detach_network_endpoints(network_endpoint_group: nil, network_endpoint_groups_detach_endpoints_request_resource: nil, project: nil, request_id: nil, zone: nil)
               #   Pass arguments to `detach_network_endpoints` via keyword arguments. Note that at
@@ -335,7 +402,6 @@ module Google
               #     The request ID must be a valid UUID with the exception that zero UUID is not supported (00000000-0000-0000-0000-000000000000).
               #   @param zone [::String]
               #     The name of the zone where the network endpoint group is located. It should comply with RFC1035.
-              #
               # @yield [result, env] Access the result along with the Faraday environment object
               # @yieldparam result [::Google::Cloud::Compute::V1::Operation]
               # @yieldparam env [::Faraday::Env]
@@ -348,12 +414,33 @@ module Google
 
                 request = ::Gapic::Protobuf.coerce request, to: ::Google::Cloud::Compute::V1::DetachNetworkEndpointsNetworkEndpointGroupRequest
 
-                @network_endpoint_groups_stub.detach_network_endpoints request, options: options do |response, env|
-                  yield response, env if block_given?
-                end
+                # Converts hash and nil to an options object
+                options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
+
+                # Customize the options with defaults
+                call_metadata = {}
+
+                # Set x-goog-api-client header
+                call_metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
+                  lib_name: @config.lib_name, lib_version: @config.lib_version,
+                  gapic_version: ::Google::Cloud::Compute::V1::VERSION
+
+                options.apply_defaults timeout:  @config.timeout,
+                                       metadata: call_metadata
+
+                (uri, body, _query_string_params) = transcode_detach_network_endpoints request
+                response = @client_stub.make_post_request(
+                  uri:     uri,
+                  body:    body,
+                  options: options,
+                )
+                result = ::Google::Cloud::Compute::V1::Operation.decode_json response.body, ignore_unknown_fields: true
+
+                yield result, response if block_given?
+                result
               rescue ::Faraday::Error => e
-                ::Gapic::Rest::ErrorWrap.augment_faraday_error! e
-                raise ::Google::Cloud::Error.from_error(e)
+                gapic_error = ::Gapic::Rest::Error.wrap_faraday_error e
+                raise ::Google::Cloud::Error.from_error(gapic_error)
               end
 
               ##
@@ -367,7 +454,9 @@ module Google
               #     A request object representing the call parameters. Required. To specify no
               #     parameters, or to keep all the default parameter values, pass an empty Hash.
               #   @param options [::Gapic::CallOptions, ::Hash]
-              #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
+              #     Overrides the default settings for this call, e.g, timeout, retries etc. Optional.
+              #     Note: currently retry functionality is not implemented. While it is possible
+              #     to set it using ::Gapic::CallOptions, it will not be applied
               #
               # @overload get(network_endpoint_group: nil, project: nil, zone: nil)
               #   Pass arguments to `get` via keyword arguments. Note that at
@@ -380,7 +469,6 @@ module Google
               #     Project ID for this request.
               #   @param zone [::String]
               #     The name of the zone where the network endpoint group is located. It should comply with RFC1035.
-              #
               # @yield [result, env] Access the result along with the Faraday environment object
               # @yieldparam result [::Google::Cloud::Compute::V1::NetworkEndpointGroup]
               # @yieldparam env [::Faraday::Env]
@@ -393,12 +481,32 @@ module Google
 
                 request = ::Gapic::Protobuf.coerce request, to: ::Google::Cloud::Compute::V1::GetNetworkEndpointGroupRequest
 
-                @network_endpoint_groups_stub.get request, options: options do |response, env|
-                  yield response, env if block_given?
-                end
+                # Converts hash and nil to an options object
+                options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
+
+                # Customize the options with defaults
+                call_metadata = {}
+
+                # Set x-goog-api-client header
+                call_metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
+                  lib_name: @config.lib_name, lib_version: @config.lib_version,
+                  gapic_version: ::Google::Cloud::Compute::V1::VERSION
+
+                options.apply_defaults timeout:  @config.timeout,
+                                       metadata: call_metadata
+
+                (uri, _body, _query_string_params) = transcode_get request
+                response = @client_stub.make_get_request(
+                  uri:     uri,
+                  options: options,
+                )
+                result = ::Google::Cloud::Compute::V1::NetworkEndpointGroup.decode_json response.body, ignore_unknown_fields: true
+
+                yield result, response if block_given?
+                result
               rescue ::Faraday::Error => e
-                ::Gapic::Rest::ErrorWrap.augment_faraday_error! e
-                raise ::Google::Cloud::Error.from_error(e)
+                gapic_error = ::Gapic::Rest::Error.wrap_faraday_error e
+                raise ::Google::Cloud::Error.from_error(gapic_error)
               end
 
               ##
@@ -412,7 +520,9 @@ module Google
               #     A request object representing the call parameters. Required. To specify no
               #     parameters, or to keep all the default parameter values, pass an empty Hash.
               #   @param options [::Gapic::CallOptions, ::Hash]
-              #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
+              #     Overrides the default settings for this call, e.g, timeout, retries etc. Optional.
+              #     Note: currently retry functionality is not implemented. While it is possible
+              #     to set it using ::Gapic::CallOptions, it will not be applied
               #
               # @overload insert(network_endpoint_group_resource: nil, project: nil, request_id: nil, zone: nil)
               #   Pass arguments to `insert` via keyword arguments. Note that at
@@ -431,7 +541,6 @@ module Google
               #     The request ID must be a valid UUID with the exception that zero UUID is not supported (00000000-0000-0000-0000-000000000000).
               #   @param zone [::String]
               #     The name of the zone where you want to create the network endpoint group. It should comply with RFC1035.
-              #
               # @yield [result, env] Access the result along with the Faraday environment object
               # @yieldparam result [::Google::Cloud::Compute::V1::Operation]
               # @yieldparam env [::Faraday::Env]
@@ -444,12 +553,33 @@ module Google
 
                 request = ::Gapic::Protobuf.coerce request, to: ::Google::Cloud::Compute::V1::InsertNetworkEndpointGroupRequest
 
-                @network_endpoint_groups_stub.insert request, options: options do |response, env|
-                  yield response, env if block_given?
-                end
+                # Converts hash and nil to an options object
+                options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
+
+                # Customize the options with defaults
+                call_metadata = {}
+
+                # Set x-goog-api-client header
+                call_metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
+                  lib_name: @config.lib_name, lib_version: @config.lib_version,
+                  gapic_version: ::Google::Cloud::Compute::V1::VERSION
+
+                options.apply_defaults timeout:  @config.timeout,
+                                       metadata: call_metadata
+
+                (uri, body, _query_string_params) = transcode_insert request
+                response = @client_stub.make_post_request(
+                  uri:     uri,
+                  body:    body,
+                  options: options,
+                )
+                result = ::Google::Cloud::Compute::V1::Operation.decode_json response.body, ignore_unknown_fields: true
+
+                yield result, response if block_given?
+                result
               rescue ::Faraday::Error => e
-                ::Gapic::Rest::ErrorWrap.augment_faraday_error! e
-                raise ::Google::Cloud::Error.from_error(e)
+                gapic_error = ::Gapic::Rest::Error.wrap_faraday_error e
+                raise ::Google::Cloud::Error.from_error(gapic_error)
               end
 
               ##
@@ -463,7 +593,9 @@ module Google
               #     A request object representing the call parameters. Required. To specify no
               #     parameters, or to keep all the default parameter values, pass an empty Hash.
               #   @param options [::Gapic::CallOptions, ::Hash]
-              #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
+              #     Overrides the default settings for this call, e.g, timeout, retries etc. Optional.
+              #     Note: currently retry functionality is not implemented. While it is possible
+              #     to set it using ::Gapic::CallOptions, it will not be applied
               #
               # @overload list(filter: nil, max_results: nil, order_by: nil, page_token: nil, project: nil, return_partial_success: nil, zone: nil)
               #   Pass arguments to `list` via keyword arguments. Note that at
@@ -494,7 +626,6 @@ module Google
               #     Opt-in for partial success behavior which provides partial results in case of failure. The default value is false and the logic is the same as today.
               #   @param zone [::String]
               #     The name of the zone where the network endpoint group is located. It should comply with RFC1035.
-              #
               # @yield [result, env] Access the result along with the Faraday environment object
               # @yieldparam result [::Google::Cloud::Compute::V1::NetworkEndpointGroupList]
               # @yieldparam env [::Faraday::Env]
@@ -507,12 +638,33 @@ module Google
 
                 request = ::Gapic::Protobuf.coerce request, to: ::Google::Cloud::Compute::V1::ListNetworkEndpointGroupsRequest
 
-                @network_endpoint_groups_stub.list request, options: options do |response, env|
-                  yield response, env if block_given?
-                end
+                # Converts hash and nil to an options object
+                options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
+
+                # Customize the options with defaults
+                call_metadata = {}
+
+                # Set x-goog-api-client header
+                call_metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
+                  lib_name: @config.lib_name, lib_version: @config.lib_version,
+                  gapic_version: ::Google::Cloud::Compute::V1::VERSION
+
+                options.apply_defaults timeout:  @config.timeout,
+                                       metadata: call_metadata
+
+                (uri, _body, query_string_params) = transcode_list request
+                response = @client_stub.make_get_request(
+                  uri:     uri,
+                  params:  query_string_params,
+                  options: options,
+                )
+                result = ::Google::Cloud::Compute::V1::NetworkEndpointGroupList.decode_json response.body, ignore_unknown_fields: true
+
+                yield result, response if block_given?
+                result
               rescue ::Faraday::Error => e
-                ::Gapic::Rest::ErrorWrap.augment_faraday_error! e
-                raise ::Google::Cloud::Error.from_error(e)
+                gapic_error = ::Gapic::Rest::Error.wrap_faraday_error e
+                raise ::Google::Cloud::Error.from_error(gapic_error)
               end
 
               ##
@@ -526,7 +678,9 @@ module Google
               #     A request object representing the call parameters. Required. To specify no
               #     parameters, or to keep all the default parameter values, pass an empty Hash.
               #   @param options [::Gapic::CallOptions, ::Hash]
-              #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
+              #     Overrides the default settings for this call, e.g, timeout, retries etc. Optional.
+              #     Note: currently retry functionality is not implemented. While it is possible
+              #     to set it using ::Gapic::CallOptions, it will not be applied
               #
               # @overload list_network_endpoints(filter: nil, max_results: nil, network_endpoint_group: nil, network_endpoint_groups_list_endpoints_request_resource: nil, order_by: nil, page_token: nil, project: nil, return_partial_success: nil, zone: nil)
               #   Pass arguments to `list_network_endpoints` via keyword arguments. Note that at
@@ -561,7 +715,6 @@ module Google
               #     Opt-in for partial success behavior which provides partial results in case of failure. The default value is false and the logic is the same as today.
               #   @param zone [::String]
               #     The name of the zone where the network endpoint group is located. It should comply with RFC1035.
-              #
               # @yield [result, env] Access the result along with the Faraday environment object
               # @yieldparam result [::Google::Cloud::Compute::V1::NetworkEndpointGroupsListNetworkEndpoints]
               # @yieldparam env [::Faraday::Env]
@@ -574,12 +727,33 @@ module Google
 
                 request = ::Gapic::Protobuf.coerce request, to: ::Google::Cloud::Compute::V1::ListNetworkEndpointsNetworkEndpointGroupsRequest
 
-                @network_endpoint_groups_stub.list_network_endpoints request, options: options do |response, env|
-                  yield response, env if block_given?
-                end
+                # Converts hash and nil to an options object
+                options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
+
+                # Customize the options with defaults
+                call_metadata = {}
+
+                # Set x-goog-api-client header
+                call_metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
+                  lib_name: @config.lib_name, lib_version: @config.lib_version,
+                  gapic_version: ::Google::Cloud::Compute::V1::VERSION
+
+                options.apply_defaults timeout:  @config.timeout,
+                                       metadata: call_metadata
+
+                (uri, body, _query_string_params) = transcode_list_network_endpoints request
+                response = @client_stub.make_post_request(
+                  uri:     uri,
+                  body:    body,
+                  options: options,
+                )
+                result = ::Google::Cloud::Compute::V1::NetworkEndpointGroupsListNetworkEndpoints.decode_json response.body, ignore_unknown_fields: true
+
+                yield result, response if block_given?
+                result
               rescue ::Faraday::Error => e
-                ::Gapic::Rest::ErrorWrap.augment_faraday_error! e
-                raise ::Google::Cloud::Error.from_error(e)
+                gapic_error = ::Gapic::Rest::Error.wrap_faraday_error e
+                raise ::Google::Cloud::Error.from_error(gapic_error)
               end
 
               ##
@@ -593,7 +767,9 @@ module Google
               #     A request object representing the call parameters. Required. To specify no
               #     parameters, or to keep all the default parameter values, pass an empty Hash.
               #   @param options [::Gapic::CallOptions, ::Hash]
-              #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
+              #     Overrides the default settings for this call, e.g, timeout, retries etc. Optional.
+              #     Note: currently retry functionality is not implemented. While it is possible
+              #     to set it using ::Gapic::CallOptions, it will not be applied
               #
               # @overload test_iam_permissions(project: nil, resource: nil, test_permissions_request_resource: nil, zone: nil)
               #   Pass arguments to `test_iam_permissions` via keyword arguments. Note that at
@@ -608,7 +784,6 @@ module Google
               #     The body resource for this request
               #   @param zone [::String]
               #     The name of the zone for this request.
-              #
               # @yield [result, env] Access the result along with the Faraday environment object
               # @yieldparam result [::Google::Cloud::Compute::V1::TestPermissionsResponse]
               # @yieldparam env [::Faraday::Env]
@@ -621,12 +796,33 @@ module Google
 
                 request = ::Gapic::Protobuf.coerce request, to: ::Google::Cloud::Compute::V1::TestIamPermissionsNetworkEndpointGroupRequest
 
-                @network_endpoint_groups_stub.test_iam_permissions request, options: options do |response, env|
-                  yield response, env if block_given?
-                end
+                # Converts hash and nil to an options object
+                options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
+
+                # Customize the options with defaults
+                call_metadata = {}
+
+                # Set x-goog-api-client header
+                call_metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
+                  lib_name: @config.lib_name, lib_version: @config.lib_version,
+                  gapic_version: ::Google::Cloud::Compute::V1::VERSION
+
+                options.apply_defaults timeout:  @config.timeout,
+                                       metadata: call_metadata
+
+                (uri, body, _query_string_params) = transcode_test_iam_permissions request
+                response = @client_stub.make_post_request(
+                  uri:     uri,
+                  body:    body,
+                  options: options,
+                )
+                result = ::Google::Cloud::Compute::V1::TestPermissionsResponse.decode_json response.body, ignore_unknown_fields: true
+
+                yield result, response if block_given?
+                result
               rescue ::Faraday::Error => e
-                ::Gapic::Rest::ErrorWrap.augment_faraday_error! e
-                raise ::Google::Cloud::Error.from_error(e)
+                gapic_error = ::Gapic::Rest::Error.wrap_faraday_error e
+                raise ::Google::Cloud::Error.from_error(gapic_error)
               end
 
               ##
@@ -678,14 +874,6 @@ module Google
               # @!attribute [rw] timeout
               #   The call timeout in seconds.
               #   @return [::Numeric]
-              # @!attribute [rw] retry_policy
-              #   The retry policy. The value is a hash with the following keys:
-              #    *  `:initial_delay` (*type:* `Numeric`) - The initial delay in seconds.
-              #    *  `:max_delay` (*type:* `Numeric`) - The max delay in seconds.
-              #    *  `:multiplier` (*type:* `Numeric`) - The incremental backoff multiplier.
-              #    *  `:retry_codes` (*type:* `Array<String>`) - The error codes that should
-              #       trigger a retry.
-              #   @return [::Hash]
               #
               class Configuration
                 extend ::Gapic::Config
@@ -699,114 +887,12 @@ module Google
                 config_attr :lib_name,      nil, ::String, nil
                 config_attr :lib_version,   nil, ::String, nil
                 config_attr :timeout,       nil, ::Numeric, nil
-                config_attr :retry_policy,  nil, ::Hash, ::Proc, nil
 
                 # @private
                 def initialize parent_config = nil
                   @parent_config = parent_config unless parent_config.nil?
 
                   yield self if block_given?
-                end
-
-                ##
-                # Configurations for individual RPCs
-                # @return [Rpcs]
-                #
-                def rpcs
-                  @rpcs ||= begin
-                    parent_rpcs = nil
-                    parent_rpcs = @parent_config.rpcs if defined?(@parent_config) && @parent_config&.respond_to?(:rpcs)
-                    Rpcs.new parent_rpcs
-                  end
-                end
-
-                ##
-                # Configuration RPC class for the NetworkEndpointGroups API.
-                #
-                # Includes fields providing the configuration for each RPC in this service.
-                # Each configuration object is of type `Gapic::Config::Method` and includes
-                # the following configuration fields:
-                #
-                #  *  `timeout` (*type:* `Numeric`) - The call timeout in seconds
-                #  *  `metadata` (*type:* `Hash{Symbol=>String}`) - Additional gRPC headers
-                #  *  `retry_policy (*type:* `Hash`) - The retry policy. The policy fields
-                #     include the following keys:
-                #      *  `:initial_delay` (*type:* `Numeric`) - The initial delay in seconds.
-                #      *  `:max_delay` (*type:* `Numeric`) - The max delay in seconds.
-                #      *  `:multiplier` (*type:* `Numeric`) - The incremental backoff multiplier.
-                #      *  `:retry_codes` (*type:* `Array<String>`) - The error codes that should
-                #         trigger a retry.
-                #
-                class Rpcs
-                  ##
-                  # RPC-specific configuration for `aggregated_list`
-                  # @return [::Gapic::Config::Method]
-                  #
-                  attr_reader :aggregated_list
-                  ##
-                  # RPC-specific configuration for `attach_network_endpoints`
-                  # @return [::Gapic::Config::Method]
-                  #
-                  attr_reader :attach_network_endpoints
-                  ##
-                  # RPC-specific configuration for `delete`
-                  # @return [::Gapic::Config::Method]
-                  #
-                  attr_reader :delete
-                  ##
-                  # RPC-specific configuration for `detach_network_endpoints`
-                  # @return [::Gapic::Config::Method]
-                  #
-                  attr_reader :detach_network_endpoints
-                  ##
-                  # RPC-specific configuration for `get`
-                  # @return [::Gapic::Config::Method]
-                  #
-                  attr_reader :get
-                  ##
-                  # RPC-specific configuration for `insert`
-                  # @return [::Gapic::Config::Method]
-                  #
-                  attr_reader :insert
-                  ##
-                  # RPC-specific configuration for `list`
-                  # @return [::Gapic::Config::Method]
-                  #
-                  attr_reader :list
-                  ##
-                  # RPC-specific configuration for `list_network_endpoints`
-                  # @return [::Gapic::Config::Method]
-                  #
-                  attr_reader :list_network_endpoints
-                  ##
-                  # RPC-specific configuration for `test_iam_permissions`
-                  # @return [::Gapic::Config::Method]
-                  #
-                  attr_reader :test_iam_permissions
-
-                  # @private
-                  def initialize parent_rpcs = nil
-                    aggregated_list_config = parent_rpcs&.aggregated_list if parent_rpcs&.respond_to? :aggregated_list
-                    @aggregated_list = ::Gapic::Config::Method.new aggregated_list_config
-                    attach_network_endpoints_config = parent_rpcs&.attach_network_endpoints if parent_rpcs&.respond_to? :attach_network_endpoints
-                    @attach_network_endpoints = ::Gapic::Config::Method.new attach_network_endpoints_config
-                    delete_config = parent_rpcs&.delete if parent_rpcs&.respond_to? :delete
-                    @delete = ::Gapic::Config::Method.new delete_config
-                    detach_network_endpoints_config = parent_rpcs&.detach_network_endpoints if parent_rpcs&.respond_to? :detach_network_endpoints
-                    @detach_network_endpoints = ::Gapic::Config::Method.new detach_network_endpoints_config
-                    get_config = parent_rpcs&.get if parent_rpcs&.respond_to? :get
-                    @get = ::Gapic::Config::Method.new get_config
-                    insert_config = parent_rpcs&.insert if parent_rpcs&.respond_to? :insert
-                    @insert = ::Gapic::Config::Method.new insert_config
-                    list_config = parent_rpcs&.list if parent_rpcs&.respond_to? :list
-                    @list = ::Gapic::Config::Method.new list_config
-                    list_network_endpoints_config = parent_rpcs&.list_network_endpoints if parent_rpcs&.respond_to? :list_network_endpoints
-                    @list_network_endpoints = ::Gapic::Config::Method.new list_network_endpoints_config
-                    test_iam_permissions_config = parent_rpcs&.test_iam_permissions if parent_rpcs&.respond_to? :test_iam_permissions
-                    @test_iam_permissions = ::Gapic::Config::Method.new test_iam_permissions_config
-
-                    yield self if block_given?
-                  end
                 end
               end
             end

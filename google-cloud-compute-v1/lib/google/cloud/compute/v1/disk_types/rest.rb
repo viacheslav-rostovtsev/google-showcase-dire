@@ -22,6 +22,7 @@ module Google
     module Compute
       module V1
         require "gapic/rest"
+        require "google/cloud/compute/v1/disk_types/rest/grpc_transcoding"
         require "google/cloud/compute/v1/disk_types/rest/client"
         ##
         # The DiskTypes API.

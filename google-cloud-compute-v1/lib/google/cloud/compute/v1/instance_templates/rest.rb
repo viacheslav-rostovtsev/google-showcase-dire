@@ -22,6 +22,7 @@ module Google
     module Compute
       module V1
         require "gapic/rest"
+        require "google/cloud/compute/v1/instance_templates/rest/grpc_transcoding"
         require "google/cloud/compute/v1/instance_templates/rest/client"
         ##
         # The InstanceTemplates API.

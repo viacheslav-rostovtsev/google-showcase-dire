@@ -22,6 +22,7 @@ module Google
     module Compute
       module V1
         require "gapic/rest"
+        require "google/cloud/compute/v1/ssl_policies/rest/grpc_transcoding"
         require "google/cloud/compute/v1/ssl_policies/rest/client"
         ##
         # The SslPolicies API.

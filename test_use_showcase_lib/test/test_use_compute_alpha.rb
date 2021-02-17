@@ -15,6 +15,10 @@ class TestUseComputeAlpha < Minitest::Test
 
   def test_create_delete_ip_real
     rest_options = {}
+    ::Google::Cloud::Compute::V1::Addresses::Rest::Client.configure do |config|
+      config.timeout = 10.0
+    end
+
     client = ::Google::Cloud::Compute::V1::Addresses::Rest::Client.new
 
     project = "client-debugging"
@@ -52,6 +56,8 @@ class TestUseComputeAlpha < Minitest::Test
         sleep 1
       end
     end
+
+    #list_result = client.list(filter: nil, max_results: 2, order_by: nil, page_token: nil, project: project, region: region, return_partial_success: nil)
 
     result = client.delete address: address_name, project: project, region: region, request_id: nil
     assert_kind_of ::Google::Cloud::Compute::V1::Operation, result
