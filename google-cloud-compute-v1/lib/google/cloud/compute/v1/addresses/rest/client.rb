@@ -185,7 +185,7 @@ module Google
               #
               # @return [::Google::Cloud::Compute::V1::AddressAggregatedList]
               #
-              # @raise [::Faraday::Error] if the REST call is aborted.
+              # @raise [::Google::Cloud::Error] if the REST call is aborted.
               def aggregated_list request, options = nil
                 raise ::ArgumentError, "request must be provided" if request.nil?
 
@@ -258,7 +258,7 @@ module Google
               #
               # @return [::Google::Cloud::Compute::V1::Operation]
               #
-              # @raise [::Faraday::Error] if the REST call is aborted.
+              # @raise [::Google::Cloud::Error] if the REST call is aborted.
               def delete request, options = nil
                 raise ::ArgumentError, "request must be provided" if request.nil?
 
@@ -325,7 +325,7 @@ module Google
               #
               # @return [::Google::Cloud::Compute::V1::Address]
               #
-              # @raise [::Faraday::Error] if the REST call is aborted.
+              # @raise [::Google::Cloud::Error] if the REST call is aborted.
               def get request, options = nil
                 raise ::ArgumentError, "request must be provided" if request.nil?
 
@@ -397,7 +397,7 @@ module Google
               #
               # @return [::Google::Cloud::Compute::V1::Operation]
               #
-              # @raise [::Faraday::Error] if the REST call is aborted.
+              # @raise [::Google::Cloud::Error] if the REST call is aborted.
               def insert request, options = nil
                 raise ::ArgumentError, "request must be provided" if request.nil?
 
@@ -482,7 +482,7 @@ module Google
               #
               # @return [::Google::Cloud::Compute::V1::AddressList]
               #
-              # @raise [::Faraday::Error] if the REST call is aborted.
+              # @raise [::Google::Cloud::Error] if the REST call is aborted.
               def list request, options = nil
                 raise ::ArgumentError, "request must be provided" if request.nil?
 

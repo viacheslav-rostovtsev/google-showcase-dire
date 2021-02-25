@@ -185,7 +185,7 @@ module Google
               #
               # @return [::Google::Cloud::Compute::V1::RouterAggregatedList]
               #
-              # @raise [::Faraday::Error] if the REST call is aborted.
+              # @raise [::Google::Cloud::Error] if the REST call is aborted.
               def aggregated_list request, options = nil
                 raise ::ArgumentError, "request must be provided" if request.nil?
 
@@ -258,7 +258,7 @@ module Google
               #
               # @return [::Google::Cloud::Compute::V1::Operation]
               #
-              # @raise [::Faraday::Error] if the REST call is aborted.
+              # @raise [::Google::Cloud::Error] if the REST call is aborted.
               def delete request, options = nil
                 raise ::ArgumentError, "request must be provided" if request.nil?
 
@@ -325,7 +325,7 @@ module Google
               #
               # @return [::Google::Cloud::Compute::V1::Router]
               #
-              # @raise [::Faraday::Error] if the REST call is aborted.
+              # @raise [::Google::Cloud::Error] if the REST call is aborted.
               def get request, options = nil
                 raise ::ArgumentError, "request must be provided" if request.nil?
 
@@ -411,7 +411,7 @@ module Google
               #
               # @return [::Google::Cloud::Compute::V1::VmEndpointNatMappingsList]
               #
-              # @raise [::Faraday::Error] if the REST call is aborted.
+              # @raise [::Google::Cloud::Error] if the REST call is aborted.
               def get_nat_mapping_info request, options = nil
                 raise ::ArgumentError, "request must be provided" if request.nil?
 
@@ -478,7 +478,7 @@ module Google
               #
               # @return [::Google::Cloud::Compute::V1::RouterStatusResponse]
               #
-              # @raise [::Faraday::Error] if the REST call is aborted.
+              # @raise [::Google::Cloud::Error] if the REST call is aborted.
               def get_router_status request, options = nil
                 raise ::ArgumentError, "request must be provided" if request.nil?
 
@@ -550,7 +550,7 @@ module Google
               #
               # @return [::Google::Cloud::Compute::V1::Operation]
               #
-              # @raise [::Faraday::Error] if the REST call is aborted.
+              # @raise [::Google::Cloud::Error] if the REST call is aborted.
               def insert request, options = nil
                 raise ::ArgumentError, "request must be provided" if request.nil?
 
@@ -635,7 +635,7 @@ module Google
               #
               # @return [::Google::Cloud::Compute::V1::RouterList]
               #
-              # @raise [::Faraday::Error] if the REST call is aborted.
+              # @raise [::Google::Cloud::Error] if the REST call is aborted.
               def list request, options = nil
                 raise ::ArgumentError, "request must be provided" if request.nil?
 
@@ -710,7 +710,7 @@ module Google
               #
               # @return [::Google::Cloud::Compute::V1::Operation]
               #
-              # @raise [::Faraday::Error] if the REST call is aborted.
+              # @raise [::Google::Cloud::Error] if the REST call is aborted.
               def patch request, options = nil
                 raise ::ArgumentError, "request must be provided" if request.nil?
 
@@ -779,7 +779,7 @@ module Google
               #
               # @return [::Google::Cloud::Compute::V1::RoutersPreviewResponse]
               #
-              # @raise [::Faraday::Error] if the REST call is aborted.
+              # @raise [::Google::Cloud::Error] if the REST call is aborted.
               def preview request, options = nil
                 raise ::ArgumentError, "request must be provided" if request.nil?
 
@@ -854,7 +854,7 @@ module Google
               #
               # @return [::Google::Cloud::Compute::V1::Operation]
               #
-              # @raise [::Faraday::Error] if the REST call is aborted.
+              # @raise [::Google::Cloud::Error] if the REST call is aborted.
               def update request, options = nil
                 raise ::ArgumentError, "request must be provided" if request.nil?
 

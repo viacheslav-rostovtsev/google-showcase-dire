@@ -165,7 +165,7 @@ module Google
               #
               # @return [::Google::Cloud::Compute::V1::LicenseCode]
               #
-              # @raise [::Faraday::Error] if the REST call is aborted.
+              # @raise [::Google::Cloud::Error] if the REST call is aborted.
               def get request, options = nil
                 raise ::ArgumentError, "request must be provided" if request.nil?
 
@@ -231,7 +231,7 @@ module Google
               #
               # @return [::Google::Cloud::Compute::V1::TestPermissionsResponse]
               #
-              # @raise [::Faraday::Error] if the REST call is aborted.
+              # @raise [::Google::Cloud::Error] if the REST call is aborted.
               def test_iam_permissions request, options = nil
                 raise ::ArgumentError, "request must be provided" if request.nil?
 

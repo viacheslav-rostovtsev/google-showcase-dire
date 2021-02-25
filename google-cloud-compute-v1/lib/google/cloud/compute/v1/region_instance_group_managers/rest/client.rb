@@ -179,7 +179,7 @@ module Google
               #
               # @return [::Google::Cloud::Compute::V1::Operation]
               #
-              # @raise [::Faraday::Error] if the REST call is aborted.
+              # @raise [::Google::Cloud::Error] if the REST call is aborted.
               def abandon_instances request, options = nil
                 raise ::ArgumentError, "request must be provided" if request.nil?
 
@@ -248,7 +248,7 @@ module Google
               #
               # @return [::Google::Cloud::Compute::V1::Operation]
               #
-              # @raise [::Faraday::Error] if the REST call is aborted.
+              # @raise [::Google::Cloud::Error] if the REST call is aborted.
               def apply_updates_to_instances request, options = nil
                 raise ::ArgumentError, "request must be provided" if request.nil?
 
@@ -323,7 +323,7 @@ module Google
               #
               # @return [::Google::Cloud::Compute::V1::Operation]
               #
-              # @raise [::Faraday::Error] if the REST call is aborted.
+              # @raise [::Google::Cloud::Error] if the REST call is aborted.
               def create_instances request, options = nil
                 raise ::ArgumentError, "request must be provided" if request.nil?
 
@@ -396,7 +396,7 @@ module Google
               #
               # @return [::Google::Cloud::Compute::V1::Operation]
               #
-              # @raise [::Faraday::Error] if the REST call is aborted.
+              # @raise [::Google::Cloud::Error] if the REST call is aborted.
               def delete request, options = nil
                 raise ::ArgumentError, "request must be provided" if request.nil?
 
@@ -475,7 +475,7 @@ module Google
               #
               # @return [::Google::Cloud::Compute::V1::Operation]
               #
-              # @raise [::Faraday::Error] if the REST call is aborted.
+              # @raise [::Google::Cloud::Error] if the REST call is aborted.
               def delete_instances request, options = nil
                 raise ::ArgumentError, "request must be provided" if request.nil?
 
@@ -544,7 +544,7 @@ module Google
               #
               # @return [::Google::Cloud::Compute::V1::Operation]
               #
-              # @raise [::Faraday::Error] if the REST call is aborted.
+              # @raise [::Google::Cloud::Error] if the REST call is aborted.
               def delete_per_instance_configs request, options = nil
                 raise ::ArgumentError, "request must be provided" if request.nil?
 
@@ -611,7 +611,7 @@ module Google
               #
               # @return [::Google::Cloud::Compute::V1::InstanceGroupManager]
               #
-              # @raise [::Faraday::Error] if the REST call is aborted.
+              # @raise [::Google::Cloud::Error] if the REST call is aborted.
               def get request, options = nil
                 raise ::ArgumentError, "request must be provided" if request.nil?
 
@@ -685,7 +685,7 @@ module Google
               #
               # @return [::Google::Cloud::Compute::V1::Operation]
               #
-              # @raise [::Faraday::Error] if the REST call is aborted.
+              # @raise [::Google::Cloud::Error] if the REST call is aborted.
               def insert request, options = nil
                 raise ::ArgumentError, "request must be provided" if request.nil?
 
@@ -770,7 +770,7 @@ module Google
               #
               # @return [::Google::Cloud::Compute::V1::RegionInstanceGroupManagerList]
               #
-              # @raise [::Faraday::Error] if the REST call is aborted.
+              # @raise [::Google::Cloud::Error] if the REST call is aborted.
               def list request, options = nil
                 raise ::ArgumentError, "request must be provided" if request.nil?
 
@@ -857,7 +857,7 @@ module Google
               #
               # @return [::Google::Cloud::Compute::V1::RegionInstanceGroupManagersListErrorsResponse]
               #
-              # @raise [::Faraday::Error] if the REST call is aborted.
+              # @raise [::Google::Cloud::Error] if the REST call is aborted.
               def list_errors request, options = nil
                 raise ::ArgumentError, "request must be provided" if request.nil?
 
@@ -944,7 +944,7 @@ module Google
               #
               # @return [::Google::Cloud::Compute::V1::RegionInstanceGroupManagersListInstancesResponse]
               #
-              # @raise [::Faraday::Error] if the REST call is aborted.
+              # @raise [::Google::Cloud::Error] if the REST call is aborted.
               def list_managed_instances request, options = nil
                 raise ::ArgumentError, "request must be provided" if request.nil?
 
@@ -1031,7 +1031,7 @@ module Google
               #
               # @return [::Google::Cloud::Compute::V1::RegionInstanceGroupManagersListInstanceConfigsResp]
               #
-              # @raise [::Faraday::Error] if the REST call is aborted.
+              # @raise [::Google::Cloud::Error] if the REST call is aborted.
               def list_per_instance_configs request, options = nil
                 raise ::ArgumentError, "request must be provided" if request.nil?
 
@@ -1106,7 +1106,7 @@ module Google
               #
               # @return [::Google::Cloud::Compute::V1::Operation]
               #
-              # @raise [::Faraday::Error] if the REST call is aborted.
+              # @raise [::Google::Cloud::Error] if the REST call is aborted.
               def patch request, options = nil
                 raise ::ArgumentError, "request must be provided" if request.nil?
 
@@ -1181,7 +1181,7 @@ module Google
               #
               # @return [::Google::Cloud::Compute::V1::Operation]
               #
-              # @raise [::Faraday::Error] if the REST call is aborted.
+              # @raise [::Google::Cloud::Error] if the REST call is aborted.
               def patch_per_instance_configs request, options = nil
                 raise ::ArgumentError, "request must be provided" if request.nil?
 
@@ -1260,7 +1260,7 @@ module Google
               #
               # @return [::Google::Cloud::Compute::V1::Operation]
               #
-              # @raise [::Faraday::Error] if the REST call is aborted.
+              # @raise [::Google::Cloud::Error] if the REST call is aborted.
               def recreate_instances request, options = nil
                 raise ::ArgumentError, "request must be provided" if request.nil?
 
@@ -1339,7 +1339,7 @@ module Google
               #
               # @return [::Google::Cloud::Compute::V1::Operation]
               #
-              # @raise [::Faraday::Error] if the REST call is aborted.
+              # @raise [::Google::Cloud::Error] if the REST call is aborted.
               def resize request, options = nil
                 raise ::ArgumentError, "request must be provided" if request.nil?
 
@@ -1414,7 +1414,7 @@ module Google
               #
               # @return [::Google::Cloud::Compute::V1::Operation]
               #
-              # @raise [::Faraday::Error] if the REST call is aborted.
+              # @raise [::Google::Cloud::Error] if the REST call is aborted.
               def set_instance_template request, options = nil
                 raise ::ArgumentError, "request must be provided" if request.nil?
 
@@ -1489,7 +1489,7 @@ module Google
               #
               # @return [::Google::Cloud::Compute::V1::Operation]
               #
-              # @raise [::Faraday::Error] if the REST call is aborted.
+              # @raise [::Google::Cloud::Error] if the REST call is aborted.
               def set_target_pools request, options = nil
                 raise ::ArgumentError, "request must be provided" if request.nil?
 
@@ -1564,7 +1564,7 @@ module Google
               #
               # @return [::Google::Cloud::Compute::V1::Operation]
               #
-              # @raise [::Faraday::Error] if the REST call is aborted.
+              # @raise [::Google::Cloud::Error] if the REST call is aborted.
               def update_per_instance_configs request, options = nil
                 raise ::ArgumentError, "request must be provided" if request.nil?
 

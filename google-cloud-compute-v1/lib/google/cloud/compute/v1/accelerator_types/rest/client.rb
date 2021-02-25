@@ -187,7 +187,7 @@ module Google
               #
               # @return [::Google::Cloud::Compute::V1::AcceleratorTypeAggregatedList]
               #
-              # @raise [::Faraday::Error] if the REST call is aborted.
+              # @raise [::Google::Cloud::Error] if the REST call is aborted.
               def aggregated_list request, options = nil
                 raise ::ArgumentError, "request must be provided" if request.nil?
 
@@ -254,7 +254,7 @@ module Google
               #
               # @return [::Google::Cloud::Compute::V1::AcceleratorType]
               #
-              # @raise [::Faraday::Error] if the REST call is aborted.
+              # @raise [::Google::Cloud::Error] if the REST call is aborted.
               def get request, options = nil
                 raise ::ArgumentError, "request must be provided" if request.nil?
 
@@ -338,7 +338,7 @@ module Google
               #
               # @return [::Google::Cloud::Compute::V1::AcceleratorTypeList]
               #
-              # @raise [::Faraday::Error] if the REST call is aborted.
+              # @raise [::Google::Cloud::Error] if the REST call is aborted.
               def list request, options = nil
                 raise ::ArgumentError, "request must be provided" if request.nil?
 

@@ -167,7 +167,7 @@ module Google
               #
               # @return [::Google::Cloud::Compute::V1::InstanceGroup]
               #
-              # @raise [::Faraday::Error] if the REST call is aborted.
+              # @raise [::Google::Cloud::Error] if the REST call is aborted.
               def get request, options = nil
                 raise ::ArgumentError, "request must be provided" if request.nil?
 
@@ -251,7 +251,7 @@ module Google
               #
               # @return [::Google::Cloud::Compute::V1::RegionInstanceGroupList]
               #
-              # @raise [::Faraday::Error] if the REST call is aborted.
+              # @raise [::Google::Cloud::Error] if the REST call is aborted.
               def list request, options = nil
                 raise ::ArgumentError, "request must be provided" if request.nil?
 
@@ -340,7 +340,7 @@ module Google
               #
               # @return [::Google::Cloud::Compute::V1::RegionInstanceGroupsListInstances]
               #
-              # @raise [::Faraday::Error] if the REST call is aborted.
+              # @raise [::Google::Cloud::Error] if the REST call is aborted.
               def list_instances request, options = nil
                 raise ::ArgumentError, "request must be provided" if request.nil?
 
@@ -415,7 +415,7 @@ module Google
               #
               # @return [::Google::Cloud::Compute::V1::Operation]
               #
-              # @raise [::Faraday::Error] if the REST call is aborted.
+              # @raise [::Google::Cloud::Error] if the REST call is aborted.
               def set_named_ports request, options = nil
                 raise ::ArgumentError, "request must be provided" if request.nil?
 
