@@ -12,6 +12,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+##
+# Rest GAPIC features are still under development.
+#
+
 require "faraday"
 require "gapic/call_options"
 require "gapic/common/version"
