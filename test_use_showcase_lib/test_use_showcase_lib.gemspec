@@ -19,7 +19,7 @@ Gem::Specification.new do |spec|
   spec.metadata["changelog_uri"] = "http://foo.example.com"
 
   spec.add_dependency "faraday"
-  spec.add_dependency "google-showcase"
+  #  spec.add_dependency "google-showcase"
 
   # Specify which files should be added to the gem when it is released.
   # The `git ls-files -z` loads the files in the RubyGem that have been added into git.

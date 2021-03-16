@@ -10,15 +10,16 @@
     <orderEntry type="jdk" jdkName="asdf: 2.7.1" jdkType="RUBY_SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" scope="PROVIDED" name="addressable (v2.7.0, asdf: 2.7.1) [gem]" level="application" />
-    <orderEntry type="library" scope="PROVIDED" name="bundler (v2.1.4, asdf: 2.7.1) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="bundler (v2.2.6, asdf: 2.7.1) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="faraday (v1.3.0, asdf: 2.7.1) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="faraday-net_http (v1.0.1, asdf: 2.7.1) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="gapic-common (v0.4.0, asdf: 2.7.1) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="google-cloud-errors (v1.0.1, asdf: 2.7.1) [gem]" level="application" />
-    <orderEntry type="library" scope="PROVIDED" name="google-protobuf (v3.14.0, asdf: 2.7.1) [gem]" level="application" />
-    <orderEntry type="library" scope="PROVIDED" name="googleapis-common-protos (v1.3.10, asdf: 2.7.1) [gem]" level="application" />
-    <orderEntry type="library" scope="PROVIDED" name="googleapis-common-protos-types (v1.0.5, asdf: 2.7.1) [gem]" level="application" />
-    <orderEntry type="library" scope="PROVIDED" name="googleauth (v0.14.0, asdf: 2.7.1) [gem]" level="application" />
-    <orderEntry type="library" scope="PROVIDED" name="grpc (v1.35.0, asdf: 2.7.1) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="google-protobuf (v3.15.5, asdf: 2.7.1) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="googleapis-common-protos (v1.3.11, asdf: 2.7.1) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="googleapis-common-protos-types (v1.0.6, asdf: 2.7.1) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="googleauth (v0.16.0, asdf: 2.7.1) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="grpc (v1.36.0, asdf: 2.7.1) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="jwt (v2.2.2, asdf: 2.7.1) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="memoist (v0.16.2, asdf: 2.7.1) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="minitest (v5.14.3, asdf: 2.7.1) [gem]" level="application" />
@@ -28,6 +29,6 @@
     <orderEntry type="library" scope="PROVIDED" name="public_suffix (v4.0.6, asdf: 2.7.1) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="rake (v12.3.3, asdf: 2.7.1) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="ruby2_keywords (v0.0.4, asdf: 2.7.1) [gem]" level="application" />
-    <orderEntry type="library" scope="PROVIDED" name="signet (v0.14.0, asdf: 2.7.1) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="signet (v0.15.0, asdf: 2.7.1) [gem]" level="application" />
   </component>
 </module>

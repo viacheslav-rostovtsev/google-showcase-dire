@@ -61,7 +61,7 @@ module Google
                   parent_config = while namespace.any?
                                     parent_name = namespace.join "::"
                                     parent_const = const_get parent_name
-                                    break parent_const.configure if parent_const&.respond_to? :configure
+                                    break parent_const.configure if parent_const.respond_to? :configure
                                     namespace.pop
                                   end
                   default_config = Client::Configuration.new parent_config
@@ -173,7 +173,7 @@ module Google
               #     The name of the zone for this request.
               # @yield [result, env] Access the result along with the Faraday environment object
               # @yieldparam result [::Google::Cloud::Compute::V1::Operation]
-              # @yieldparam env [::Faraday::Env]
+              # @yieldparam response [::Faraday::Response]
               #
               # @return [::Google::Cloud::Compute::V1::Operation]
               #
@@ -194,14 +194,14 @@ module Google
                   lib_name: @config.lib_name, lib_version: @config.lib_version,
                   gapic_version: ::Google::Cloud::Compute::V1::VERSION
 
-                options.apply_defaults timeout:  @config.timeout,
-                                       metadata: call_metadata
+                options.apply_defaults timeout:      @config.timeout,
+                                       metadata:     call_metadata
 
-                (uri, body, _query_string_params) = transcode_add_access_config request
+                uri, body, _query_string_params = transcode_add_access_config request
                 response = @client_stub.make_post_request(
                   uri:     uri,
                   body:    body,
-                  options: options,
+                  options: options
                 )
                 result = ::Google::Cloud::Compute::V1::Operation.decode_json response.body, ignore_unknown_fields: true
 
@@ -248,7 +248,7 @@ module Google
               #     The name of the zone for this request.
               # @yield [result, env] Access the result along with the Faraday environment object
               # @yieldparam result [::Google::Cloud::Compute::V1::Operation]
-              # @yieldparam env [::Faraday::Env]
+              # @yieldparam response [::Faraday::Response]
               #
               # @return [::Google::Cloud::Compute::V1::Operation]
               #
@@ -269,14 +269,14 @@ module Google
                   lib_name: @config.lib_name, lib_version: @config.lib_version,
                   gapic_version: ::Google::Cloud::Compute::V1::VERSION
 
-                options.apply_defaults timeout:  @config.timeout,
-                                       metadata: call_metadata
+                options.apply_defaults timeout:      @config.timeout,
+                                       metadata:     call_metadata
 
-                (uri, body, _query_string_params) = transcode_add_resource_policies request
+                uri, body, _query_string_params = transcode_add_resource_policies request
                 response = @client_stub.make_post_request(
                   uri:     uri,
                   body:    body,
-                  options: options,
+                  options: options
                 )
                 result = ::Google::Cloud::Compute::V1::Operation.decode_json response.body, ignore_unknown_fields: true
 
@@ -333,7 +333,7 @@ module Google
               #     Opt-in for partial success behavior which provides partial results in case of failure. The default value is false and the logic is the same as today.
               # @yield [result, env] Access the result along with the Faraday environment object
               # @yieldparam result [::Google::Cloud::Compute::V1::InstanceAggregatedList]
-              # @yieldparam env [::Faraday::Env]
+              # @yieldparam response [::Faraday::Response]
               #
               # @return [::Google::Cloud::Compute::V1::InstanceAggregatedList]
               #
@@ -354,14 +354,14 @@ module Google
                   lib_name: @config.lib_name, lib_version: @config.lib_version,
                   gapic_version: ::Google::Cloud::Compute::V1::VERSION
 
-                options.apply_defaults timeout:  @config.timeout,
-                                       metadata: call_metadata
+                options.apply_defaults timeout:      @config.timeout,
+                                       metadata:     call_metadata
 
-                (uri, _body, query_string_params) = transcode_aggregated_list request
+                uri, _body, query_string_params = transcode_aggregated_list request
                 response = @client_stub.make_get_request(
                   uri:     uri,
                   params:  query_string_params,
-                  options: options,
+                  options: options
                 )
                 result = ::Google::Cloud::Compute::V1::InstanceAggregatedList.decode_json response.body, ignore_unknown_fields: true
 
@@ -410,7 +410,7 @@ module Google
               #     The name of the zone for this request.
               # @yield [result, env] Access the result along with the Faraday environment object
               # @yieldparam result [::Google::Cloud::Compute::V1::Operation]
-              # @yieldparam env [::Faraday::Env]
+              # @yieldparam response [::Faraday::Response]
               #
               # @return [::Google::Cloud::Compute::V1::Operation]
               #
@@ -431,14 +431,14 @@ module Google
                   lib_name: @config.lib_name, lib_version: @config.lib_version,
                   gapic_version: ::Google::Cloud::Compute::V1::VERSION
 
-                options.apply_defaults timeout:  @config.timeout,
-                                       metadata: call_metadata
+                options.apply_defaults timeout:      @config.timeout,
+                                       metadata:     call_metadata
 
-                (uri, body, _query_string_params) = transcode_attach_disk request
+                uri, body, _query_string_params = transcode_attach_disk request
                 response = @client_stub.make_post_request(
                   uri:     uri,
                   body:    body,
-                  options: options,
+                  options: options
                 )
                 result = ::Google::Cloud::Compute::V1::Operation.decode_json response.body, ignore_unknown_fields: true
 
@@ -483,7 +483,7 @@ module Google
               #     The name of the zone for this request.
               # @yield [result, env] Access the result along with the Faraday environment object
               # @yieldparam result [::Google::Cloud::Compute::V1::Operation]
-              # @yieldparam env [::Faraday::Env]
+              # @yieldparam response [::Faraday::Response]
               #
               # @return [::Google::Cloud::Compute::V1::Operation]
               #
@@ -504,14 +504,14 @@ module Google
                   lib_name: @config.lib_name, lib_version: @config.lib_version,
                   gapic_version: ::Google::Cloud::Compute::V1::VERSION
 
-                options.apply_defaults timeout:  @config.timeout,
-                                       metadata: call_metadata
+                options.apply_defaults timeout:      @config.timeout,
+                                       metadata:     call_metadata
 
-                (uri, _body, query_string_params) = transcode_delete request
+                uri, _body, query_string_params = transcode_delete request
                 response = @client_stub.make_delete_request(
                   uri:     uri,
                   params:  query_string_params,
-                  options: options,
+                  options: options
                 )
                 result = ::Google::Cloud::Compute::V1::Operation.decode_json response.body, ignore_unknown_fields: true
 
@@ -560,7 +560,7 @@ module Google
               #     The name of the zone for this request.
               # @yield [result, env] Access the result along with the Faraday environment object
               # @yieldparam result [::Google::Cloud::Compute::V1::Operation]
-              # @yieldparam env [::Faraday::Env]
+              # @yieldparam response [::Faraday::Response]
               #
               # @return [::Google::Cloud::Compute::V1::Operation]
               #
@@ -581,14 +581,14 @@ module Google
                   lib_name: @config.lib_name, lib_version: @config.lib_version,
                   gapic_version: ::Google::Cloud::Compute::V1::VERSION
 
-                options.apply_defaults timeout:  @config.timeout,
-                                       metadata: call_metadata
+                options.apply_defaults timeout:      @config.timeout,
+                                       metadata:     call_metadata
 
-                (uri, _body, query_string_params) = transcode_delete_access_config request
+                uri, _body, query_string_params = transcode_delete_access_config request
                 response = @client_stub.make_post_request(
                   uri:     uri,
                   params:  query_string_params,
-                  options: options,
+                  options: options
                 )
                 result = ::Google::Cloud::Compute::V1::Operation.decode_json response.body, ignore_unknown_fields: true
 
@@ -635,7 +635,7 @@ module Google
               #     The name of the zone for this request.
               # @yield [result, env] Access the result along with the Faraday environment object
               # @yieldparam result [::Google::Cloud::Compute::V1::Operation]
-              # @yieldparam env [::Faraday::Env]
+              # @yieldparam response [::Faraday::Response]
               #
               # @return [::Google::Cloud::Compute::V1::Operation]
               #
@@ -656,14 +656,14 @@ module Google
                   lib_name: @config.lib_name, lib_version: @config.lib_version,
                   gapic_version: ::Google::Cloud::Compute::V1::VERSION
 
-                options.apply_defaults timeout:  @config.timeout,
-                                       metadata: call_metadata
+                options.apply_defaults timeout:      @config.timeout,
+                                       metadata:     call_metadata
 
-                (uri, _body, query_string_params) = transcode_detach_disk request
+                uri, _body, query_string_params = transcode_detach_disk request
                 response = @client_stub.make_post_request(
                   uri:     uri,
                   params:  query_string_params,
-                  options: options,
+                  options: options
                 )
                 result = ::Google::Cloud::Compute::V1::Operation.decode_json response.body, ignore_unknown_fields: true
 
@@ -702,7 +702,7 @@ module Google
               #     The name of the zone for this request.
               # @yield [result, env] Access the result along with the Faraday environment object
               # @yieldparam result [::Google::Cloud::Compute::V1::Instance]
-              # @yieldparam env [::Faraday::Env]
+              # @yieldparam response [::Faraday::Response]
               #
               # @return [::Google::Cloud::Compute::V1::Instance]
               #
@@ -723,13 +723,13 @@ module Google
                   lib_name: @config.lib_name, lib_version: @config.lib_version,
                   gapic_version: ::Google::Cloud::Compute::V1::VERSION
 
-                options.apply_defaults timeout:  @config.timeout,
-                                       metadata: call_metadata
+                options.apply_defaults timeout:      @config.timeout,
+                                       metadata:     call_metadata
 
-                (uri, _body, _query_string_params) = transcode_get request
+                uri, _body, _query_string_params = transcode_get request
                 response = @client_stub.make_get_request(
                   uri:     uri,
-                  options: options,
+                  options: options
                 )
                 result = ::Google::Cloud::Compute::V1::Instance.decode_json response.body, ignore_unknown_fields: true
 
@@ -772,7 +772,7 @@ module Google
               #     The name of the zone for this request.
               # @yield [result, env] Access the result along with the Faraday environment object
               # @yieldparam result [::Google::Cloud::Compute::V1::GuestAttributes]
-              # @yieldparam env [::Faraday::Env]
+              # @yieldparam response [::Faraday::Response]
               #
               # @return [::Google::Cloud::Compute::V1::GuestAttributes]
               #
@@ -793,14 +793,14 @@ module Google
                   lib_name: @config.lib_name, lib_version: @config.lib_version,
                   gapic_version: ::Google::Cloud::Compute::V1::VERSION
 
-                options.apply_defaults timeout:  @config.timeout,
-                                       metadata: call_metadata
+                options.apply_defaults timeout:      @config.timeout,
+                                       metadata:     call_metadata
 
-                (uri, _body, query_string_params) = transcode_get_guest_attributes request
+                uri, _body, query_string_params = transcode_get_guest_attributes request
                 response = @client_stub.make_get_request(
                   uri:     uri,
                   params:  query_string_params,
-                  options: options,
+                  options: options
                 )
                 result = ::Google::Cloud::Compute::V1::GuestAttributes.decode_json response.body, ignore_unknown_fields: true
 
@@ -841,7 +841,7 @@ module Google
               #     The name of the zone for this request.
               # @yield [result, env] Access the result along with the Faraday environment object
               # @yieldparam result [::Google::Cloud::Compute::V1::Policy]
-              # @yieldparam env [::Faraday::Env]
+              # @yieldparam response [::Faraday::Response]
               #
               # @return [::Google::Cloud::Compute::V1::Policy]
               #
@@ -862,14 +862,14 @@ module Google
                   lib_name: @config.lib_name, lib_version: @config.lib_version,
                   gapic_version: ::Google::Cloud::Compute::V1::VERSION
 
-                options.apply_defaults timeout:  @config.timeout,
-                                       metadata: call_metadata
+                options.apply_defaults timeout:      @config.timeout,
+                                       metadata:     call_metadata
 
-                (uri, _body, query_string_params) = transcode_get_iam_policy request
+                uri, _body, query_string_params = transcode_get_iam_policy request
                 response = @client_stub.make_get_request(
                   uri:     uri,
                   params:  query_string_params,
-                  options: options,
+                  options: options
                 )
                 result = ::Google::Cloud::Compute::V1::Policy.decode_json response.body, ignore_unknown_fields: true
 
@@ -908,7 +908,7 @@ module Google
               #     The name of the zone for this request.
               # @yield [result, env] Access the result along with the Faraday environment object
               # @yieldparam result [::Google::Cloud::Compute::V1::Screenshot]
-              # @yieldparam env [::Faraday::Env]
+              # @yieldparam response [::Faraday::Response]
               #
               # @return [::Google::Cloud::Compute::V1::Screenshot]
               #
@@ -929,13 +929,13 @@ module Google
                   lib_name: @config.lib_name, lib_version: @config.lib_version,
                   gapic_version: ::Google::Cloud::Compute::V1::VERSION
 
-                options.apply_defaults timeout:  @config.timeout,
-                                       metadata: call_metadata
+                options.apply_defaults timeout:      @config.timeout,
+                                       metadata:     call_metadata
 
-                (uri, _body, _query_string_params) = transcode_get_screenshot request
+                uri, _body, _query_string_params = transcode_get_screenshot request
                 response = @client_stub.make_get_request(
                   uri:     uri,
-                  options: options,
+                  options: options
                 )
                 result = ::Google::Cloud::Compute::V1::Screenshot.decode_json response.body, ignore_unknown_fields: true
 
@@ -982,7 +982,7 @@ module Google
               #     The name of the zone for this request.
               # @yield [result, env] Access the result along with the Faraday environment object
               # @yieldparam result [::Google::Cloud::Compute::V1::SerialPortOutput]
-              # @yieldparam env [::Faraday::Env]
+              # @yieldparam response [::Faraday::Response]
               #
               # @return [::Google::Cloud::Compute::V1::SerialPortOutput]
               #
@@ -1003,14 +1003,14 @@ module Google
                   lib_name: @config.lib_name, lib_version: @config.lib_version,
                   gapic_version: ::Google::Cloud::Compute::V1::VERSION
 
-                options.apply_defaults timeout:  @config.timeout,
-                                       metadata: call_metadata
+                options.apply_defaults timeout:      @config.timeout,
+                                       metadata:     call_metadata
 
-                (uri, _body, query_string_params) = transcode_get_serial_port_output request
+                uri, _body, query_string_params = transcode_get_serial_port_output request
                 response = @client_stub.make_get_request(
                   uri:     uri,
                   params:  query_string_params,
-                  options: options,
+                  options: options
                 )
                 result = ::Google::Cloud::Compute::V1::SerialPortOutput.decode_json response.body, ignore_unknown_fields: true
 
@@ -1049,7 +1049,7 @@ module Google
               #     The name of the zone for this request.
               # @yield [result, env] Access the result along with the Faraday environment object
               # @yieldparam result [::Google::Cloud::Compute::V1::ShieldedInstanceIdentity]
-              # @yieldparam env [::Faraday::Env]
+              # @yieldparam response [::Faraday::Response]
               #
               # @return [::Google::Cloud::Compute::V1::ShieldedInstanceIdentity]
               #
@@ -1070,13 +1070,13 @@ module Google
                   lib_name: @config.lib_name, lib_version: @config.lib_version,
                   gapic_version: ::Google::Cloud::Compute::V1::VERSION
 
-                options.apply_defaults timeout:  @config.timeout,
-                                       metadata: call_metadata
+                options.apply_defaults timeout:      @config.timeout,
+                                       metadata:     call_metadata
 
-                (uri, _body, _query_string_params) = transcode_get_shielded_instance_identity request
+                uri, _body, _query_string_params = transcode_get_shielded_instance_identity request
                 response = @client_stub.make_get_request(
                   uri:     uri,
-                  options: options,
+                  options: options
                 )
                 result = ::Google::Cloud::Compute::V1::ShieldedInstanceIdentity.decode_json response.body, ignore_unknown_fields: true
 
@@ -1128,7 +1128,7 @@ module Google
               #     The name of the zone for this request.
               # @yield [result, env] Access the result along with the Faraday environment object
               # @yieldparam result [::Google::Cloud::Compute::V1::Operation]
-              # @yieldparam env [::Faraday::Env]
+              # @yieldparam response [::Faraday::Response]
               #
               # @return [::Google::Cloud::Compute::V1::Operation]
               #
@@ -1149,14 +1149,14 @@ module Google
                   lib_name: @config.lib_name, lib_version: @config.lib_version,
                   gapic_version: ::Google::Cloud::Compute::V1::VERSION
 
-                options.apply_defaults timeout:  @config.timeout,
-                                       metadata: call_metadata
+                options.apply_defaults timeout:      @config.timeout,
+                                       metadata:     call_metadata
 
-                (uri, body, _query_string_params) = transcode_insert request
+                uri, body, _query_string_params = transcode_insert request
                 response = @client_stub.make_post_request(
                   uri:     uri,
                   body:    body,
-                  options: options,
+                  options: options
                 )
                 result = ::Google::Cloud::Compute::V1::Operation.decode_json response.body, ignore_unknown_fields: true
 
@@ -1213,7 +1213,7 @@ module Google
               #     The name of the zone for this request.
               # @yield [result, env] Access the result along with the Faraday environment object
               # @yieldparam result [::Google::Cloud::Compute::V1::InstanceList]
-              # @yieldparam env [::Faraday::Env]
+              # @yieldparam response [::Faraday::Response]
               #
               # @return [::Google::Cloud::Compute::V1::InstanceList]
               #
@@ -1234,14 +1234,14 @@ module Google
                   lib_name: @config.lib_name, lib_version: @config.lib_version,
                   gapic_version: ::Google::Cloud::Compute::V1::VERSION
 
-                options.apply_defaults timeout:  @config.timeout,
-                                       metadata: call_metadata
+                options.apply_defaults timeout:      @config.timeout,
+                                       metadata:     call_metadata
 
-                (uri, _body, query_string_params) = transcode_list request
+                uri, _body, query_string_params = transcode_list request
                 response = @client_stub.make_get_request(
                   uri:     uri,
                   params:  query_string_params,
-                  options: options,
+                  options: options
                 )
                 result = ::Google::Cloud::Compute::V1::InstanceList.decode_json response.body, ignore_unknown_fields: true
 
@@ -1300,7 +1300,7 @@ module Google
               #     The name of the zone for this request.
               # @yield [result, env] Access the result along with the Faraday environment object
               # @yieldparam result [::Google::Cloud::Compute::V1::InstanceListReferrers]
-              # @yieldparam env [::Faraday::Env]
+              # @yieldparam response [::Faraday::Response]
               #
               # @return [::Google::Cloud::Compute::V1::InstanceListReferrers]
               #
@@ -1321,14 +1321,14 @@ module Google
                   lib_name: @config.lib_name, lib_version: @config.lib_version,
                   gapic_version: ::Google::Cloud::Compute::V1::VERSION
 
-                options.apply_defaults timeout:  @config.timeout,
-                                       metadata: call_metadata
+                options.apply_defaults timeout:      @config.timeout,
+                                       metadata:     call_metadata
 
-                (uri, _body, query_string_params) = transcode_list_referrers request
+                uri, _body, query_string_params = transcode_list_referrers request
                 response = @client_stub.make_get_request(
                   uri:     uri,
                   params:  query_string_params,
-                  options: options,
+                  options: options
                 )
                 result = ::Google::Cloud::Compute::V1::InstanceListReferrers.decode_json response.body, ignore_unknown_fields: true
 
@@ -1375,7 +1375,7 @@ module Google
               #     The name of the zone for this request.
               # @yield [result, env] Access the result along with the Faraday environment object
               # @yieldparam result [::Google::Cloud::Compute::V1::Operation]
-              # @yieldparam env [::Faraday::Env]
+              # @yieldparam response [::Faraday::Response]
               #
               # @return [::Google::Cloud::Compute::V1::Operation]
               #
@@ -1396,14 +1396,14 @@ module Google
                   lib_name: @config.lib_name, lib_version: @config.lib_version,
                   gapic_version: ::Google::Cloud::Compute::V1::VERSION
 
-                options.apply_defaults timeout:  @config.timeout,
-                                       metadata: call_metadata
+                options.apply_defaults timeout:      @config.timeout,
+                                       metadata:     call_metadata
 
-                (uri, body, _query_string_params) = transcode_remove_resource_policies request
+                uri, body, _query_string_params = transcode_remove_resource_policies request
                 response = @client_stub.make_post_request(
                   uri:     uri,
                   body:    body,
-                  options: options,
+                  options: options
                 )
                 result = ::Google::Cloud::Compute::V1::Operation.decode_json response.body, ignore_unknown_fields: true
 
@@ -1448,7 +1448,7 @@ module Google
               #     The name of the zone for this request.
               # @yield [result, env] Access the result along with the Faraday environment object
               # @yieldparam result [::Google::Cloud::Compute::V1::Operation]
-              # @yieldparam env [::Faraday::Env]
+              # @yieldparam response [::Faraday::Response]
               #
               # @return [::Google::Cloud::Compute::V1::Operation]
               #
@@ -1469,14 +1469,14 @@ module Google
                   lib_name: @config.lib_name, lib_version: @config.lib_version,
                   gapic_version: ::Google::Cloud::Compute::V1::VERSION
 
-                options.apply_defaults timeout:  @config.timeout,
-                                       metadata: call_metadata
+                options.apply_defaults timeout:      @config.timeout,
+                                       metadata:     call_metadata
 
-                (uri, _body, query_string_params) = transcode_reset request
+                uri, _body, query_string_params = transcode_reset request
                 response = @client_stub.make_post_request(
                   uri:     uri,
                   params:  query_string_params,
-                  options: options,
+                  options: options
                 )
                 result = ::Google::Cloud::Compute::V1::Operation.decode_json response.body, ignore_unknown_fields: true
 
@@ -1523,7 +1523,7 @@ module Google
               #     The name of the zone for this request.
               # @yield [result, env] Access the result along with the Faraday environment object
               # @yieldparam result [::Google::Cloud::Compute::V1::Operation]
-              # @yieldparam env [::Faraday::Env]
+              # @yieldparam response [::Faraday::Response]
               #
               # @return [::Google::Cloud::Compute::V1::Operation]
               #
@@ -1544,14 +1544,14 @@ module Google
                   lib_name: @config.lib_name, lib_version: @config.lib_version,
                   gapic_version: ::Google::Cloud::Compute::V1::VERSION
 
-                options.apply_defaults timeout:  @config.timeout,
-                                       metadata: call_metadata
+                options.apply_defaults timeout:      @config.timeout,
+                                       metadata:     call_metadata
 
-                (uri, _body, query_string_params) = transcode_set_deletion_protection request
+                uri, _body, query_string_params = transcode_set_deletion_protection request
                 response = @client_stub.make_post_request(
                   uri:     uri,
                   params:  query_string_params,
-                  options: options,
+                  options: options
                 )
                 result = ::Google::Cloud::Compute::V1::Operation.decode_json response.body, ignore_unknown_fields: true
 
@@ -1600,7 +1600,7 @@ module Google
               #     The name of the zone for this request.
               # @yield [result, env] Access the result along with the Faraday environment object
               # @yieldparam result [::Google::Cloud::Compute::V1::Operation]
-              # @yieldparam env [::Faraday::Env]
+              # @yieldparam response [::Faraday::Response]
               #
               # @return [::Google::Cloud::Compute::V1::Operation]
               #
@@ -1621,14 +1621,14 @@ module Google
                   lib_name: @config.lib_name, lib_version: @config.lib_version,
                   gapic_version: ::Google::Cloud::Compute::V1::VERSION
 
-                options.apply_defaults timeout:  @config.timeout,
-                                       metadata: call_metadata
+                options.apply_defaults timeout:      @config.timeout,
+                                       metadata:     call_metadata
 
-                (uri, _body, query_string_params) = transcode_set_disk_auto_delete request
+                uri, _body, query_string_params = transcode_set_disk_auto_delete request
                 response = @client_stub.make_post_request(
                   uri:     uri,
                   params:  query_string_params,
-                  options: options,
+                  options: options
                 )
                 result = ::Google::Cloud::Compute::V1::Operation.decode_json response.body, ignore_unknown_fields: true
 
@@ -1669,7 +1669,7 @@ module Google
               #     The body resource for this request
               # @yield [result, env] Access the result along with the Faraday environment object
               # @yieldparam result [::Google::Cloud::Compute::V1::Policy]
-              # @yieldparam env [::Faraday::Env]
+              # @yieldparam response [::Faraday::Response]
               #
               # @return [::Google::Cloud::Compute::V1::Policy]
               #
@@ -1690,14 +1690,14 @@ module Google
                   lib_name: @config.lib_name, lib_version: @config.lib_version,
                   gapic_version: ::Google::Cloud::Compute::V1::VERSION
 
-                options.apply_defaults timeout:  @config.timeout,
-                                       metadata: call_metadata
+                options.apply_defaults timeout:      @config.timeout,
+                                       metadata:     call_metadata
 
-                (uri, body, _query_string_params) = transcode_set_iam_policy request
+                uri, body, _query_string_params = transcode_set_iam_policy request
                 response = @client_stub.make_post_request(
                   uri:     uri,
                   body:    body,
-                  options: options,
+                  options: options
                 )
                 result = ::Google::Cloud::Compute::V1::Policy.decode_json response.body, ignore_unknown_fields: true
 
@@ -1744,7 +1744,7 @@ module Google
               #     The name of the zone for this request.
               # @yield [result, env] Access the result along with the Faraday environment object
               # @yieldparam result [::Google::Cloud::Compute::V1::Operation]
-              # @yieldparam env [::Faraday::Env]
+              # @yieldparam response [::Faraday::Response]
               #
               # @return [::Google::Cloud::Compute::V1::Operation]
               #
@@ -1765,14 +1765,14 @@ module Google
                   lib_name: @config.lib_name, lib_version: @config.lib_version,
                   gapic_version: ::Google::Cloud::Compute::V1::VERSION
 
-                options.apply_defaults timeout:  @config.timeout,
-                                       metadata: call_metadata
+                options.apply_defaults timeout:      @config.timeout,
+                                       metadata:     call_metadata
 
-                (uri, body, _query_string_params) = transcode_set_labels request
+                uri, body, _query_string_params = transcode_set_labels request
                 response = @client_stub.make_post_request(
                   uri:     uri,
                   body:    body,
-                  options: options,
+                  options: options
                 )
                 result = ::Google::Cloud::Compute::V1::Operation.decode_json response.body, ignore_unknown_fields: true
 
@@ -1819,7 +1819,7 @@ module Google
               #     The name of the zone for this request.
               # @yield [result, env] Access the result along with the Faraday environment object
               # @yieldparam result [::Google::Cloud::Compute::V1::Operation]
-              # @yieldparam env [::Faraday::Env]
+              # @yieldparam response [::Faraday::Response]
               #
               # @return [::Google::Cloud::Compute::V1::Operation]
               #
@@ -1840,14 +1840,14 @@ module Google
                   lib_name: @config.lib_name, lib_version: @config.lib_version,
                   gapic_version: ::Google::Cloud::Compute::V1::VERSION
 
-                options.apply_defaults timeout:  @config.timeout,
-                                       metadata: call_metadata
+                options.apply_defaults timeout:      @config.timeout,
+                                       metadata:     call_metadata
 
-                (uri, body, _query_string_params) = transcode_set_machine_resources request
+                uri, body, _query_string_params = transcode_set_machine_resources request
                 response = @client_stub.make_post_request(
                   uri:     uri,
                   body:    body,
-                  options: options,
+                  options: options
                 )
                 result = ::Google::Cloud::Compute::V1::Operation.decode_json response.body, ignore_unknown_fields: true
 
@@ -1894,7 +1894,7 @@ module Google
               #     The name of the zone for this request.
               # @yield [result, env] Access the result along with the Faraday environment object
               # @yieldparam result [::Google::Cloud::Compute::V1::Operation]
-              # @yieldparam env [::Faraday::Env]
+              # @yieldparam response [::Faraday::Response]
               #
               # @return [::Google::Cloud::Compute::V1::Operation]
               #
@@ -1915,14 +1915,14 @@ module Google
                   lib_name: @config.lib_name, lib_version: @config.lib_version,
                   gapic_version: ::Google::Cloud::Compute::V1::VERSION
 
-                options.apply_defaults timeout:  @config.timeout,
-                                       metadata: call_metadata
+                options.apply_defaults timeout:      @config.timeout,
+                                       metadata:     call_metadata
 
-                (uri, body, _query_string_params) = transcode_set_machine_type request
+                uri, body, _query_string_params = transcode_set_machine_type request
                 response = @client_stub.make_post_request(
                   uri:     uri,
                   body:    body,
-                  options: options,
+                  options: options
                 )
                 result = ::Google::Cloud::Compute::V1::Operation.decode_json response.body, ignore_unknown_fields: true
 
@@ -1969,7 +1969,7 @@ module Google
               #     The name of the zone for this request.
               # @yield [result, env] Access the result along with the Faraday environment object
               # @yieldparam result [::Google::Cloud::Compute::V1::Operation]
-              # @yieldparam env [::Faraday::Env]
+              # @yieldparam response [::Faraday::Response]
               #
               # @return [::Google::Cloud::Compute::V1::Operation]
               #
@@ -1990,14 +1990,14 @@ module Google
                   lib_name: @config.lib_name, lib_version: @config.lib_version,
                   gapic_version: ::Google::Cloud::Compute::V1::VERSION
 
-                options.apply_defaults timeout:  @config.timeout,
-                                       metadata: call_metadata
+                options.apply_defaults timeout:      @config.timeout,
+                                       metadata:     call_metadata
 
-                (uri, body, _query_string_params) = transcode_set_metadata request
+                uri, body, _query_string_params = transcode_set_metadata request
                 response = @client_stub.make_post_request(
                   uri:     uri,
                   body:    body,
-                  options: options,
+                  options: options
                 )
                 result = ::Google::Cloud::Compute::V1::Operation.decode_json response.body, ignore_unknown_fields: true
 
@@ -2044,7 +2044,7 @@ module Google
               #     The name of the zone for this request.
               # @yield [result, env] Access the result along with the Faraday environment object
               # @yieldparam result [::Google::Cloud::Compute::V1::Operation]
-              # @yieldparam env [::Faraday::Env]
+              # @yieldparam response [::Faraday::Response]
               #
               # @return [::Google::Cloud::Compute::V1::Operation]
               #
@@ -2065,14 +2065,14 @@ module Google
                   lib_name: @config.lib_name, lib_version: @config.lib_version,
                   gapic_version: ::Google::Cloud::Compute::V1::VERSION
 
-                options.apply_defaults timeout:  @config.timeout,
-                                       metadata: call_metadata
+                options.apply_defaults timeout:      @config.timeout,
+                                       metadata:     call_metadata
 
-                (uri, body, _query_string_params) = transcode_set_min_cpu_platform request
+                uri, body, _query_string_params = transcode_set_min_cpu_platform request
                 response = @client_stub.make_post_request(
                   uri:     uri,
                   body:    body,
-                  options: options,
+                  options: options
                 )
                 result = ::Google::Cloud::Compute::V1::Operation.decode_json response.body, ignore_unknown_fields: true
 
@@ -2119,7 +2119,7 @@ module Google
               #     The name of the zone for this request.
               # @yield [result, env] Access the result along with the Faraday environment object
               # @yieldparam result [::Google::Cloud::Compute::V1::Operation]
-              # @yieldparam env [::Faraday::Env]
+              # @yieldparam response [::Faraday::Response]
               #
               # @return [::Google::Cloud::Compute::V1::Operation]
               #
@@ -2140,14 +2140,14 @@ module Google
                   lib_name: @config.lib_name, lib_version: @config.lib_version,
                   gapic_version: ::Google::Cloud::Compute::V1::VERSION
 
-                options.apply_defaults timeout:  @config.timeout,
-                                       metadata: call_metadata
+                options.apply_defaults timeout:      @config.timeout,
+                                       metadata:     call_metadata
 
-                (uri, body, _query_string_params) = transcode_set_scheduling request
+                uri, body, _query_string_params = transcode_set_scheduling request
                 response = @client_stub.make_post_request(
                   uri:     uri,
                   body:    body,
-                  options: options,
+                  options: options
                 )
                 result = ::Google::Cloud::Compute::V1::Operation.decode_json response.body, ignore_unknown_fields: true
 
@@ -2194,7 +2194,7 @@ module Google
               #     The name of the zone for this request.
               # @yield [result, env] Access the result along with the Faraday environment object
               # @yieldparam result [::Google::Cloud::Compute::V1::Operation]
-              # @yieldparam env [::Faraday::Env]
+              # @yieldparam response [::Faraday::Response]
               #
               # @return [::Google::Cloud::Compute::V1::Operation]
               #
@@ -2215,14 +2215,14 @@ module Google
                   lib_name: @config.lib_name, lib_version: @config.lib_version,
                   gapic_version: ::Google::Cloud::Compute::V1::VERSION
 
-                options.apply_defaults timeout:  @config.timeout,
-                                       metadata: call_metadata
+                options.apply_defaults timeout:      @config.timeout,
+                                       metadata:     call_metadata
 
-                (uri, body, _query_string_params) = transcode_set_service_account request
+                uri, body, _query_string_params = transcode_set_service_account request
                 response = @client_stub.make_post_request(
                   uri:     uri,
                   body:    body,
-                  options: options,
+                  options: options
                 )
                 result = ::Google::Cloud::Compute::V1::Operation.decode_json response.body, ignore_unknown_fields: true
 
@@ -2269,7 +2269,7 @@ module Google
               #     The name of the zone for this request.
               # @yield [result, env] Access the result along with the Faraday environment object
               # @yieldparam result [::Google::Cloud::Compute::V1::Operation]
-              # @yieldparam env [::Faraday::Env]
+              # @yieldparam response [::Faraday::Response]
               #
               # @return [::Google::Cloud::Compute::V1::Operation]
               #
@@ -2290,14 +2290,14 @@ module Google
                   lib_name: @config.lib_name, lib_version: @config.lib_version,
                   gapic_version: ::Google::Cloud::Compute::V1::VERSION
 
-                options.apply_defaults timeout:  @config.timeout,
-                                       metadata: call_metadata
+                options.apply_defaults timeout:      @config.timeout,
+                                       metadata:     call_metadata
 
-                (uri, body, _query_string_params) = transcode_set_shielded_instance_integrity_policy request
+                uri, body, _query_string_params = transcode_set_shielded_instance_integrity_policy request
                 response = @client_stub.make_patch_request(
                   uri:     uri,
                   body:    body,
-                  options: options,
+                  options: options
                 )
                 result = ::Google::Cloud::Compute::V1::Operation.decode_json response.body, ignore_unknown_fields: true
 
@@ -2344,7 +2344,7 @@ module Google
               #     The name of the zone for this request.
               # @yield [result, env] Access the result along with the Faraday environment object
               # @yieldparam result [::Google::Cloud::Compute::V1::Operation]
-              # @yieldparam env [::Faraday::Env]
+              # @yieldparam response [::Faraday::Response]
               #
               # @return [::Google::Cloud::Compute::V1::Operation]
               #
@@ -2365,14 +2365,14 @@ module Google
                   lib_name: @config.lib_name, lib_version: @config.lib_version,
                   gapic_version: ::Google::Cloud::Compute::V1::VERSION
 
-                options.apply_defaults timeout:  @config.timeout,
-                                       metadata: call_metadata
+                options.apply_defaults timeout:      @config.timeout,
+                                       metadata:     call_metadata
 
-                (uri, body, _query_string_params) = transcode_set_tags request
+                uri, body, _query_string_params = transcode_set_tags request
                 response = @client_stub.make_post_request(
                   uri:     uri,
                   body:    body,
-                  options: options,
+                  options: options
                 )
                 result = ::Google::Cloud::Compute::V1::Operation.decode_json response.body, ignore_unknown_fields: true
 
@@ -2411,7 +2411,7 @@ module Google
               #     The name of the zone for this request.
               # @yield [result, env] Access the result along with the Faraday environment object
               # @yieldparam result [::Google::Cloud::Compute::V1::Operation]
-              # @yieldparam env [::Faraday::Env]
+              # @yieldparam response [::Faraday::Response]
               #
               # @return [::Google::Cloud::Compute::V1::Operation]
               #
@@ -2432,13 +2432,13 @@ module Google
                   lib_name: @config.lib_name, lib_version: @config.lib_version,
                   gapic_version: ::Google::Cloud::Compute::V1::VERSION
 
-                options.apply_defaults timeout:  @config.timeout,
-                                       metadata: call_metadata
+                options.apply_defaults timeout:      @config.timeout,
+                                       metadata:     call_metadata
 
-                (uri, _body, _query_string_params) = transcode_simulate_maintenance_event request
+                uri, _body, _query_string_params = transcode_simulate_maintenance_event request
                 response = @client_stub.make_post_request(
                   uri:     uri,
-                  options: options,
+                  options: options
                 )
                 result = ::Google::Cloud::Compute::V1::Operation.decode_json response.body, ignore_unknown_fields: true
 
@@ -2483,7 +2483,7 @@ module Google
               #     The name of the zone for this request.
               # @yield [result, env] Access the result along with the Faraday environment object
               # @yieldparam result [::Google::Cloud::Compute::V1::Operation]
-              # @yieldparam env [::Faraday::Env]
+              # @yieldparam response [::Faraday::Response]
               #
               # @return [::Google::Cloud::Compute::V1::Operation]
               #
@@ -2504,14 +2504,14 @@ module Google
                   lib_name: @config.lib_name, lib_version: @config.lib_version,
                   gapic_version: ::Google::Cloud::Compute::V1::VERSION
 
-                options.apply_defaults timeout:  @config.timeout,
-                                       metadata: call_metadata
+                options.apply_defaults timeout:      @config.timeout,
+                                       metadata:     call_metadata
 
-                (uri, _body, query_string_params) = transcode_start request
+                uri, _body, query_string_params = transcode_start request
                 response = @client_stub.make_post_request(
                   uri:     uri,
                   params:  query_string_params,
-                  options: options,
+                  options: options
                 )
                 result = ::Google::Cloud::Compute::V1::Operation.decode_json response.body, ignore_unknown_fields: true
 
@@ -2558,7 +2558,7 @@ module Google
               #     The name of the zone for this request.
               # @yield [result, env] Access the result along with the Faraday environment object
               # @yieldparam result [::Google::Cloud::Compute::V1::Operation]
-              # @yieldparam env [::Faraday::Env]
+              # @yieldparam response [::Faraday::Response]
               #
               # @return [::Google::Cloud::Compute::V1::Operation]
               #
@@ -2579,14 +2579,14 @@ module Google
                   lib_name: @config.lib_name, lib_version: @config.lib_version,
                   gapic_version: ::Google::Cloud::Compute::V1::VERSION
 
-                options.apply_defaults timeout:  @config.timeout,
-                                       metadata: call_metadata
+                options.apply_defaults timeout:      @config.timeout,
+                                       metadata:     call_metadata
 
-                (uri, body, _query_string_params) = transcode_start_with_encryption_key request
+                uri, body, _query_string_params = transcode_start_with_encryption_key request
                 response = @client_stub.make_post_request(
                   uri:     uri,
                   body:    body,
-                  options: options,
+                  options: options
                 )
                 result = ::Google::Cloud::Compute::V1::Operation.decode_json response.body, ignore_unknown_fields: true
 
@@ -2631,7 +2631,7 @@ module Google
               #     The name of the zone for this request.
               # @yield [result, env] Access the result along with the Faraday environment object
               # @yieldparam result [::Google::Cloud::Compute::V1::Operation]
-              # @yieldparam env [::Faraday::Env]
+              # @yieldparam response [::Faraday::Response]
               #
               # @return [::Google::Cloud::Compute::V1::Operation]
               #
@@ -2652,14 +2652,14 @@ module Google
                   lib_name: @config.lib_name, lib_version: @config.lib_version,
                   gapic_version: ::Google::Cloud::Compute::V1::VERSION
 
-                options.apply_defaults timeout:  @config.timeout,
-                                       metadata: call_metadata
+                options.apply_defaults timeout:      @config.timeout,
+                                       metadata:     call_metadata
 
-                (uri, _body, query_string_params) = transcode_stop request
+                uri, _body, query_string_params = transcode_stop request
                 response = @client_stub.make_post_request(
                   uri:     uri,
                   params:  query_string_params,
-                  options: options,
+                  options: options
                 )
                 result = ::Google::Cloud::Compute::V1::Operation.decode_json response.body, ignore_unknown_fields: true
 
@@ -2700,7 +2700,7 @@ module Google
               #     The name of the zone for this request.
               # @yield [result, env] Access the result along with the Faraday environment object
               # @yieldparam result [::Google::Cloud::Compute::V1::TestPermissionsResponse]
-              # @yieldparam env [::Faraday::Env]
+              # @yieldparam response [::Faraday::Response]
               #
               # @return [::Google::Cloud::Compute::V1::TestPermissionsResponse]
               #
@@ -2721,14 +2721,14 @@ module Google
                   lib_name: @config.lib_name, lib_version: @config.lib_version,
                   gapic_version: ::Google::Cloud::Compute::V1::VERSION
 
-                options.apply_defaults timeout:  @config.timeout,
-                                       metadata: call_metadata
+                options.apply_defaults timeout:      @config.timeout,
+                                       metadata:     call_metadata
 
-                (uri, body, _query_string_params) = transcode_test_iam_permissions request
+                uri, body, _query_string_params = transcode_test_iam_permissions request
                 response = @client_stub.make_post_request(
                   uri:     uri,
                   body:    body,
-                  options: options,
+                  options: options
                 )
                 result = ::Google::Cloud::Compute::V1::TestPermissionsResponse.decode_json response.body, ignore_unknown_fields: true
 
@@ -2779,7 +2779,7 @@ module Google
               #     The name of the zone for this request.
               # @yield [result, env] Access the result along with the Faraday environment object
               # @yieldparam result [::Google::Cloud::Compute::V1::Operation]
-              # @yieldparam env [::Faraday::Env]
+              # @yieldparam response [::Faraday::Response]
               #
               # @return [::Google::Cloud::Compute::V1::Operation]
               #
@@ -2800,14 +2800,14 @@ module Google
                   lib_name: @config.lib_name, lib_version: @config.lib_version,
                   gapic_version: ::Google::Cloud::Compute::V1::VERSION
 
-                options.apply_defaults timeout:  @config.timeout,
-                                       metadata: call_metadata
+                options.apply_defaults timeout:      @config.timeout,
+                                       metadata:     call_metadata
 
-                (uri, body, _query_string_params) = transcode_update request
+                uri, body, _query_string_params = transcode_update request
                 response = @client_stub.make_put_request(
                   uri:     uri,
                   body:    body,
-                  options: options,
+                  options: options
                 )
                 result = ::Google::Cloud::Compute::V1::Operation.decode_json response.body, ignore_unknown_fields: true
 
@@ -2856,7 +2856,7 @@ module Google
               #     The name of the zone for this request.
               # @yield [result, env] Access the result along with the Faraday environment object
               # @yieldparam result [::Google::Cloud::Compute::V1::Operation]
-              # @yieldparam env [::Faraday::Env]
+              # @yieldparam response [::Faraday::Response]
               #
               # @return [::Google::Cloud::Compute::V1::Operation]
               #
@@ -2877,14 +2877,14 @@ module Google
                   lib_name: @config.lib_name, lib_version: @config.lib_version,
                   gapic_version: ::Google::Cloud::Compute::V1::VERSION
 
-                options.apply_defaults timeout:  @config.timeout,
-                                       metadata: call_metadata
+                options.apply_defaults timeout:      @config.timeout,
+                                       metadata:     call_metadata
 
-                (uri, body, _query_string_params) = transcode_update_access_config request
+                uri, body, _query_string_params = transcode_update_access_config request
                 response = @client_stub.make_post_request(
                   uri:     uri,
                   body:    body,
-                  options: options,
+                  options: options
                 )
                 result = ::Google::Cloud::Compute::V1::Operation.decode_json response.body, ignore_unknown_fields: true
 
@@ -2931,7 +2931,7 @@ module Google
               #     The name of the zone for this request.
               # @yield [result, env] Access the result along with the Faraday environment object
               # @yieldparam result [::Google::Cloud::Compute::V1::Operation]
-              # @yieldparam env [::Faraday::Env]
+              # @yieldparam response [::Faraday::Response]
               #
               # @return [::Google::Cloud::Compute::V1::Operation]
               #
@@ -2952,14 +2952,14 @@ module Google
                   lib_name: @config.lib_name, lib_version: @config.lib_version,
                   gapic_version: ::Google::Cloud::Compute::V1::VERSION
 
-                options.apply_defaults timeout:  @config.timeout,
-                                       metadata: call_metadata
+                options.apply_defaults timeout:      @config.timeout,
+                                       metadata:     call_metadata
 
-                (uri, body, _query_string_params) = transcode_update_display_device request
+                uri, body, _query_string_params = transcode_update_display_device request
                 response = @client_stub.make_patch_request(
                   uri:     uri,
                   body:    body,
-                  options: options,
+                  options: options
                 )
                 result = ::Google::Cloud::Compute::V1::Operation.decode_json response.body, ignore_unknown_fields: true
 
@@ -3008,7 +3008,7 @@ module Google
               #     The name of the zone for this request.
               # @yield [result, env] Access the result along with the Faraday environment object
               # @yieldparam result [::Google::Cloud::Compute::V1::Operation]
-              # @yieldparam env [::Faraday::Env]
+              # @yieldparam response [::Faraday::Response]
               #
               # @return [::Google::Cloud::Compute::V1::Operation]
               #
@@ -3029,14 +3029,14 @@ module Google
                   lib_name: @config.lib_name, lib_version: @config.lib_version,
                   gapic_version: ::Google::Cloud::Compute::V1::VERSION
 
-                options.apply_defaults timeout:  @config.timeout,
-                                       metadata: call_metadata
+                options.apply_defaults timeout:      @config.timeout,
+                                       metadata:     call_metadata
 
-                (uri, body, _query_string_params) = transcode_update_network_interface request
+                uri, body, _query_string_params = transcode_update_network_interface request
                 response = @client_stub.make_patch_request(
                   uri:     uri,
                   body:    body,
-                  options: options,
+                  options: options
                 )
                 result = ::Google::Cloud::Compute::V1::Operation.decode_json response.body, ignore_unknown_fields: true
 
@@ -3083,7 +3083,7 @@ module Google
               #     The name of the zone for this request.
               # @yield [result, env] Access the result along with the Faraday environment object
               # @yieldparam result [::Google::Cloud::Compute::V1::Operation]
-              # @yieldparam env [::Faraday::Env]
+              # @yieldparam response [::Faraday::Response]
               #
               # @return [::Google::Cloud::Compute::V1::Operation]
               #
@@ -3104,14 +3104,14 @@ module Google
                   lib_name: @config.lib_name, lib_version: @config.lib_version,
                   gapic_version: ::Google::Cloud::Compute::V1::VERSION
 
-                options.apply_defaults timeout:  @config.timeout,
-                                       metadata: call_metadata
+                options.apply_defaults timeout:      @config.timeout,
+                                       metadata:     call_metadata
 
-                (uri, body, _query_string_params) = transcode_update_shielded_instance_config request
+                uri, body, _query_string_params = transcode_update_shielded_instance_config request
                 response = @client_stub.make_patch_request(
                   uri:     uri,
                   body:    body,
-                  options: options,
+                  options: options
                 )
                 result = ::Google::Cloud::Compute::V1::Operation.decode_json response.body, ignore_unknown_fields: true
 

@@ -61,7 +61,7 @@ module Google
                   parent_config = while namespace.any?
                                     parent_name = namespace.join "::"
                                     parent_const = const_get parent_name
-                                    break parent_const.configure if parent_const&.respond_to? :configure
+                                    break parent_const.configure if parent_const.respond_to? :configure
                                     namespace.pop
                                   end
                   default_config = Client::Configuration.new parent_config
@@ -165,7 +165,7 @@ module Google
               #     The request ID must be a valid UUID with the exception that zero UUID is not supported (00000000-0000-0000-0000-000000000000).
               # @yield [result, env] Access the result along with the Faraday environment object
               # @yieldparam result [::Google::Cloud::Compute::V1::Operation]
-              # @yieldparam env [::Faraday::Env]
+              # @yieldparam response [::Faraday::Response]
               #
               # @return [::Google::Cloud::Compute::V1::Operation]
               #
@@ -186,14 +186,14 @@ module Google
                   lib_name: @config.lib_name, lib_version: @config.lib_version,
                   gapic_version: ::Google::Cloud::Compute::V1::VERSION
 
-                options.apply_defaults timeout:  @config.timeout,
-                                       metadata: call_metadata
+                options.apply_defaults timeout:      @config.timeout,
+                                       metadata:     call_metadata
 
-                (uri, _body, query_string_params) = transcode_disable_xpn_host request
+                uri, _body, query_string_params = transcode_disable_xpn_host request
                 response = @client_stub.make_post_request(
                   uri:     uri,
                   params:  query_string_params,
-                  options: options,
+                  options: options
                 )
                 result = ::Google::Cloud::Compute::V1::Operation.decode_json response.body, ignore_unknown_fields: true
 
@@ -236,7 +236,7 @@ module Google
               #     The request ID must be a valid UUID with the exception that zero UUID is not supported (00000000-0000-0000-0000-000000000000).
               # @yield [result, env] Access the result along with the Faraday environment object
               # @yieldparam result [::Google::Cloud::Compute::V1::Operation]
-              # @yieldparam env [::Faraday::Env]
+              # @yieldparam response [::Faraday::Response]
               #
               # @return [::Google::Cloud::Compute::V1::Operation]
               #
@@ -257,14 +257,14 @@ module Google
                   lib_name: @config.lib_name, lib_version: @config.lib_version,
                   gapic_version: ::Google::Cloud::Compute::V1::VERSION
 
-                options.apply_defaults timeout:  @config.timeout,
-                                       metadata: call_metadata
+                options.apply_defaults timeout:      @config.timeout,
+                                       metadata:     call_metadata
 
-                (uri, body, _query_string_params) = transcode_disable_xpn_resource request
+                uri, body, _query_string_params = transcode_disable_xpn_resource request
                 response = @client_stub.make_post_request(
                   uri:     uri,
                   body:    body,
-                  options: options,
+                  options: options
                 )
                 result = ::Google::Cloud::Compute::V1::Operation.decode_json response.body, ignore_unknown_fields: true
 
@@ -305,7 +305,7 @@ module Google
               #     The request ID must be a valid UUID with the exception that zero UUID is not supported (00000000-0000-0000-0000-000000000000).
               # @yield [result, env] Access the result along with the Faraday environment object
               # @yieldparam result [::Google::Cloud::Compute::V1::Operation]
-              # @yieldparam env [::Faraday::Env]
+              # @yieldparam response [::Faraday::Response]
               #
               # @return [::Google::Cloud::Compute::V1::Operation]
               #
@@ -326,14 +326,14 @@ module Google
                   lib_name: @config.lib_name, lib_version: @config.lib_version,
                   gapic_version: ::Google::Cloud::Compute::V1::VERSION
 
-                options.apply_defaults timeout:  @config.timeout,
-                                       metadata: call_metadata
+                options.apply_defaults timeout:      @config.timeout,
+                                       metadata:     call_metadata
 
-                (uri, _body, query_string_params) = transcode_enable_xpn_host request
+                uri, _body, query_string_params = transcode_enable_xpn_host request
                 response = @client_stub.make_post_request(
                   uri:     uri,
                   params:  query_string_params,
-                  options: options,
+                  options: options
                 )
                 result = ::Google::Cloud::Compute::V1::Operation.decode_json response.body, ignore_unknown_fields: true
 
@@ -376,7 +376,7 @@ module Google
               #     The request ID must be a valid UUID with the exception that zero UUID is not supported (00000000-0000-0000-0000-000000000000).
               # @yield [result, env] Access the result along with the Faraday environment object
               # @yieldparam result [::Google::Cloud::Compute::V1::Operation]
-              # @yieldparam env [::Faraday::Env]
+              # @yieldparam response [::Faraday::Response]
               #
               # @return [::Google::Cloud::Compute::V1::Operation]
               #
@@ -397,14 +397,14 @@ module Google
                   lib_name: @config.lib_name, lib_version: @config.lib_version,
                   gapic_version: ::Google::Cloud::Compute::V1::VERSION
 
-                options.apply_defaults timeout:  @config.timeout,
-                                       metadata: call_metadata
+                options.apply_defaults timeout:      @config.timeout,
+                                       metadata:     call_metadata
 
-                (uri, body, _query_string_params) = transcode_enable_xpn_resource request
+                uri, body, _query_string_params = transcode_enable_xpn_resource request
                 response = @client_stub.make_post_request(
                   uri:     uri,
                   body:    body,
-                  options: options,
+                  options: options
                 )
                 result = ::Google::Cloud::Compute::V1::Operation.decode_json response.body, ignore_unknown_fields: true
 
@@ -439,7 +439,7 @@ module Google
               #     Project ID for this request.
               # @yield [result, env] Access the result along with the Faraday environment object
               # @yieldparam result [::Google::Cloud::Compute::V1::Project]
-              # @yieldparam env [::Faraday::Env]
+              # @yieldparam response [::Faraday::Response]
               #
               # @return [::Google::Cloud::Compute::V1::Project]
               #
@@ -460,13 +460,13 @@ module Google
                   lib_name: @config.lib_name, lib_version: @config.lib_version,
                   gapic_version: ::Google::Cloud::Compute::V1::VERSION
 
-                options.apply_defaults timeout:  @config.timeout,
-                                       metadata: call_metadata
+                options.apply_defaults timeout:      @config.timeout,
+                                       metadata:     call_metadata
 
-                (uri, _body, _query_string_params) = transcode_get request
+                uri, _body, _query_string_params = transcode_get request
                 response = @client_stub.make_get_request(
                   uri:     uri,
-                  options: options,
+                  options: options
                 )
                 result = ::Google::Cloud::Compute::V1::Project.decode_json response.body, ignore_unknown_fields: true
 
@@ -501,7 +501,7 @@ module Google
               #     Project ID for this request.
               # @yield [result, env] Access the result along with the Faraday environment object
               # @yieldparam result [::Google::Cloud::Compute::V1::Project]
-              # @yieldparam env [::Faraday::Env]
+              # @yieldparam response [::Faraday::Response]
               #
               # @return [::Google::Cloud::Compute::V1::Project]
               #
@@ -522,13 +522,13 @@ module Google
                   lib_name: @config.lib_name, lib_version: @config.lib_version,
                   gapic_version: ::Google::Cloud::Compute::V1::VERSION
 
-                options.apply_defaults timeout:  @config.timeout,
-                                       metadata: call_metadata
+                options.apply_defaults timeout:      @config.timeout,
+                                       metadata:     call_metadata
 
-                (uri, _body, _query_string_params) = transcode_get_xpn_host request
+                uri, _body, _query_string_params = transcode_get_xpn_host request
                 response = @client_stub.make_get_request(
                   uri:     uri,
-                  options: options,
+                  options: options
                 )
                 result = ::Google::Cloud::Compute::V1::Project.decode_json response.body, ignore_unknown_fields: true
 
@@ -583,7 +583,7 @@ module Google
               #     Opt-in for partial success behavior which provides partial results in case of failure. The default value is false and the logic is the same as today.
               # @yield [result, env] Access the result along with the Faraday environment object
               # @yieldparam result [::Google::Cloud::Compute::V1::ProjectsGetXpnResources]
-              # @yieldparam env [::Faraday::Env]
+              # @yieldparam response [::Faraday::Response]
               #
               # @return [::Google::Cloud::Compute::V1::ProjectsGetXpnResources]
               #
@@ -604,14 +604,14 @@ module Google
                   lib_name: @config.lib_name, lib_version: @config.lib_version,
                   gapic_version: ::Google::Cloud::Compute::V1::VERSION
 
-                options.apply_defaults timeout:  @config.timeout,
-                                       metadata: call_metadata
+                options.apply_defaults timeout:      @config.timeout,
+                                       metadata:     call_metadata
 
-                (uri, _body, query_string_params) = transcode_get_xpn_resources request
+                uri, _body, query_string_params = transcode_get_xpn_resources request
                 response = @client_stub.make_get_request(
                   uri:     uri,
                   params:  query_string_params,
-                  options: options,
+                  options: options
                 )
                 result = ::Google::Cloud::Compute::V1::ProjectsGetXpnResources.decode_json response.body, ignore_unknown_fields: true
 
@@ -668,7 +668,7 @@ module Google
               #     Opt-in for partial success behavior which provides partial results in case of failure. The default value is false and the logic is the same as today.
               # @yield [result, env] Access the result along with the Faraday environment object
               # @yieldparam result [::Google::Cloud::Compute::V1::XpnHostList]
-              # @yieldparam env [::Faraday::Env]
+              # @yieldparam response [::Faraday::Response]
               #
               # @return [::Google::Cloud::Compute::V1::XpnHostList]
               #
@@ -689,14 +689,14 @@ module Google
                   lib_name: @config.lib_name, lib_version: @config.lib_version,
                   gapic_version: ::Google::Cloud::Compute::V1::VERSION
 
-                options.apply_defaults timeout:  @config.timeout,
-                                       metadata: call_metadata
+                options.apply_defaults timeout:      @config.timeout,
+                                       metadata:     call_metadata
 
-                (uri, body, _query_string_params) = transcode_list_xpn_hosts request
+                uri, body, _query_string_params = transcode_list_xpn_hosts request
                 response = @client_stub.make_post_request(
                   uri:     uri,
                   body:    body,
-                  options: options,
+                  options: options
                 )
                 result = ::Google::Cloud::Compute::V1::XpnHostList.decode_json response.body, ignore_unknown_fields: true
 
@@ -739,7 +739,7 @@ module Google
               #     The request ID must be a valid UUID with the exception that zero UUID is not supported (00000000-0000-0000-0000-000000000000).
               # @yield [result, env] Access the result along with the Faraday environment object
               # @yieldparam result [::Google::Cloud::Compute::V1::Operation]
-              # @yieldparam env [::Faraday::Env]
+              # @yieldparam response [::Faraday::Response]
               #
               # @return [::Google::Cloud::Compute::V1::Operation]
               #
@@ -760,14 +760,14 @@ module Google
                   lib_name: @config.lib_name, lib_version: @config.lib_version,
                   gapic_version: ::Google::Cloud::Compute::V1::VERSION
 
-                options.apply_defaults timeout:  @config.timeout,
-                                       metadata: call_metadata
+                options.apply_defaults timeout:      @config.timeout,
+                                       metadata:     call_metadata
 
-                (uri, body, _query_string_params) = transcode_move_disk request
+                uri, body, _query_string_params = transcode_move_disk request
                 response = @client_stub.make_post_request(
                   uri:     uri,
                   body:    body,
-                  options: options,
+                  options: options
                 )
                 result = ::Google::Cloud::Compute::V1::Operation.decode_json response.body, ignore_unknown_fields: true
 
@@ -810,7 +810,7 @@ module Google
               #     The request ID must be a valid UUID with the exception that zero UUID is not supported (00000000-0000-0000-0000-000000000000).
               # @yield [result, env] Access the result along with the Faraday environment object
               # @yieldparam result [::Google::Cloud::Compute::V1::Operation]
-              # @yieldparam env [::Faraday::Env]
+              # @yieldparam response [::Faraday::Response]
               #
               # @return [::Google::Cloud::Compute::V1::Operation]
               #
@@ -831,14 +831,14 @@ module Google
                   lib_name: @config.lib_name, lib_version: @config.lib_version,
                   gapic_version: ::Google::Cloud::Compute::V1::VERSION
 
-                options.apply_defaults timeout:  @config.timeout,
-                                       metadata: call_metadata
+                options.apply_defaults timeout:      @config.timeout,
+                                       metadata:     call_metadata
 
-                (uri, body, _query_string_params) = transcode_move_instance request
+                uri, body, _query_string_params = transcode_move_instance request
                 response = @client_stub.make_post_request(
                   uri:     uri,
                   body:    body,
-                  options: options,
+                  options: options
                 )
                 result = ::Google::Cloud::Compute::V1::Operation.decode_json response.body, ignore_unknown_fields: true
 
@@ -881,7 +881,7 @@ module Google
               #     The request ID must be a valid UUID with the exception that zero UUID is not supported (00000000-0000-0000-0000-000000000000).
               # @yield [result, env] Access the result along with the Faraday environment object
               # @yieldparam result [::Google::Cloud::Compute::V1::Operation]
-              # @yieldparam env [::Faraday::Env]
+              # @yieldparam response [::Faraday::Response]
               #
               # @return [::Google::Cloud::Compute::V1::Operation]
               #
@@ -902,14 +902,14 @@ module Google
                   lib_name: @config.lib_name, lib_version: @config.lib_version,
                   gapic_version: ::Google::Cloud::Compute::V1::VERSION
 
-                options.apply_defaults timeout:  @config.timeout,
-                                       metadata: call_metadata
+                options.apply_defaults timeout:      @config.timeout,
+                                       metadata:     call_metadata
 
-                (uri, body, _query_string_params) = transcode_set_common_instance_metadata request
+                uri, body, _query_string_params = transcode_set_common_instance_metadata request
                 response = @client_stub.make_post_request(
                   uri:     uri,
                   body:    body,
-                  options: options,
+                  options: options
                 )
                 result = ::Google::Cloud::Compute::V1::Operation.decode_json response.body, ignore_unknown_fields: true
 
@@ -952,7 +952,7 @@ module Google
               #     The request ID must be a valid UUID with the exception that zero UUID is not supported (00000000-0000-0000-0000-000000000000).
               # @yield [result, env] Access the result along with the Faraday environment object
               # @yieldparam result [::Google::Cloud::Compute::V1::Operation]
-              # @yieldparam env [::Faraday::Env]
+              # @yieldparam response [::Faraday::Response]
               #
               # @return [::Google::Cloud::Compute::V1::Operation]
               #
@@ -973,14 +973,14 @@ module Google
                   lib_name: @config.lib_name, lib_version: @config.lib_version,
                   gapic_version: ::Google::Cloud::Compute::V1::VERSION
 
-                options.apply_defaults timeout:  @config.timeout,
-                                       metadata: call_metadata
+                options.apply_defaults timeout:      @config.timeout,
+                                       metadata:     call_metadata
 
-                (uri, body, _query_string_params) = transcode_set_default_network_tier request
+                uri, body, _query_string_params = transcode_set_default_network_tier request
                 response = @client_stub.make_post_request(
                   uri:     uri,
                   body:    body,
-                  options: options,
+                  options: options
                 )
                 result = ::Google::Cloud::Compute::V1::Operation.decode_json response.body, ignore_unknown_fields: true
 
@@ -1023,7 +1023,7 @@ module Google
               #     The body resource for this request
               # @yield [result, env] Access the result along with the Faraday environment object
               # @yieldparam result [::Google::Cloud::Compute::V1::Operation]
-              # @yieldparam env [::Faraday::Env]
+              # @yieldparam response [::Faraday::Response]
               #
               # @return [::Google::Cloud::Compute::V1::Operation]
               #
@@ -1044,14 +1044,14 @@ module Google
                   lib_name: @config.lib_name, lib_version: @config.lib_version,
                   gapic_version: ::Google::Cloud::Compute::V1::VERSION
 
-                options.apply_defaults timeout:  @config.timeout,
-                                       metadata: call_metadata
+                options.apply_defaults timeout:      @config.timeout,
+                                       metadata:     call_metadata
 
-                (uri, body, _query_string_params) = transcode_set_usage_export_bucket request
+                uri, body, _query_string_params = transcode_set_usage_export_bucket request
                 response = @client_stub.make_post_request(
                   uri:     uri,
                   body:    body,
-                  options: options,
+                  options: options
                 )
                 result = ::Google::Cloud::Compute::V1::Operation.decode_json response.body, ignore_unknown_fields: true
 
